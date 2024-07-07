@@ -3,14 +3,28 @@ package br.com.ufape.agiota.model.negocios;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+
+@Entity
 public class Parcela {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	private BigDecimal valorASerPago;
 	private BigDecimal valorPago;
 	private BigDecimal taxaDeAtraso;
 	private LocalDateTime dataDePagamento;
 	private LocalDateTime dataDeVencimento;
 	private String estado;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private Multa multa;
 	
 	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, BigDecimal taxaDeAtraso,
