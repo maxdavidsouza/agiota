@@ -1,6 +1,12 @@
-package br.com.ufape.agiota.model;
+package br.com.ufape.agiota.model.usuarios;
 
-public class Agiota {
+import java.sql.Date;
+
+public class Agiota extends Usuario {
+
+	public Agiota(String nome, String telefone, Date dataDeNascimento) {
+		super(nome, telefone, dataDeNascimento);
+	}
 
 	public void avaliarCliente() {
 		

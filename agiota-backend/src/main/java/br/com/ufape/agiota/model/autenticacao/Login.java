@@ -1,10 +1,15 @@
-package br.com.ufape.agiota.model;
+package br.com.ufape.agiota.model.autenticacao;
 
 public class Login {
 	private long id;
 	private String email;
 	private String senha;
 	
+	public Login(String email, String senha) {
+		this.email = email;
+		this.senha = senha;
+	}
+
 	public String getEmail() {
 		return email;
 	}

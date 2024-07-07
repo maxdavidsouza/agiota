@@ -1,4 +1,4 @@
-package br.com.ufape.agiota.model;
+package br.com.ufape.agiota.model.autenticacao;
 
 public class Endereco {
 	private long id;
@@ -8,6 +8,15 @@ public class Endereco {
 	private String bairro;
 	private String cidade;
 	private String estado;
+	
+	public Endereco(String cep, String numero, String rua, String bairro, String cidade, String estado) {
+		this.cep = cep;
+		this.numero = numero;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+	}
 	
 	public String getCep() {
 		return cep;

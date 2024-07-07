@@ -1,9 +1,14 @@
-package br.com.ufape.agiota.model;
+package br.com.ufape.agiota.model.usuarios;
 
 public class Notificacao {
 	private long id;
 	private String texto;
 	private Usuario destinatario;
+	
+	public Notificacao(String texto, Usuario destinatario) {
+		this.texto = texto;
+		this.destinatario = destinatario;
+	}
 	
 	public String getTexto() {
 		return texto;
