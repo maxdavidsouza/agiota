@@ -4,10 +4,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -17,14 +20,19 @@ public class Parcela {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(name = "valor_a_ser_pago")
 	private BigDecimal valorASerPago;
 	private BigDecimal valorPago;
 	private BigDecimal taxaDeAtraso;
 	private LocalDateTime dataDePagamento;
 	private LocalDateTime dataDeVencimento;
 	private String estado;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Emprestimo emprestimo;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "parcela", cascade = CascadeType.ALL)
 	private Multa multa;
 
 	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, BigDecimal taxaDeAtraso,

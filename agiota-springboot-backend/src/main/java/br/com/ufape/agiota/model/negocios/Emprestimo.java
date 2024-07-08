@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +19,15 @@ public class Emprestimo {
 	private long id;
 
 	private BigDecimal valorEmprestado;
+	
+	@Column(name = "valor_a_ser_pago")
 	private BigDecimal valorASerPago;
+	
 	private BigDecimal taxaTotal;
 	private String formaDePagamento;
 	private String estado;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Parcela> parcelas;
 
 	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado) {

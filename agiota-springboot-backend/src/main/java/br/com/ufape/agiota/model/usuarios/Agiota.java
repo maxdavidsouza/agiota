@@ -2,11 +2,11 @@ package br.com.ufape.agiota.model.usuarios;
 
 import java.sql.Date;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name="usuario_id")
+@DiscriminatorValue(value = "A")
 public class Agiota extends Usuario {
 	
 	public Agiota(String nome, String telefone, Date dataDeNascimento) {

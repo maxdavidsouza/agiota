@@ -4,6 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import br.com.ufape.agiota.model.usuarios.Usuario;
 
 @Entity
 public class Login {
@@ -14,6 +18,10 @@ public class Login {
 
 	private String email;
 	private String senha;
+	
+	@OneToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
 	public Login(String email, String senha) {
 		this.email = email;
