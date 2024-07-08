@@ -32,8 +32,10 @@ public class Parcela {
 	@JoinColumn(nullable = false)
 	private Emprestimo emprestimo;
 
-	@OneToOne(mappedBy = "parcela", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Multa multa;
+	
+	public Parcela(){}
 
 	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, BigDecimal taxaDeAtraso,
 			LocalDateTime dataDePagamento, LocalDateTime dataDeVencimento, String estado) {

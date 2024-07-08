@@ -8,4 +8,5 @@ import br.com.ufape.agiota.model.usuarios.Usuario;
 @Repository
 public interface RepositorioUsuario extends JpaRepository<Usuario, Long> {
 
+	
 }

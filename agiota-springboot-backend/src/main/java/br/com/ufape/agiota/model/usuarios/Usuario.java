@@ -38,10 +38,10 @@ public abstract class Usuario {
 	@Column(insertable=false, updatable=false)
 	private String tipo;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Login login;
 
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
 	@OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -49,11 +49,15 @@ public abstract class Usuario {
 	
 	@OneToMany(mappedBy = "remetente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoesRecebidas;
+	
+	public Usuario(){}
 
-	public Usuario(String nome, String telefone, Date dataDeNascimento) {
+	public Usuario(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.dataDeNascimento = dataDeNascimento;
+		this.login = login;
+		this.endereco = endereco;
 	}
 
 	public String getNome() {
@@ -72,11 +76,11 @@ public abstract class Usuario {
 		this.telefone = telefone;
 	}
 
-	public Date dataDeNascimento() {
+	public Date getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void dataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(Date dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
@@ -86,5 +90,21 @@ public abstract class Usuario {
 
 	public void setNota(float nota) {
 		this.nota = nota;
+	}
+
+	public Login getLogin() {
+		return login;
+	}
+
+	public void setLogin(Login login) {
+		this.login = login;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 }

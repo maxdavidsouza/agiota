@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Multa {
@@ -17,14 +15,11 @@ public class Multa {
 	private long id;
 
 	private BigDecimal valor;
-	
-	@OneToOne
-    @JoinColumn(name = "parcela_id", nullable = false)
-    private Parcela parcela;
 
-	public Multa(BigDecimal valor, Parcela parcela) {
+	public Multa(){}
+	
+	public Multa(BigDecimal valor) {
 		this.valor = valor;
-		this.parcela = parcela;
 	}
 
 	public BigDecimal getValor() {
@@ -34,14 +29,5 @@ public class Multa {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-
-	public Parcela getParcela() {
-		return parcela;
-	}
-
-	public void setParcela(Parcela parcela) {
-		this.parcela = parcela;
-	}
-
 	
 }

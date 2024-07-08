@@ -4,10 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
-import br.com.ufape.agiota.model.usuarios.Usuario;
 
 @Entity
 public class Endereco {
@@ -23,9 +19,7 @@ public class Endereco {
 	private String cidade;
 	private String estado;
 	
-	@OneToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+	public Endereco(){}
 
 	public Endereco(String cep, String numero, String rua, String bairro, String cidade, String estado) {
 		this.cep = cep;

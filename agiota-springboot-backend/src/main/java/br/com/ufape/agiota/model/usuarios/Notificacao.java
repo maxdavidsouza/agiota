@@ -25,6 +25,8 @@ public class Notificacao {
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario destinatario;
+	
+	public Notificacao(){}
 
 	public Notificacao(String texto, Usuario remetente, Usuario destinatario) {
 		this.texto = texto;

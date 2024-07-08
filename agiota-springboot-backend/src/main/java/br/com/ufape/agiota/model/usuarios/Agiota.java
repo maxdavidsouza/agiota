@@ -7,6 +7,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import br.com.ufape.agiota.model.autenticacao.Endereco;
+import br.com.ufape.agiota.model.autenticacao.Login;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
 
 @Entity
@@ -16,8 +19,10 @@ public class Agiota extends Usuario {
 	@OneToMany(mappedBy = "credor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Emprestimo> emprestimos;
 	
-	public Agiota(String nome, String telefone, Date dataDeNascimento) {
-		super(nome, telefone, dataDeNascimento);
+	public Agiota(){}
+	
+	public Agiota(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
+		super(nome, telefone, dataDeNascimento, login, endereco);
 	}
 
 	public void avaliarCliente(Cliente c, float novaNota) {

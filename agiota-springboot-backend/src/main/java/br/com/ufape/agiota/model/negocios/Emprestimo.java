@@ -42,7 +42,9 @@ public class Emprestimo {
 	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Parcela> parcelas;
 
-	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor) {
+	public Emprestimo(){}
+	
+	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor, List<Parcela> parcelas) {
 		this.valorEmprestado = valorEmprestado;
 		this.valorASerPago = valorASerPago;
 		this.taxaTotal = taxaTotal;
@@ -50,6 +52,7 @@ public class Emprestimo {
 		this.estado = estado;
 		this.credor = credor;
 		this.devedor = devedor;
+		this.parcelas = parcelas;
 	}
 
 	public BigDecimal getValorEmprestado() {
