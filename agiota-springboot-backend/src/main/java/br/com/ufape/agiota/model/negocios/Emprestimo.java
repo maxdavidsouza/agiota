@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import br.com.ufape.agiota.model.usuarios.Agiota;
+import br.com.ufape.agiota.model.usuarios.Cliente;
 
 @Entity
 public class Emprestimo {
@@ -26,16 +30,26 @@ public class Emprestimo {
 	private BigDecimal taxaTotal;
 	private String formaDePagamento;
 	private String estado;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Agiota credor;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Cliente devedor;
 
 	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Parcela> parcelas;
 
-	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado) {
+	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor) {
 		this.valorEmprestado = valorEmprestado;
 		this.valorASerPago = valorASerPago;
 		this.taxaTotal = taxaTotal;
 		this.formaDePagamento = formaDePagamento;
 		this.estado = estado;
+		this.credor = credor;
+		this.devedor = devedor;
 	}
 
 	public BigDecimal getValorEmprestado() {
@@ -67,6 +81,30 @@ public class Emprestimo {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Agiota getCredor() {
+		return credor;
+	}
+
+	public void setCredor(Agiota credor) {
+		this.credor = credor;
+	}
+
+	public Cliente getDevedor() {
+		return devedor;
+	}
+
+	public void setDevedor(Cliente devedor) {
+		this.devedor = devedor;
+	}
+
+	public List<Parcela> getParcelas() {
+		return parcelas;
+	}
+
+	public void setParcelas(List<Parcela> parcelas) {
+		this.parcelas = parcelas;
 	}
 
 }
