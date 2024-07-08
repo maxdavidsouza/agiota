@@ -39,7 +39,7 @@ public class Emprestimo {
 	@JoinColumn(nullable = true)
 	private Cliente devedor;
 
-	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany( cascade = CascadeType.ALL)
 	private List<Parcela> parcelas;
 
 	public Emprestimo(){}
@@ -50,8 +50,6 @@ public class Emprestimo {
 		this.taxaTotal = taxaTotal;
 		this.formaDePagamento = formaDePagamento;
 		this.estado = estado;
-		this.credor = credor;
-		this.devedor = devedor;
 		this.parcelas = parcelas;
 	}
 
