@@ -20,27 +20,33 @@ public class Agiota extends Usuario {
 		super(nome, telefone, dataDeNascimento);
 	}
 
-	public void avaliarCliente() {
-
+	public void avaliarCliente(Cliente c, float novaNota) {
+		c.setNota(getNota()+novaNota);
 	}
 
-	public void publicarEmprestimo() {
-
+	public void publicarEmprestimo(Emprestimo e) {
+		if(e.getEstado() == "Aberto") {
+			emprestimos.add(e);
+		}
 	}
 
-	public void fecharEmprestimo() {
-
+	public void fecharEmprestimo(Emprestimo e, Cliente c) {
+		if(e.getEstado() == "Em acordo") {
+			new Notificacao("O empréstimo de "+this.getNome()
+			+"acaba de ser aprovado para"+c, this, c);
+			e.setEstado("Fechado");
+		}
 	}
 
 	public void editarEmprestimo() {
 
 	}
 
-	public void removerEmprestimo() {
-
+	public void removerEmprestimo(Emprestimo e) {
+		emprestimos.remove(e);
 	}
 
-	public void notificarCliente() {
-
+	public void notificarCliente(Notificacao n, String texto) {
+		n.setTexto(texto);
 	}
 }

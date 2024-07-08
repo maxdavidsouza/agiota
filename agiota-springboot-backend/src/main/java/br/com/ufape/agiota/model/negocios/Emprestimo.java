@@ -36,7 +36,7 @@ public class Emprestimo {
 	private Agiota credor;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
 	private Cliente devedor;
 
 	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL, orphanRemoval = true)
