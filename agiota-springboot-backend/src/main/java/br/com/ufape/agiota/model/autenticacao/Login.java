@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.ufape.agiota.exceptions.EmailInvalidoException;
+import br.com.ufape.agiota.exceptions.EmailValidator;
+import br.com.ufape.agiota.exceptions.SenhaInvalidaException;
+import br.com.ufape.agiota.exceptions.SenhaValidator;
+
 @Entity
 public class Login {
 
@@ -15,9 +20,12 @@ public class Login {
 	private String email;
 	private String senha;
 
-	public Login(){}
-	
-	public Login(String email, String senha) {
+	public Login() {
+	}
+
+	public Login(String email, String senha) throws EmailInvalidoException,SenhaInvalidaException {
+		EmailValidator.validar(email);
+		SenhaValidator.validar(senha);
 		this.email = email;
 		this.senha = senha;
 	}
