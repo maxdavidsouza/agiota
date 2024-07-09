@@ -17,6 +17,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import br.com.ufape.agiota.exceptions.CepInvalidoException;
+import br.com.ufape.agiota.exceptions.CepValidator;
+import br.com.ufape.agiota.exceptions.EmailInvalidoException;
+import br.com.ufape.agiota.exceptions.EmailValidator;
+import br.com.ufape.agiota.exceptions.SenhaInvalidaException;
+import br.com.ufape.agiota.exceptions.SenhaValidator;
 import br.com.ufape.agiota.model.autenticacao.Endereco;
 import br.com.ufape.agiota.model.autenticacao.Login;
 
@@ -34,8 +40,8 @@ public abstract class Usuario {
 	private String telefone;
 	private Date dataDeNascimento;
 	private float nota;
-	
-	@Column(insertable=false, updatable=false)
+
+	@Column(insertable = false, updatable = false)
 	private String tipo;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -46,11 +52,12 @@ public abstract class Usuario {
 
 	@OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoesEnviadas;
-	
+
 	@OneToMany(mappedBy = "remetente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoesRecebidas;
-	
-	public Usuario(){}
+
+	public Usuario() {
+	}
 
 	public Usuario(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
 		this.nome = nome;
@@ -96,7 +103,9 @@ public abstract class Usuario {
 		return login;
 	}
 
-	public void setLogin(Login login) {
+	public void setLogin(Login login) throws EmailInvalidoException, SenhaInvalidaException {
+		EmailValidator.validar(login.getEmail());
+		SenhaValidator.validar(login.getSenha());
 		this.login = login;
 	}
 
@@ -104,7 +113,8 @@ public abstract class Usuario {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(Endereco endereco) throws CepInvalidoException {
+		CepValidator.validar(endereco.getCep());
 		this.endereco = endereco;
 	}
 }

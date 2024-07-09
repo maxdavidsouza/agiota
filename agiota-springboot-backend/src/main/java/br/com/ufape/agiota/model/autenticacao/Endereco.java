@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.ufape.agiota.exceptions.CepInvalidoException;
+import br.com.ufape.agiota.exceptions.CepValidator;
+
 @Entity
 public class Endereco {
 
@@ -21,7 +24,8 @@ public class Endereco {
 	
 	public Endereco(){}
 
-	public Endereco(String cep, String numero, String rua, String bairro, String cidade, String estado) {
+	public Endereco(String cep, String numero, String rua, String bairro, String cidade, String estado) throws CepInvalidoException{
+		CepValidator.validar(cep);
 		this.cep = cep;
 		this.numero = numero;
 		this.rua = rua;
