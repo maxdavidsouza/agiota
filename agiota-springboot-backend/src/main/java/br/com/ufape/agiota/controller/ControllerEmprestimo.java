@@ -56,7 +56,6 @@ public class ControllerEmprestimo {
 			return null;
 		}
 		else if(agiotaDono != null && emprestimoAntigo.getCredor().equals(agiotaDono)) {
-			emprestimoAntigo.setCredor(novoEmprestimo.getCredor());
 			emprestimoAntigo.setDevedor(novoEmprestimo.getDevedor());
 			emprestimoAntigo.setEstado(novoEmprestimo.getEstado());
 			emprestimoAntigo.setFormaDePagamento(novoEmprestimo.getFormaDePagamento());
