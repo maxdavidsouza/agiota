@@ -1,6 +1,7 @@
 package br.com.ufape.agiota.model.usuarios;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -21,8 +22,16 @@ public class Agiota extends Usuario {
 	
 	public Agiota(){}
 	
-	public Agiota(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
+	public Agiota(String nome, String telefone, LocalDate dataDeNascimento, Login login, Endereco endereco) {
 		super(nome, telefone, dataDeNascimento, login, endereco);
+	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 
 	public void avaliarCliente(Cliente c, float novaNota) {
@@ -38,7 +47,7 @@ public class Agiota extends Usuario {
 	public void fecharEmprestimo(Emprestimo e, Cliente c) {
 		if(e.getEstado() == "Em acordo") {
 			new Notificacao("O empréstimo de "+this.getNome()
-			+"acaba de ser aprovado para"+c, this, c);
+			+"acaba de ser aprovado para"+c, this, c, LocalDateTime.now());
 			e.setEstado("Fechado");
 		}
 	}
@@ -54,4 +63,5 @@ public class Agiota extends Usuario {
 	public void notificarCliente(Notificacao n, String texto) {
 		n.setTexto(texto);
 	}
+	
 }

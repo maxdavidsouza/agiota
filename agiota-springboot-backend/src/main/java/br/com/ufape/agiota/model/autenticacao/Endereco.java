@@ -38,6 +38,7 @@ public class Endereco {
 		return cep;
 	}
 	public void setCep(String cep) {
+		CepValidator.validar(cep);
 		this.cep = cep;
 	}
 	public String getNumero() {

@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import br.com.ufape.agiota.exceptions.CampoValidator;
+
 @Entity
 public class Parcela {
 
@@ -20,8 +22,9 @@ public class Parcela {
 
 	@Column(name = "valor_a_ser_pago")
 	private BigDecimal valorASerPago;
+	
 	private BigDecimal valorPago;
-	private BigDecimal taxaDeAtraso;
+	private Float taxaDeAtraso;
 	private LocalDateTime dataDePagamento;
 	private LocalDateTime dataDeVencimento;
 	private String estado;
@@ -31,8 +34,12 @@ public class Parcela {
 	
 	public Parcela(){}
 
-	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, BigDecimal taxaDeAtraso,
+	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, Float taxaDeAtraso,
 			LocalDateTime dataDePagamento, LocalDateTime dataDeVencimento, String estado) {
+		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
+		CampoValidator.validar(valorPago.toString(), "big_decimal");
+		CampoValidator.validar(String.valueOf(taxaDeAtraso), "taxa");
+		CampoValidator.validar(estado, "estado_parcela");
 		this.valorASerPago = valorASerPago;
 		this.valorPago = valorPago;
 		this.taxaDeAtraso = taxaDeAtraso;
@@ -45,18 +52,21 @@ public class Parcela {
 		return valorASerPago;
 	}
 	public void setValorASerPago(BigDecimal valorASerPago) {
+		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
 		this.valorASerPago = valorASerPago;
 	}
 	public BigDecimal getValorPago() {
 		return valorPago;
 	}
 	public void setValorPago(BigDecimal valorPago) {
+		CampoValidator.validar(valorPago.toString(), "big_decimal");
 		this.valorPago = valorPago;
 	}
-	public BigDecimal getTaxaDeAtraso() {
+	public Float getTaxaDeAtraso() {
 		return taxaDeAtraso;
 	}
-	public void setTaxaDeAtraso(BigDecimal taxaDeAtraso) {
+	public void setTaxaDeAtraso(Float taxaDeAtraso) {
+		CampoValidator.validar(String.valueOf(taxaDeAtraso), "taxa");
 		this.taxaDeAtraso = taxaDeAtraso;
 	}
 	public LocalDateTime getDataDePagamento() {
@@ -75,6 +85,7 @@ public class Parcela {
 		return estado;
 	}
 	public void setEstado(String estado) {
+		CampoValidator.validar(estado, "estado_parcela");
 		this.estado = estado;
 	}
 

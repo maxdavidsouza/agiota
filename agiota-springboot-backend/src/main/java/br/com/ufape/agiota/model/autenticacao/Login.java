@@ -35,6 +35,7 @@ public class Login {
 	}
 
 	public void setEmail(String email) {
+		EmailValidator.validar(email);
 		this.email = email;
 	}
 
@@ -43,6 +44,7 @@ public class Login {
 	}
 
 	public void setSenha(String senha) {
+		SenhaValidator.validar(senha);
 		this.senha = senha;
 	}
 

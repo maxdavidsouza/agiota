@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.ufape.agiota.exceptions.CampoValidator;
+
 @Entity
 public class Multa {
 
@@ -19,6 +21,7 @@ public class Multa {
 	public Multa(){}
 	
 	public Multa(BigDecimal valor) {
+		CampoValidator.validar(valor.toString(), "big_decimal");
 		this.valor = valor;
 	}
 
@@ -27,6 +30,7 @@ public class Multa {
 	}
 
 	public void setValor(BigDecimal valor) {
+		CampoValidator.validar(valor.toString(), "big_decimal");
 		this.valor = valor;
 	}
 	

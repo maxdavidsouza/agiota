@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import br.com.ufape.agiota.exceptions.CampoValidator;
 import br.com.ufape.agiota.model.usuarios.Agiota;
 import br.com.ufape.agiota.model.usuarios.Cliente;
 
@@ -27,7 +29,7 @@ public class Emprestimo {
 	@Column(name = "valor_a_ser_pago")
 	private BigDecimal valorASerPago;
 	
-	private BigDecimal taxaTotal;
+	private Float taxaTotal;
 	private String formaDePagamento;
 	private String estado;
 	
@@ -44,7 +46,12 @@ public class Emprestimo {
 
 	public Emprestimo(){}
 	
-	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor, List<Parcela> parcelas) {
+	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, Float taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor, List<Parcela> parcelas) {
+		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
+		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
+		CampoValidator.validar(String.valueOf(taxaTotal), "taxa");
+		CampoValidator.validar(formaDePagamento, "forma_de_pagamento");
+		CampoValidator.validar(estado, "estado_emprestimo");
 		this.valorEmprestado = valorEmprestado;
 		this.valorASerPago = valorASerPago;
 		this.taxaTotal = taxaTotal;
@@ -57,30 +64,35 @@ public class Emprestimo {
 		return valorEmprestado;
 	}
 	public void setValorEmprestado(BigDecimal valorEmprestado) {
+		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
 		this.valorEmprestado = valorEmprestado;
 	}
 	public BigDecimal getValorASerPago() {
 		return valorASerPago;
 	}
 	public void setValorASerPago(BigDecimal valorASerPago) {
+		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
 		this.valorASerPago = valorASerPago;
 	}
-	public BigDecimal getTaxaTotal() {
+	public Float getTaxaTotal() {
 		return taxaTotal;
 	}
-	public void setTaxaTotal(BigDecimal taxaTotal) {
+	public void setTaxaTotal(Float taxaTotal) {
+		CampoValidator.validar(String.valueOf(taxaTotal), "taxa");
 		this.taxaTotal = taxaTotal;
 	}
 	public String getFormaDePagamento() {
 		return formaDePagamento;
 	}
 	public void setFormaDePagamento(String formaDePagamento) {
+		CampoValidator.validar(formaDePagamento, "forma_de_pagamento");
 		this.formaDePagamento = formaDePagamento;
 	}
 	public String getEstado() {
 		return estado;
 	}
 	public void setEstado(String estado) {
+		CampoValidator.validar(estado, "estado_emprestimo");
 		this.estado = estado;
 	}
 

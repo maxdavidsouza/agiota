@@ -1,6 +1,6 @@
 package br.com.ufape.agiota.model.usuarios;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,11 +17,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import br.com.ufape.agiota.exceptions.CepInvalidoException;
+import br.com.ufape.agiota.exceptions.CampoValidator;
 import br.com.ufape.agiota.exceptions.CepValidator;
-import br.com.ufape.agiota.exceptions.EmailInvalidoException;
+import br.com.ufape.agiota.exceptions.DataDeNascimentoValidator;
 import br.com.ufape.agiota.exceptions.EmailValidator;
-import br.com.ufape.agiota.exceptions.SenhaInvalidaException;
 import br.com.ufape.agiota.exceptions.SenhaValidator;
 import br.com.ufape.agiota.model.autenticacao.Endereco;
 import br.com.ufape.agiota.model.autenticacao.Login;
@@ -37,8 +36,11 @@ public abstract class Usuario {
 	private long id;
 
 	private String nome;
+
 	private String telefone;
-	private Date dataDeNascimento;
+	
+	private LocalDate dataDeNascimento;
+	
 	private float nota;
 
 	@Column(insertable = false, updatable = false)
@@ -59,7 +61,10 @@ public abstract class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
+	public Usuario(String nome, String telefone, LocalDate dataDeNascimento, Login login, Endereco endereco) {
+		CampoValidator.validar(nome, "nome");
+		CampoValidator.validar(telefone, "telefone");
+		DataDeNascimentoValidator.validar(dataDeNascimento);
 		this.nome = nome;
 		this.telefone = telefone;
 		this.dataDeNascimento = dataDeNascimento;
@@ -72,6 +77,7 @@ public abstract class Usuario {
 	}
 
 	public void setNome(String nome) {
+		CampoValidator.validar(nome, "nome");
 		this.nome = nome;
 	}
 
@@ -80,14 +86,16 @@ public abstract class Usuario {
 	}
 
 	public void setTelefone(String telefone) {
+		CampoValidator.validar(telefone, "telefone");
 		this.telefone = telefone;
 	}
 
-	public Date getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(Date dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
+		DataDeNascimentoValidator.validar(dataDeNascimento);
 		this.dataDeNascimento = dataDeNascimento;
 	}
 
@@ -96,6 +104,7 @@ public abstract class Usuario {
 	}
 
 	public void setNota(float nota) {
+		CampoValidator.validar(String.valueOf(nota), "nota");
 		this.nota = nota;
 	}
 
@@ -103,7 +112,7 @@ public abstract class Usuario {
 		return login;
 	}
 
-	public void setLogin(Login login) throws EmailInvalidoException, SenhaInvalidaException {
+	public void setLogin(Login login) {
 		EmailValidator.validar(login.getEmail());
 		SenhaValidator.validar(login.getSenha());
 		this.login = login;
@@ -113,7 +122,7 @@ public abstract class Usuario {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) throws CepInvalidoException {
+	public void setEndereco(Endereco endereco) {
 		CepValidator.validar(endereco.getCep());
 		this.endereco = endereco;
 	}

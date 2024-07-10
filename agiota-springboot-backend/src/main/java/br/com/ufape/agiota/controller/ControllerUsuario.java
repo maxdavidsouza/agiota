@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
-import br.com.ufape.agiota.exceptions.EmailInvalidoException;
-import br.com.ufape.agiota.exceptions.SenhaInvalidaException;
 import br.com.ufape.agiota.model.usuarios.Usuario;
 import br.com.ufape.agiota.repository.RepositorioUsuario;
 
@@ -35,7 +33,7 @@ public class ControllerUsuario {
 	}
 	
 	@PutMapping("/{id}")
-	public Usuario editarUsuario(@RequestBody Usuario usuarioAtualizado, @PathVariable Long id) throws RuntimeException {
+	public Usuario editarUsuario(@RequestBody Usuario usuarioAtualizado, @PathVariable Long id) {
 		Usuario usuarioAntigo = repositorioUsuario.findById(id).orElse(null);
 		if (usuarioAntigo != null) {
 			usuarioAntigo.setNome(usuarioAtualizado.getNome());

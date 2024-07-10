@@ -1,7 +1,8 @@
 package br.com.ufape.agiota.model.usuarios;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,8 +24,16 @@ public class Cliente extends Usuario {
 	
 	public Cliente(){}
 
-	public Cliente(String nome, String telefone, Date dataDeNascimento, Login login, Endereco endereco) {
+	public Cliente(String nome, String telefone, LocalDate dataDeNascimento, Login login, Endereco endereco) {
 		super(nome, telefone, dataDeNascimento, login, endereco);
+	}
+	
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 
 	public void avaliarAgiota(Agiota a, float novaNota) {
@@ -33,7 +42,7 @@ public class Cliente extends Usuario {
 
 	public void aceitarEmprestimo(Emprestimo e) {
 		e.setEstado("Em Acordo");
-		new Notificacao(this.getNome()+" deseja aceitar seu empréstimo.", this, e.getCredor());
+		new Notificacao(this.getNome()+" deseja aceitar seu empréstimo.", this, e.getCredor(), LocalDateTime.now());
 	}
 
 	public void pagarEmprestimo(Parcela p, BigDecimal valorPago) {
