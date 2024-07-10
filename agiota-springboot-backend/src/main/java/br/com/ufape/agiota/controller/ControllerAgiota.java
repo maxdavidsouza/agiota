@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
 import br.com.ufape.agiota.model.usuarios.Agiota;
 import br.com.ufape.agiota.repository.RepositorioAgiota;
-import br.com.ufape.agiota.repository.RepositorioEmprestimo;
 
 @RestController
 @RequestMapping("/api/agiotas")
@@ -21,9 +22,6 @@ public class ControllerAgiota {
 
 	@Autowired
 	private RepositorioAgiota repositorioAgiota;
-	
-	ControllerAgiota(RepositorioEmprestimo repositorioEmprestimo) {
-    }
 	
 	@GetMapping
 	public List<Agiota> listarTodosAgiotas() {
@@ -45,5 +43,19 @@ public class ControllerAgiota {
 		repositorioAgiota.deleteById(id);
 	}
 	
+	@PutMapping("/{id}")
+	public Agiota editarAgiota(@RequestBody Agiota usuarioAtualizado, @PathVariable Long id) {
+		Agiota usuarioAntigo = repositorioAgiota.findById(id).orElse(null);
+		if (usuarioAntigo != null) {
+			usuarioAntigo.setNome(usuarioAtualizado.getNome());
+			usuarioAntigo.setTelefone(usuarioAtualizado.getTelefone());
+			usuarioAntigo.setDataDeNascimento(usuarioAtualizado.getDataDeNascimento());
+			usuarioAntigo.setEndereco(usuarioAtualizado.getEndereco());
+			usuarioAntigo.setLogin(usuarioAtualizado.getLogin());
+            return repositorioAgiota.save(usuarioAntigo);
+        } else {
+            throw new DadoNaoEncontradoException("Agiota de id " + id + " não encontrado");
+        }
+	}
 	
 }

@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.ufape.agiota.exceptions.CampoValidator;
 import br.com.ufape.agiota.exceptions.CepValidator;
 import br.com.ufape.agiota.exceptions.DataDeNascimentoValidator;
@@ -33,7 +34,7 @@ public abstract class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	private String nome;
 
@@ -52,9 +53,11 @@ public abstract class Usuario {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "destinatario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoesEnviadas;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "remetente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Notificacao> notificacoesRecebidas;
 
@@ -126,4 +129,37 @@ public abstract class Usuario {
 		CepValidator.validar(endereco.getCep());
 		this.endereco = endereco;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public List<Notificacao> getNotificacoesEnviadas() {
+		return notificacoesEnviadas;
+	}
+
+	public void setNotificacoesEnviadas(List<Notificacao> notificacoesEnviadas) {
+		this.notificacoesEnviadas = notificacoesEnviadas;
+	}
+
+	public List<Notificacao> getNotificacoesRecebidas() {
+		return notificacoesRecebidas;
+	}
+
+	public void setNotificacoesRecebidas(List<Notificacao> notificacoesRecebidas) {
+		this.notificacoesRecebidas = notificacoesRecebidas;
+	}
+	
 }

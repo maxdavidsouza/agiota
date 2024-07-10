@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.ufape.agiota.exceptions.CampoValidator;
 import br.com.ufape.agiota.model.usuarios.Agiota;
 import br.com.ufape.agiota.model.usuarios.Cliente;
@@ -33,15 +34,18 @@ public class Emprestimo {
 	private String formaDePagamento;
 	private String estado;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Agiota credor;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = true)
 	private Cliente devedor;
 
-	@OneToMany( cascade = CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "emprestimo", cascade = CascadeType.ALL)
 	private List<Parcela> parcelas;
 
 	public Emprestimo(){}
@@ -58,6 +62,11 @@ public class Emprestimo {
 		this.formaDePagamento = formaDePagamento;
 		this.estado = estado;
 		this.parcelas = parcelas;
+		for (Parcela parcela : parcelas) {
+		    if (parcela != null) {
+		        parcela.setEmprestimo(this);
+		    }
+		}
 	}
 
 	public BigDecimal getValorEmprestado() {
@@ -118,6 +127,21 @@ public class Emprestimo {
 
 	public void setParcelas(List<Parcela> parcelas) {
 		this.parcelas = parcelas;
+		for (Parcela parcela : parcelas) {
+		    if (parcela != null) {
+		        parcela.setEmprestimo(this);
+		    }
+		}
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	
 
 }

@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.ufape.agiota.model.autenticacao.Endereco;
 import br.com.ufape.agiota.model.autenticacao.Login;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
@@ -17,6 +18,7 @@ import br.com.ufape.agiota.model.negocios.Emprestimo;
 @DiscriminatorValue(value = "A")
 public class Agiota extends Usuario {
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "credor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Emprestimo> emprestimos;
 	

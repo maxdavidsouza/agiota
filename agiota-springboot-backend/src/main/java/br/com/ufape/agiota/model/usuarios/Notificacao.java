@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.ufape.agiota.exceptions.CampoValidator;
 
 @Entity
@@ -22,10 +24,12 @@ public class Notificacao {
 	@Column(columnDefinition = "TEXT")
 	private String texto;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario remetente;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Usuario destinatario;

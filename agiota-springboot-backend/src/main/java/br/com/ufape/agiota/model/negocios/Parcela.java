@@ -9,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.ufape.agiota.exceptions.CampoValidator;
 
@@ -28,6 +32,11 @@ public class Parcela {
 	private LocalDateTime dataDePagamento;
 	private LocalDateTime dataDeVencimento;
 	private String estado;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "emprestimo_id", nullable = false)
+	private Emprestimo emprestimo;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Multa multa;
@@ -87,6 +96,22 @@ public class Parcela {
 	public void setEstado(String estado) {
 		CampoValidator.validar(estado, "estado_parcela");
 		this.estado = estado;
+	}
+
+	public Emprestimo getEmprestimo() {
+		return emprestimo;
+	}
+
+	public void setEmprestimo(Emprestimo emprestimo) {
+		this.emprestimo = emprestimo;
+	}
+
+	public Multa getMulta() {
+		return multa;
+	}
+
+	public void setMulta(Multa multa) {
+		this.multa = multa;
 	}
 
 }
