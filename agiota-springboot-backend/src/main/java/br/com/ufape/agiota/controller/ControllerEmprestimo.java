@@ -15,7 +15,6 @@ import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
 import br.com.ufape.agiota.model.usuarios.Agiota;
 import br.com.ufape.agiota.repository.RepositorioAgiota;
-import br.com.ufape.agiota.repository.RepositorioCliente;
 import br.com.ufape.agiota.repository.RepositorioEmprestimo;
 
 @RestController
@@ -23,13 +22,10 @@ import br.com.ufape.agiota.repository.RepositorioEmprestimo;
 public class ControllerEmprestimo {
 	
 	@Autowired
-	RepositorioEmprestimo repositorioEmprestimo;
+	private RepositorioEmprestimo repositorioEmprestimo;
 	
 	@Autowired
-	RepositorioAgiota repositorioAgiota;
-	
-	@Autowired
-	RepositorioCliente repositorioCliente;
+	private RepositorioAgiota repositorioAgiota;
 	
 	@GetMapping("/agiotas/{id}/emprestimos")
 	public List<Emprestimo> listarTodosEmprestimosDeUmAgiotaPorId(@PathVariable Long id) {
