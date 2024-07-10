@@ -47,10 +47,10 @@ public abstract class Usuario {
 	@Column(insertable = false, updatable = false)
 	private String tipo;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Login login;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Endereco endereco;
 
 	@JsonIgnore
@@ -128,14 +128,6 @@ public abstract class Usuario {
 	public void setEndereco(Endereco endereco) {
 		CepValidator.validar(endereco.getCep());
 		this.endereco = endereco;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getTipo() {
