@@ -54,16 +54,8 @@ public class Agiota extends Usuario {
 		}
 	}
 
-	public void editarEmprestimo() {
-
-	}
-
 	public void removerEmprestimo(Emprestimo e) {
 		emprestimos.remove(e);
-	}
-
-	public void notificarCliente(Notificacao n, String texto) {
-		n.setTexto(texto);
 	}
 	
 }

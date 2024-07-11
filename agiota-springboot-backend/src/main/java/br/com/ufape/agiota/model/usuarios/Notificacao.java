@@ -70,4 +70,12 @@ public class Notificacao {
 		this.destinatario = destinatario;
 	}
 
+	public LocalDateTime getDataEHoraDeEnvio() {
+		return DataEHoraDeEnvio;
+	}
+
+	public void setDataEHoraDeEnvio(LocalDateTime dataEHoraDeEnvio) {
+		DataEHoraDeEnvio = dataEHoraDeEnvio;
+	}
+
 }

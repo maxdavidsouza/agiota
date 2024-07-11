@@ -2,6 +2,7 @@ package br.com.ufape.agiota.model.negocios;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -37,6 +39,10 @@ public class Parcela {
 	@ManyToOne
 	@JoinColumn(name = "emprestimo_id", nullable = false)
 	private Emprestimo emprestimo;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "parcela", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Pagamento> pagamentos;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Multa multa;

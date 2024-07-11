@@ -1,5 +1,6 @@
 package br.com.ufape.agiota.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
 import br.com.ufape.agiota.model.usuarios.Agiota;
 import br.com.ufape.agiota.repository.RepositorioAgiota;
+import br.com.ufape.agiota.repository.RepositorioCliente;
 import br.com.ufape.agiota.repository.RepositorioEmprestimo;
 
 @RestController
@@ -27,6 +29,29 @@ public class ControllerEmprestimo {
 	@Autowired
 	private RepositorioAgiota repositorioAgiota;
 	
+	@Autowired
+	private RepositorioCliente repositorioCliente;
+	
+	@GetMapping("/emprestimos")
+	public List<Emprestimo> listarTodosEmprestimos(){
+		return repositorioEmprestimo.findAll();
+	}
+	
+	@GetMapping("/emprestimos/{id}")
+	public Emprestimo listarUmEmprestimo(@PathVariable Long id){
+		return repositorioEmprestimo.findById(id).orElse(null);
+	}
+	
+	@GetMapping("/emprestimos/buscar-por-estado/{estado}")
+	public List<Emprestimo> listarTodosEmprestimosPorEstado(@PathVariable String estado) {
+		return repositorioEmprestimo.findAllByEstado(estado);
+	}
+	
+	@GetMapping("/emprestimos/buscar-por-valor-emprestado/{valorMin}/{valorMax}")
+	public List<Emprestimo> listarTodosEmprestimosPorValorEmprestadoMinEMax(@PathVariable BigDecimal valorMin, @PathVariable BigDecimal valorMax) {
+		return repositorioEmprestimo.findAllByValorEmprestadoBetween(valorMin, valorMax);
+	}
+	
 	@GetMapping("/agiotas/{id}/emprestimos")
 	public List<Emprestimo> listarTodosEmprestimosDeUmAgiotaPorId(@PathVariable Long id) {
 		return repositorioEmprestimo.findAllByCredorId(id);
@@ -34,7 +59,7 @@ public class ControllerEmprestimo {
 	
 	@GetMapping("/agiotas/{id}/emprestimos/{id2}")
 	public List<Emprestimo> listarUmEmprestimoDeUmAgiotaPorId(@PathVariable Long id, @PathVariable Long id2) {
-		return repositorioEmprestimo.getByIdAndCredorId(id2, id);
+		return repositorioEmprestimo.findByIdAndCredorId(id2, id);
 	}
 	
 	@PostMapping("/agiotas/{id}/emprestimos")
@@ -49,7 +74,7 @@ public class ControllerEmprestimo {
 		Emprestimo emprestimoAntigo = repositorioEmprestimo.findById(id2).get();
 		if(emprestimoAntigo.getEstado().equals("Fechado") || emprestimoAntigo.getEstado().equals("Pago")
 				|| emprestimoAntigo.getEstado().equals("Parcialmente pago")) {
-			return null;
+			throw new DadoNaoEncontradoException("Empréstimo de id " + id2 + " já está em transação.");
 		}
 		else if(agiotaDono != null && emprestimoAntigo.getCredor().equals(agiotaDono)) {
 			emprestimoAntigo.setDevedor(novoEmprestimo.getDevedor());
@@ -65,11 +90,22 @@ public class ControllerEmprestimo {
         }
 	}
 	
+	@PutMapping("/clientes/{id}/emprestimos/{id2}/firmar-emprestimo")
+	public Emprestimo aceitarEmprestimo(@PathVariable Long id, @PathVariable Long id2) {
+		Emprestimo emprestimo = repositorioEmprestimo.findById(id2).orElse(null);
+		if(emprestimo.getEstado().equals("Em aberto")) {
+			emprestimo.setDevedor(repositorioCliente.findById(id).get());
+			emprestimo.setEstado("Em acordo");
+			return repositorioEmprestimo.save(emprestimo);
+		} else {
+			throw new DadoNaoEncontradoException("Empréstimo de id " + id2 + " ou Cliente de id "+id+" não encontrado");
+		}
+		
+	}
+	
 	@DeleteMapping("/agiotas/{id}/emprestimos/{id2}")
-	public void removerEmprestimo(@PathVariable Long id, @PathVariable Long id2) {
-		Agiota agiotaDono = repositorioAgiota.findById(id).get();
-		if(agiotaDono != null && repositorioEmprestimo.findById(id2).get().getCredor().equals(agiotaDono))
-			repositorioEmprestimo.deleteById(id2);
+	public void removerUmEmprestimoDeUmCredorPorId(@PathVariable Long id, @PathVariable Long id2) {
+		repositorioEmprestimo.deleteByIdAndCredorId(id2, id);
 	}
 	
 	@GetMapping("/clientes/{id}/emprestimos")
@@ -79,7 +115,7 @@ public class ControllerEmprestimo {
 	
 	@GetMapping("/clientes/{id}/emprestimos/{id2}")
 	public List<Emprestimo> listarUmEmprestimoDeUmClientePorId(@PathVariable Long id, @PathVariable Long id2) {
-		return repositorioEmprestimo.getByIdAndDevedorId(id2, id);
+		return repositorioEmprestimo.findByIdAndDevedorId(id2, id);
 	}
 	
 }

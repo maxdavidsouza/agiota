@@ -17,21 +17,19 @@ import br.com.ufape.agiota.repository.RepositorioParcela;
 public class ControllerParcela {
 
 	@Autowired
-	RepositorioParcela repositorioParcela;
+	private RepositorioParcela repositorioParcela;
 
 	@GetMapping("/emprestimos/{id}/parcelas")
 	public List<Parcela> listarTodosParcelasDeUmEmprestimo(@PathVariable Long id) {
-
 		return repositorioParcela.findAllByEmprestimoId(id);
 	}
 
-	@GetMapping("/emprestimos/{id}/parcelas/{estado}")
-	public List<Parcela> listarTodosParcelasDeUmEmprestimoPorEstado(@PathVariable Long id,@PathVariable String estado) {
-
+	@GetMapping("/emprestimos/{id}/parcelas/buscar-por-estado/{estado}")
+	public List<Parcela> listarTodosParcelasDeUmEmprestimoPorEstado(@PathVariable Long id,
+			@PathVariable String estado) {
 		List<Parcela> parcelas = repositorioParcela.findAllByEmprestimoId(id);
 		List<Parcela> parcelasEstado = new ArrayList<>();
 		switch (estado) {
-	
 			case "vencida": {
 				estado = "Vencida";
 				break;
@@ -49,14 +47,11 @@ public class ControllerParcela {
 				break;
 			}
 		}
-		
-		System.out.println(estado);
 		for (Parcela parcela : parcelas) {
 			if (parcela.getEstado().equals(estado)) {
 				parcelasEstado.add(parcela);
 			}
 		}
-
 		return parcelasEstado;
 	}
 

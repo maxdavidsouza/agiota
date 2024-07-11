@@ -11,9 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
 import br.com.ufape.agiota.model.autenticacao.Endereco;
 import br.com.ufape.agiota.model.autenticacao.Login;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
+import br.com.ufape.agiota.model.negocios.Pagamento;
 import br.com.ufape.agiota.model.negocios.Parcela;
 
 @Entity
@@ -23,6 +26,10 @@ public class Cliente extends Usuario {
 	@JsonIgnore
 	@OneToMany(mappedBy = "devedor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Emprestimo> emprestimos;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pagador", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Pagamento> pagamentos;
 	
 	public Cliente(){}
 
@@ -35,6 +42,8 @@ public class Cliente extends Usuario {
 	}
 
 	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		if(emprestimos.equals(null))
+			throw new DadoNaoEncontradoException("Emprestimos não encontrados.");
 		this.emprestimos = emprestimos;
 	}
 
@@ -43,17 +52,25 @@ public class Cliente extends Usuario {
 	}
 
 	public void aceitarEmprestimo(Emprestimo e) {
-		e.setEstado("Em Acordo");
+		if(e.equals(null))
+			throw new DadoNaoEncontradoException("Emprestimo não encontrado.");
+		e.setEstado("Em acordo");
 		new Notificacao(this.getNome()+" deseja aceitar seu empréstimo.", this, e.getCredor(), LocalDateTime.now());
 	}
 
-	public void pagarEmprestimo(Parcela p, BigDecimal valorPago) {
-		p.setValorPago(p.getValorPago().add(valorPago));
+	public void pagarEmprestimo(BigDecimal valor, Parcela parcela) {
+		Pagamento p = new Pagamento(valor, parcela, this);
+		pagamentos.add(p);
 	}
 
-	public void gerarLembrete(Notificacao n, Parcela p) {
-		n.setTexto("Lembre-se de pagar a parcela de "+p.getValorASerPago()
-		+"antes do dia "+p.getDataDeVencimento().toString());
+	public Notificacao gerarLembrete(Parcela p, LocalDateTime dataDoLembrete) {
+		Notificacao lembrete = new Notificacao();
+		lembrete.setTexto("Lembre-se de pagar a parcela de "+p.getValorASerPago()
+		+" antes do dia "+p.getDataDeVencimento().toString());
+		lembrete.setDestinatario(this);
+		lembrete.setRemetente(this);
+		lembrete.setDataEHoraDeEnvio(dataDoLembrete);
+		return lembrete;
 	}
 	
 }
