@@ -16,7 +16,7 @@ Este projeto trata-se de uma Aplicação Web de um sistema financeiro de emprés
 
 ## Material para Estudo e Consulta
 ### Documentação Oficial do Projeto
-(em desenvolvimento)
+Diagrama de Classes: https://drive.google.com/file/d/1NQnN3ApWIFe6mE_NG_a_4SZBto7WsckS/view?usp=sharing
 
 ### Documentação do Java (Versão 22)
 https://docs.oracle.com/en/java/javase/22/docs/api/index.html
