@@ -78,4 +78,8 @@ public class Notificacao {
 		DataEHoraDeEnvio = dataEHoraDeEnvio;
 	}
 
+	public long getId() {
+		return id;
+	}
+
 }

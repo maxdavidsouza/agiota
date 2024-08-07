@@ -62,6 +62,10 @@ public class Parcela {
 		this.dataDeVencimento = dataDeVencimento;
 		this.estado = estado;
 	}
+	
+	public long getId() {
+		return id;
+	}
 
 	public BigDecimal getValorASerPago() {
 		return valorASerPago;

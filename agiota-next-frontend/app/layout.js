@@ -15,6 +15,8 @@ export default function RootLayout({ children }) {
         <header>
           <nav>
             <a href="/">Página Principal</a>
+            <a href="/agiotas/create">Cadastrar agiota</a>
+            <a href="/clientes/create">Cadastrar cliente</a>
             <a href="/agiotas">Ver agiotas</a>
             <a href="/clientes">Ver clientes</a>
             <a href="/emprestimos">Ver emprestimos</a>

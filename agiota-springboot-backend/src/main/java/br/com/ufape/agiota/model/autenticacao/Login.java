@@ -29,6 +29,10 @@ public class Login {
 		this.email = email;
 		this.senha = senha;
 	}
+	
+	public long getId() {
+		return id;
+	}
 
 	public String getEmail() {
 		return email;

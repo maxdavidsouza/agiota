@@ -137,6 +137,11 @@ public abstract class Usuario {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+
+	public Long getId() {
+		return id;
+	}
 
 	public List<Notificacao> getNotificacoesEnviadas() {
 		return notificacoesEnviadas;

@@ -34,4 +34,8 @@ public class Multa {
 		this.valor = valor;
 	}
 	
+	public long getId() {
+		return id;
+	}
+	
 }

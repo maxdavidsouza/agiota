@@ -34,6 +34,10 @@ public class Endereco {
 		this.estado = estado;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
 	public String getCep() {
 		return cep;
 	}
