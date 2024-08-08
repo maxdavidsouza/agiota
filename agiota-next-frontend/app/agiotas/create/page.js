@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { cadastrarCliente } from "@/app/lib/funcoes";
+import { cadastrarAgiota } from "@/app/lib/funcoes";
 
-export default function CreateCliente() {
+export default function CreateAgiota() {
   const router = useRouter();
   const [erro, setErro] = useState("");
 
@@ -47,11 +47,11 @@ export default function CreateCliente() {
     e.preventDefault();
     setErro("");
 
-    cadastrarCliente(formData)
+    cadastrarAgiota(formData)
       .then(
         (result) => {
           console.log('Success:', result);
-          router.push('/clientes')
+          router.push('/agiotas')
         }
       )
       .catch (
@@ -69,7 +69,7 @@ export default function CreateCliente() {
   return (
     <main className="flex flex-col items-center">
       <form onSubmit={handleSubmit}>
-        <h1>Página de Cadastro de Clientes</h1>
+        <h1>Página de Cadastro de Agiotas</h1>
         {<h2>{erro}</h2>}
 
         <div>
@@ -200,7 +200,7 @@ export default function CreateCliente() {
         </div>
 
         <button type="submit">
-          Registrar Cliente
+          Registrar Agiota
         </button>
       </form>
     </main>

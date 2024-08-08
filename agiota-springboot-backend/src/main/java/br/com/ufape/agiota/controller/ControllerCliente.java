@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
+import br.com.ufape.agiota.exceptions.EmailDuplicadoException;
 import br.com.ufape.agiota.model.usuarios.Cliente;
 import br.com.ufape.agiota.repository.RepositorioCliente;
+import br.com.ufape.agiota.repository.RepositorioLogin;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -22,6 +24,9 @@ public class ControllerCliente {
 	
 	@Autowired
 	private RepositorioCliente repositorioCliente;
+	
+	@Autowired
+	private RepositorioLogin repositorioLogin;
 	
 	@GetMapping
 	public List<Cliente> listarTodosClientes() {
@@ -35,6 +40,7 @@ public class ControllerCliente {
 	
 	@PostMapping
 	public Cliente cadastrarCliente(@RequestBody Cliente cliente) {
+		EmailDuplicadoException.validar(cliente.getLogin().getEmail(), repositorioLogin.findAll());
 		return repositorioCliente.save(cliente);
 	}
 	

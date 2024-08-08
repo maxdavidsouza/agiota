@@ -1,9 +1,21 @@
-export default function Agiotas(){
-    return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <div>
-                Página dos Agiotas
-            </div>
+import Link from "next/link";
+import { listarAgiotas } from "../lib/funcoes.js";
+
+export default async function Agiota() {
+    const agiotas = await listarAgiotas();
+      return (
+        <main className="flex flex-col items-center">
+         <h1>Lista de Agiotas</h1>
+          {
+            agiotas.map(agiota => {
+              return <div key={agiota.id}>
+                  {agiota.id} - {agiota.nome} ({agiota.login.email})
+                  <Link href={`/agiotas/${agiota.id}`}>Ver Perfil</Link>
+                  <Link href={`/agiotas/update/${agiota.id}`}>Atualizar</Link>
+                  <Link href={`/agiotas/delete/${agiota.id}`}>Remover</Link>
+                </div>
+             })
+          }
         </main>
-    )
-}
+      );
+    }

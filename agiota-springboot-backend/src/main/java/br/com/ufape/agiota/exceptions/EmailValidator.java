@@ -11,7 +11,7 @@ public class EmailValidator {
 	public static void validar(String email) throws EmailInvalidoException {
 		Matcher matcher = pattern.matcher(email);
 		if (!matcher.matches()) {
-			throw new EmailInvalidoException("E-mail inválido: " + email);
+			throw new EmailInvalidoException("E-mail inválido " + email);
 		}
 	}
 }

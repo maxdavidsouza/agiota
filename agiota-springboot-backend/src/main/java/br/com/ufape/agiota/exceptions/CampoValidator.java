@@ -39,5 +39,8 @@ public class CampoValidator {
         		campo.equals("Cartão") || campo.equals("Móveis"))) {
         	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' só pode conter estados específicos.");
         }
+        if (nomeDoCampo.equals("email") && !campo.matches("[0-9]+")) {
+        	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' não pode ter letras ou simbolos.");
+        }
 	}
 }
