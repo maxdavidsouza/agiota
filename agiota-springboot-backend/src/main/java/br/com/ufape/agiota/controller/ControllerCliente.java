@@ -56,8 +56,14 @@ public class ControllerCliente {
 			usuarioAntigo.setNome(usuarioAtualizado.getNome());
 			usuarioAntigo.setTelefone(usuarioAtualizado.getTelefone());
 			usuarioAntigo.setDataDeNascimento(usuarioAtualizado.getDataDeNascimento());
-			usuarioAntigo.setEndereco(usuarioAtualizado.getEndereco());
-			usuarioAntigo.setLogin(usuarioAtualizado.getLogin());
+			usuarioAntigo.getLogin().setEmail(usuarioAtualizado.getLogin().getEmail());
+			usuarioAntigo.getLogin().setSenha(usuarioAtualizado.getLogin().getSenha());
+			usuarioAntigo.getEndereco().setCep(usuarioAtualizado.getEndereco().getCep());
+			usuarioAntigo.getEndereco().setNumero(usuarioAtualizado.getEndereco().getCep());
+			usuarioAntigo.getEndereco().setRua(usuarioAtualizado.getEndereco().getRua());
+			usuarioAntigo.getEndereco().setBairro(usuarioAtualizado.getEndereco().getBairro());
+			usuarioAntigo.getEndereco().setCidade(usuarioAtualizado.getEndereco().getCidade());
+			usuarioAntigo.getEndereco().setEstado(usuarioAtualizado.getEndereco().getEstado());
             return repositorioCliente.save(usuarioAntigo);
         } else {
             throw new DadoNaoEncontradoException("Cliente de id " + id + " não encontrado");

@@ -60,8 +60,10 @@ export default function CreateAgiota() {
           const posicaoPontoEVirgula = error.message.indexOf(';', terceiroDoisPontos);
           const mensagemDeErro = error.message.substring(terceiroDoisPontos, posicaoPontoEVirgula).trim();
           mensagemDeErro.split('\n')[0];
-          console.log('Erro encontrado:', mensagemDeErro);
-          setErro(mensagemDeErro)
+          if(mensagemDeErro == "fetch failed")
+            setErro("O Servidor está desligado.");
+          else
+            setErro(mensagemDeErro);
         }
       )
   };

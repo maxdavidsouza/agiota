@@ -3,6 +3,7 @@ import { carregarCliente } from "@/app/lib/funcoes";
 
 export default async function FindCliente({params}) {
     const cliente = await carregarCliente(params.id);
+    if(cliente != null) {
       return (
         <main className="flex flex-col items-center">
             <h1>Cliente {params.id}</h1>
@@ -17,8 +18,16 @@ export default async function FindCliente({params}) {
             <p>Bairro: {cliente.endereco.bairro}</p>
             <p>Cidade: {cliente.endereco.cidade}</p>
             <p>Estado: {cliente.endereco.estado}</p>
-            <Link href="#">Atualizar</Link>
-            <Link href="#">Apagar</Link>
+            <Link href="#">Ver Empréstimos Aceitos</Link>
+            <Link href={`/clientes/update/${cliente.id}`}>Atualizar</Link>
+            <Link href={`/clientes/delete/${cliente.id}`}>Apagar</Link>
         </main>
       );
+    } else {
+      return (
+        <main className="flex flex-col items-center">
+            <h1>Cliente não encontrado.</h1>
+        </main>
+      )
+    }
 }

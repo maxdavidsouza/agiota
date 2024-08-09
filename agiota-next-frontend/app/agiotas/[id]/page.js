@@ -3,9 +3,10 @@ import { carregarAgiota } from "@/app/lib/funcoes";
 
 export default async function FindAgiota({params}) {
     const agiota = await carregarAgiota(params.id);
+    if(agiota != null) {
       return (
         <main className="flex flex-col items-center">
-            <h1>Cliente {params.id}</h1>
+            <h1>Agiota {params.id}</h1>
             <p>Nome: {agiota.nome}</p>
             <h1>Login {agiota.login.id}</h1>
             <p>Email: {agiota.login.email}</p>
@@ -18,9 +19,16 @@ export default async function FindAgiota({params}) {
             <p>Cidade: {agiota.endereco.cidade}</p>
             <p>Estado: {agiota.endereco.estado}</p>
             <Link href="#">Cadastrar Empréstimo</Link>
-            <Link href="#">Ver Empréstimos</Link>
-            <Link href="#">Atualizar</Link>
-            <Link href="#">Apagar</Link>
+            <Link href="#">Ver Empréstimos Efetuados</Link>
+            <Link href={`update/${agiota.id}`}>Atualizar</Link>
+            <Link href={`delete/${agiota.id}`}>Apagar</Link>
         </main>
       );
+    } else {
+      return (
+        <main className="flex flex-col items-center">
+            <h1>Agiota não encontrado.</h1>
+        </main>
+      )
+    }
 }
