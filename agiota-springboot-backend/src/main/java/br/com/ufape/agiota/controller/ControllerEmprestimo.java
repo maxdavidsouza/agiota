@@ -58,7 +58,7 @@ public class ControllerEmprestimo {
 	}
 	
 	@GetMapping("/agiotas/{id}/emprestimos/{id2}")
-	public List<Emprestimo> listarUmEmprestimoDeUmAgiotaPorId(@PathVariable Long id, @PathVariable Long id2) {
+	public Emprestimo buscarUmEmprestimoDeUmAgiotaPorId(@PathVariable Long id, @PathVariable Long id2) {
 		return repositorioEmprestimo.findByIdAndCredorId(id2, id);
 	}
 	
@@ -93,19 +93,23 @@ public class ControllerEmprestimo {
 	@PutMapping("/clientes/{id}/emprestimos/{id2}/firmar-emprestimo")
 	public Emprestimo aceitarEmprestimo(@PathVariable Long id, @PathVariable Long id2) {
 		Emprestimo emprestimo = repositorioEmprestimo.findById(id2).orElse(null);
-		if(emprestimo.getEstado().equals("Em aberto")) {
+		if(!emprestimo.equals(null) && emprestimo.getEstado().equals("Em aberto")) {
 			emprestimo.setDevedor(repositorioCliente.findById(id).get());
 			emprestimo.setEstado("Em acordo");
 			return repositorioEmprestimo.save(emprestimo);
 		} else {
 			throw new DadoNaoEncontradoException("Empréstimo de id " + id2 + " ou Cliente de id "+id+" não encontrado");
 		}
-		
 	}
 	
 	@DeleteMapping("/agiotas/{id}/emprestimos/{id2}")
 	public void removerUmEmprestimoDeUmCredorPorId(@PathVariable Long id, @PathVariable Long id2) {
-		repositorioEmprestimo.deleteByIdAndCredorId(id2, id);
+		Emprestimo emprestimo = repositorioEmprestimo.findById(id2).orElse(null);
+		if(emprestimo != null && emprestimo.getEstado().equals("Aberto"))
+				repositorioEmprestimo.deleteByIdAndCredorId(id2, id);
+		else {
+			throw new DadoNaoEncontradoException("Empréstimo de id " + id2 + " ou Cliente de id "+id+" não encontrado");
+		}
 	}
 	
 	@GetMapping("/clientes/{id}/emprestimos")
@@ -114,7 +118,7 @@ public class ControllerEmprestimo {
 	}
 	
 	@GetMapping("/clientes/{id}/emprestimos/{id2}")
-	public List<Emprestimo> listarUmEmprestimoDeUmClientePorId(@PathVariable Long id, @PathVariable Long id2) {
+	public Emprestimo buscarUmEmprestimoDeUmClientePorId(@PathVariable Long id, @PathVariable Long id2) {
 		return repositorioEmprestimo.findByIdAndDevedorId(id2, id);
 	}
 	

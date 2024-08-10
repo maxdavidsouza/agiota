@@ -52,6 +52,7 @@ export default function CreateAgiota() {
         (result) => {
           console.log('Success:', result);
           router.push('/agiotas')
+          router.refresh()
         }
       )
       .catch (

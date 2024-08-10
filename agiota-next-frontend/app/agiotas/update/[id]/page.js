@@ -82,6 +82,7 @@ export default function UpdateAgiota({params}) {
             (result) => {
               console.log('Success:', result);
               router.push('/agiotas/'+params.id)
+              router.refresh()
             }
           )
           .catch (

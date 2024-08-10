@@ -8,6 +8,7 @@ export default function DeleteCliente({params}) {
     const handleYesButton = async (id) => {
         await removerCliente(id);
         router.push('/clientes/');
+        router.refresh()
     }
 
     const handleNoButton = () => {

@@ -19,20 +19,20 @@ public class CampoValidator {
         	if(valor.compareTo(BigDecimal.ZERO) < 0)
         		throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' não pode ter valor abaixo de zero.");
         }
-        if(nomeDoCampo.equals("taxa") && Float.parseFloat(campo) >= 1 && Float.parseFloat(campo) <= 0) {
+        if(nomeDoCampo.equals("taxa") && Float.parseFloat(campo) < 0) {
         	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' não pode ter valor abaixo de zero ou acima de 1.");
         }
         if (nomeDoCampo.equals("telefone") && !campo.matches("[0-9]+")) {
         	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' não pode ter letras ou simbolos.");
         }
-        if (nomeDoCampo.equals("estado_emprestimo") && !(campo.equals("Em aberto") || 
+        if (nomeDoCampo.equals("estado_emprestimo") && !(campo.equals("Aberto") || 
         	campo.equals("Em acordo") || campo.equals("Fechado") ||
         	campo.equals("Pago") || campo.equals("Parcialmente pago"))) {
         	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' só pode conter estados específicos.");
         }
         if (nomeDoCampo.equals("estado_parcela") && !(campo.equals("Aberta") || 
-        	campo.equals("Vencida") || campo.equals("Parcialmente paga") ||
-        	campo.equals("Totalmente paga"))) {
+        	campo.equals("Em acordo") || campo.equals("Parcialmente paga") ||
+        	campo.equals("Totalmente paga") || campo.equals("Vencida"))) {
         	throw new CampoInvalidoException("O campo '" + nomeDoCampo + "' só pode conter estados específicos.");
         }
         if (nomeDoCampo.equals("forma_de_pagamento") && !(campo.equals("Dinheiro") || 

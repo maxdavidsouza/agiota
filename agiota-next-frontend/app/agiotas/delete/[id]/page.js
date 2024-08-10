@@ -9,6 +9,7 @@ export default function DeleteAgiota({params}) {
         await removerAgiota(id);
         alert("O agiota "+id+" foi removido com sucesso")
         router.push('/agiotas/');
+        router.refresh()
     }
 
     const handleNoButton = () => {

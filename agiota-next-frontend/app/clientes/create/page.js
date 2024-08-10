@@ -52,6 +52,7 @@ export default function CreateCliente() {
         (result) => {
           console.log('Success:', result);
           router.push('/clientes')
+          router.refresh()
         }
       )
       .catch (

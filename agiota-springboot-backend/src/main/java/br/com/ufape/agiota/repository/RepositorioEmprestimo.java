@@ -20,8 +20,8 @@ public interface RepositorioEmprestimo extends JpaRepository<Emprestimo, Long> {
 	List<Emprestimo> findAllByValorEmprestado(BigDecimal valorEmprestado);
 	List<Emprestimo> findAllByValorASerPago(BigDecimal valorASerPago);
 	List<Emprestimo> findAllByValorEmprestadoBetween(BigDecimal valorMin, BigDecimal valorMax);
-	List<Emprestimo> findByIdAndCredorId(Long id, Long agiotaId);
-	List<Emprestimo> findByIdAndDevedorId(Long id, Long clienteId);
+	Emprestimo findByIdAndCredorId(Long id, Long agiotaId);
+	Emprestimo findByIdAndDevedorId(Long id, Long clienteId);
 	
 	@Modifying
     @Transactional

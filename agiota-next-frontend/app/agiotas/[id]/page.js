@@ -18,8 +18,8 @@ export default async function FindAgiota({params}) {
             <p>Bairro: {agiota.endereco.bairro}</p>
             <p>Cidade: {agiota.endereco.cidade}</p>
             <p>Estado: {agiota.endereco.estado}</p>
-            <Link href="#">Cadastrar Empréstimo</Link>
-            <Link href="#">Ver Empréstimos Efetuados</Link>
+            <Link href={`${agiota.id}/emprestimos/create`}>Cadastrar Empréstimo</Link>
+            <Link href={`${agiota.id}/emprestimos/`}>Ver Empréstimos Efetuados</Link>
             <Link href={`update/${agiota.id}`}>Atualizar</Link>
             <Link href={`delete/${agiota.id}`}>Apagar</Link>
         </main>

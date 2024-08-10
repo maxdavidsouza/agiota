@@ -12,6 +12,7 @@ export default async function Agiota() {
               return <div key={agiota.id}>
                   {agiota.id} - {agiota.nome} ({agiota.login.email})
                   <Link href={`/agiotas/${agiota.id}`}>| Ver Perfil </Link>
+                  <Link href={`/agiotas/${agiota.id}/emprestimos/`}>| Ver Empréstimos oferecidos </Link>
                   <Link href={`/agiotas/update/${agiota.id}`}>| Atualizar </Link>
                   <Link href={`/agiotas/delete/${agiota.id}`}>| Apagar |</Link>
                 </div>

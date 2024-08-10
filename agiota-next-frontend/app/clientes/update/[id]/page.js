@@ -82,6 +82,7 @@ export default function UpdateCliente({params}) {
             (result) => {
               console.log('Success:', result);
               router.push('/clientes/'+params.id)
+              router.refresh()
             }
           )
           .catch (
