@@ -19,13 +19,14 @@ export default async function CarregarParcela({params}) {
             {parcela.multa != null && (
             <p>Valor da multa: {parcela.multa.valor}</p>
             )}
-            <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${params.parcela_id}/pagamentos`}>Pagar Parcela</Link>
+            <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${params.parcela_id}/pagamento`}>Pagar Parcela</Link>
+            <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${params.parcela_id}/lembrete`}>Gerar Lembrete</Link>
         </main>
       );
     } else {
       return (
         <main className="flex flex-col items-center">
-            <h1>Parcela não encontrada.</h1>
+            <h1>Parcelas não encontradas.</h1>
         </main>
       )
     }

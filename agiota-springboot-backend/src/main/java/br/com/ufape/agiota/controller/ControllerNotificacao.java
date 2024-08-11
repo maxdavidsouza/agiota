@@ -90,7 +90,7 @@ public class ControllerNotificacao {
 	}
 	
 	@DeleteMapping("/mensagens/{id2}")
-	public void deletarUmaNotificacaoa(@PathVariable Long id) {
+	public void deletarUmaNotificacao(@PathVariable Long id) {
 		repositorioNotificacao.deleteById(id);
 	}
 

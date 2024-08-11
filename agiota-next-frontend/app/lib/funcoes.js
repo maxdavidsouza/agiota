@@ -61,6 +61,18 @@ export async function listarEmprestimosPublicos() {
   }
 }
 
+export async function listarLembretes(cliente_id) {
+  try {
+    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/lembretes', {cache: 'no-store'});
+    const data = await response.json();
+    return data;
+  }
+  catch(erro) {
+    console.error("Lembretes não foram encontrados.");
+    return null;
+  }
+}
+
 export async function carregarCliente(id) {
   try {
     const clienteData = await fetch ('http://localhost:8080/api/clientes/' + id, { cache: 'no-store' });
@@ -237,6 +249,32 @@ export async function cadastrarPagamento(cliente_id, emprestimo_id, parcela_id, 
   }
 }
 
+export async function cadastrarLembrete(cliente_id, emprestimo_id, parcela_id, formData) {
+
+  console.log('JSON enviado: ', JSON.stringify(formData, null, 2));
+
+  try {
+    const response = await fetch('http://localhost:8080/api/clientes/'+cliente_id+'/emprestimos/'+emprestimo_id+'/parcelas/'+parcela_id+'/gerar-lembrete', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if(response.ok){
+      const result = await response.json();
+      return result;
+    } else {
+      const errorData = await response.json();
+      throw new Error(`Erro: ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+    throw error;
+  }
+}
+
 export async function atualizarCliente(id, cliente_data) {
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + id, {
@@ -348,6 +386,22 @@ export async function removerEmprestimo(agiota_id, emprestimo_id) {
     }
 
     console.log('Empréstimo deletado com sucesso');
+  } catch (error) {
+    console.error('Erro:', error);
+  }
+}
+
+export async function removerLembrete(lembrete_id) {
+  try {
+    const response = await fetch('http://localhost:8080/api/mensagens/'+ lembrete_id, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro ao deletar o lembrete: ${response.statusText}`);
+    }
+
+    console.log('Lembrete deletado com sucesso');
   } catch (error) {
     console.error('Erro:', error);
   }

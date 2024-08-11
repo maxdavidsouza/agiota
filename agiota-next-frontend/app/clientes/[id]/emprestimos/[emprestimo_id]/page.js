@@ -28,7 +28,7 @@ export default async function FindEmprestimoDeCliente({params}) {
                             <label>Estado da Parcela: </label>
                             <span>{parcela.estado}</span>
                         </div>
-                        <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${parcela.id}`}>Pagamento</Link>
+                        <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${parcela.id}`}>Ver Detalhes</Link>
                     </div>
             ))}
         </main>
