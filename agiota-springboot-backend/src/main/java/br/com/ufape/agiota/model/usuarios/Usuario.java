@@ -1,6 +1,7 @@
 package br.com.ufape.agiota.model.usuarios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -144,6 +145,13 @@ public abstract class Usuario {
 	}
 
 	public List<Notificacao> getNotificacoesEnviadas() {
+		//Checando se os lembretes devem ser Mostrados Agora
+		LocalDateTime agora = LocalDateTime.now();
+		for (Notificacao notificacao : this.getNotificacoesRecebidas()) {
+            if (notificacao.getDestinatario().equals(this) && (notificacao.getDataEHoraDeEnvio().isAfter(agora) || notificacao.getDataEHoraDeEnvio().isEqual(agora))) {
+            	this.getNotificacoesRecebidas().add(notificacao);
+            }
+        }
 		return notificacoesEnviadas;
 	}
 
@@ -157,6 +165,17 @@ public abstract class Usuario {
 
 	public void setNotificacoesRecebidas(List<Notificacao> notificacoesRecebidas) {
 		this.notificacoesRecebidas = notificacoesRecebidas;
+	}
+	
+	public void enviarNotificacao(String texto, Usuario destinatario) {
+		Notificacao notificacao = new Notificacao(texto, this, destinatario, LocalDateTime.now());
+		notificacoesEnviadas.add(notificacao);
+		destinatario.notificacoesRecebidas.add(notificacao);
+	}
+	
+	public void gerarLembrete(String texto, LocalDateTime dataHoraDeEnvio) {
+		Notificacao notificacao = new Notificacao(texto, this, this, dataHoraDeEnvio);
+		this.notificacoesEnviadas.add(notificacao);
 	}
 	
 }

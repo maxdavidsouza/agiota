@@ -19,7 +19,7 @@ import br.com.ufape.agiota.repository.RepositorioCliente;
 import br.com.ufape.agiota.repository.RepositorioLogin;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/api")
 public class ControllerCliente {
 	
 	@Autowired
@@ -28,28 +28,40 @@ public class ControllerCliente {
 	@Autowired
 	private RepositorioLogin repositorioLogin;
 	
-	@GetMapping
+	//Requisições Específicas para Interação entre Usuários do Sistema
+	@GetMapping("/agiotas/{id}/clientes")
+	public List<Cliente> listarTodosClientesDeUmAgiota(@PathVariable Long id){
+		return repositorioCliente.findAllByEmprestimosCredorId(id);
+	}
+	
+	@GetMapping("/agiotas/{id}/emprestimos/{id2}/cliente")
+	public Cliente buscarUmClienteDeUmEmprestimoDeUmAgiota(@PathVariable Long id){
+		return repositorioCliente.findClienteByEmprestimoId(id);
+	}
+	
+	//Requisições Genéricas para Manutenção do Sistema
+	@GetMapping("/clientes")
 	public List<Cliente> listarTodosClientes() {
 		return repositorioCliente.findAll();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/clientes/{id}")
 	public Cliente buscarClientePorId(@PathVariable Long id) {
 		return repositorioCliente.findById(id).orElse(null);
 	}
 	
-	@PostMapping
+	@PostMapping("/clientes")
 	public Cliente cadastrarCliente(@RequestBody Cliente cliente) {
 		EmailDuplicadoException.validar(cliente.getLogin().getEmail(), repositorioLogin.findAll());
 		return repositorioCliente.save(cliente);
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/clientes/{id}")
 	public void removerClientePorId(@PathVariable Long id) {
 		repositorioCliente.deleteById(id);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/clientes/{id}")
 	public Cliente editarCliente(@RequestBody Cliente usuarioAtualizado, @PathVariable Long id) {
 		Cliente usuarioAntigo = repositorioCliente.findById(id).orElse(null);
 		if (usuarioAntigo != null) {

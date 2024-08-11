@@ -1,6 +1,7 @@
 package br.com.ufape.agiota.model.negocios;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -30,7 +31,7 @@ public class Emprestimo {
 	@Column(name = "valor_a_ser_pago")
 	private BigDecimal valorASerPago;
 	
-	private Float taxaTotal;
+	private BigDecimal taxaTotal;
 	private String formaDePagamento;
 	private String estado;
 	
@@ -50,10 +51,10 @@ public class Emprestimo {
 
 	public Emprestimo(){}
 	
-	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, Float taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor, List<Parcela> parcelas) {
+	public Emprestimo(BigDecimal valorEmprestado, BigDecimal valorASerPago, BigDecimal taxaTotal, String formaDePagamento, String estado, Cliente devedor, Agiota credor, List<Parcela> parcelas) {
+		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
 		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
-		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
-		CampoValidator.validar(String.valueOf(taxaTotal), "taxa");
+		CampoValidator.validar(taxaTotal.toString(), "big_decimal");
 		CampoValidator.validar(formaDePagamento, "forma_de_pagamento");
 		CampoValidator.validar(estado, "estado_emprestimo");
 		this.valorEmprestado = valorEmprestado;
@@ -80,14 +81,14 @@ public class Emprestimo {
 		return valorASerPago;
 	}
 	public void setValorASerPago(BigDecimal valorASerPago) {
-		CampoValidator.validar(valorEmprestado.toString(), "big_decimal");
+		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
 		this.valorASerPago = valorASerPago;
 	}
-	public Float getTaxaTotal() {
+	public BigDecimal getTaxaTotal() {
 		return taxaTotal;
 	}
-	public void setTaxaTotal(Float taxaTotal) {
-		CampoValidator.validar(String.valueOf(taxaTotal), "taxa");
+	public void setTaxaTotal(BigDecimal taxaTotal) {
+		CampoValidator.validar(taxaTotal.toString(), "big_decimal");
 		this.taxaTotal = taxaTotal;
 	}
 	public String getFormaDePagamento() {
@@ -142,6 +143,13 @@ public class Emprestimo {
 		this.id = id;
 	}
 	
-	
+	public void inicializarDatasDeVencimento() {
+	    LocalDateTime dataAtual = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+	    for (int i = 0; i < parcelas.size(); i++) {
+	        Parcela parcela = parcelas.get(i);
+	        LocalDateTime novaDataDeVencimento = dataAtual.plusDays(30L * (i + 1));
+	        parcela.setDataDeVencimento(novaDataDeVencimento);
+	    }
+	}
 
 }

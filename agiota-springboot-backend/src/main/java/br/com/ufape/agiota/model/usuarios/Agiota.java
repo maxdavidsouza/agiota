@@ -1,7 +1,6 @@
 package br.com.ufape.agiota.model.usuarios;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.ufape.agiota.exceptions.DadoNaoEncontradoException;
 import br.com.ufape.agiota.model.autenticacao.Endereco;
 import br.com.ufape.agiota.model.autenticacao.Login;
 import br.com.ufape.agiota.model.negocios.Emprestimo;
@@ -46,10 +47,12 @@ public class Agiota extends Usuario {
 		}
 	}
 
-	public void fecharEmprestimo(Emprestimo e, Cliente c) {
+	public void fecharEmprestimo(Emprestimo e) {
+		if(e.equals(null))
+			throw new DadoNaoEncontradoException("Empréstimo não encontrado.");
+		
 		if(e.getEstado() == "Em acordo") {
-			new Notificacao("O empréstimo de "+this.getNome()
-			+"acaba de ser aprovado para"+c, this, c, LocalDateTime.now());
+			enviarNotificacao(getNome()+" acaba de aprovar o empréstimo de" + e.getValorEmprestado() + "para você" + e.getDevedor().getNome(), e.getDevedor());
 			e.setEstado("Fechado");
 		}
 	}

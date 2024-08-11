@@ -28,6 +28,13 @@ public class ControllerAgiota {
 	@Autowired
 	private RepositorioLogin repositorioLogin;
 	
+	//Requisições Específicas para Interação entre Usuários do Sistema
+	@GetMapping("/clientes/{id}/emprestimos/{id2}/agiota")
+	public Agiota buscarUmAgiotaDeUmEmprestimoDeUmCliente(@PathVariable Long id){
+		return repositorioAgiota.findAgiotaByEmprestimoId(id);
+	}
+	
+	//Requisições Genéricas para Manutenção do Sistema
 	@GetMapping
 	public List<Agiota> listarTodosAgiotas() {
 		return repositorioAgiota.findAll();

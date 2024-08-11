@@ -2,7 +2,6 @@ package br.com.ufape.agiota.model.usuarios;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -43,34 +42,25 @@ public class Cliente extends Usuario {
 
 	public void setEmprestimos(List<Emprestimo> emprestimos) {
 		if(emprestimos.equals(null))
-			throw new DadoNaoEncontradoException("Emprestimos não encontrados.");
+			throw new DadoNaoEncontradoException("Empréstimos não encontrados.");
 		this.emprestimos = emprestimos;
 	}
 
-	public void avaliarAgiota(Agiota a, float novaNota) {
+	public void recomendarAgiota(Agiota a, float novaNota) {
 		a.setNota(a.getNota()+novaNota);
 	}
 
 	public void aceitarEmprestimo(Emprestimo e) {
 		if(e.equals(null))
-			throw new DadoNaoEncontradoException("Emprestimo não encontrado.");
+			throw new DadoNaoEncontradoException("Empréstimo não encontrado.");
 		e.setEstado("Em acordo");
-		new Notificacao(this.getNome()+" deseja aceitar seu empréstimo.", this, e.getCredor(), LocalDateTime.now());
+		e.setDevedor(this);
+		enviarNotificacao(this.getNome() + " deseja aceitar o seu empréstimo " + e.getCredor().getNome(), e.getCredor());
 	}
 
-	public void pagarEmprestimo(BigDecimal valor, Parcela parcela) {
+	public void pagarParcela(BigDecimal valor, Parcela parcela) {
 		Pagamento p = new Pagamento(valor, parcela, this);
 		pagamentos.add(p);
-	}
-
-	public Notificacao gerarLembrete(Parcela p, LocalDateTime dataDoLembrete) {
-		Notificacao lembrete = new Notificacao();
-		lembrete.setTexto("Lembre-se de pagar a parcela de "+p.getValorASerPago()
-		+" antes do dia "+p.getDataDeVencimento().toString());
-		lembrete.setDestinatario(this);
-		lembrete.setRemetente(this);
-		lembrete.setDataEHoraDeEnvio(dataDoLembrete);
-		return lembrete;
 	}
 	
 }

@@ -14,7 +14,7 @@ import br.com.ufape.agiota.repository.RepositorioCliente;
 import br.com.ufape.agiota.repository.RepositorioEndereco;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api")
 public class ControllerEndereco 
 {
 	@Autowired
@@ -26,6 +26,7 @@ public class ControllerEndereco
 	@Autowired
 	private RepositorioAgiota repositorioAgiota;
 	
+	//Requisições Genéricas para Manutenção do Sistema
 	@GetMapping("/clientes/{id}/enderecos")
 	public Endereco buscarEnderecoDeCliente(@PathVariable Long id)
 	{

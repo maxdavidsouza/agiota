@@ -18,6 +18,7 @@ public class ControllerLogin {
 	@Autowired
 	private RepositorioLogin repositorioLogin;
 	
+	//Requisições Genéricas para Manutenção do Sistema
 	@GetMapping("/login/{id}")
 	public Login buscarLoginPorId(@PathVariable Long id) {
 		return repositorioLogin.findById(id).orElse(null);

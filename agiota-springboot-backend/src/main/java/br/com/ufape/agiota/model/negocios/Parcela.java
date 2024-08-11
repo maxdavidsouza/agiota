@@ -3,6 +3,7 @@ package br.com.ufape.agiota.model.negocios;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.time.Duration;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class Parcela {
 	private BigDecimal valorASerPago;
 	
 	private BigDecimal valorPago;
-	private Float taxaDeAtraso;
+	private BigDecimal taxaDeAtraso;
 	private LocalDateTime dataDePagamento;
 	private LocalDateTime dataDeVencimento;
 	private String estado;
@@ -49,11 +50,11 @@ public class Parcela {
 	
 	public Parcela(){}
 
-	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, Float taxaDeAtraso,
+	public Parcela(BigDecimal valorASerPago, BigDecimal valorPago, BigDecimal taxaDeAtraso,
 			LocalDateTime dataDePagamento, LocalDateTime dataDeVencimento, String estado) {
 		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
 		CampoValidator.validar(valorPago.toString(), "big_decimal");
-		CampoValidator.validar(String.valueOf(taxaDeAtraso), "taxa");
+		CampoValidator.validar(taxaDeAtraso.toString(), "big_decimal");
 		CampoValidator.validar(estado, "estado_parcela");
 		this.valorASerPago = valorASerPago;
 		this.valorPago = valorPago;
@@ -81,11 +82,11 @@ public class Parcela {
 		CampoValidator.validar(valorPago.toString(), "big_decimal");
 		this.valorPago = valorPago;
 	}
-	public Float getTaxaDeAtraso() {
+	public BigDecimal getTaxaDeAtraso() {
 		return taxaDeAtraso;
 	}
-	public void setTaxaDeAtraso(Float taxaDeAtraso) {
-		CampoValidator.validar(String.valueOf(taxaDeAtraso), "taxa");
+	public void setTaxaDeAtraso(BigDecimal taxaDeAtraso) {
+		CampoValidator.validar(valorASerPago.toString(), "big_decimal");
 		this.taxaDeAtraso = taxaDeAtraso;
 	}
 	public LocalDateTime getDataDePagamento() {
@@ -123,5 +124,16 @@ public class Parcela {
 	public void setMulta(Multa multa) {
 		this.multa = multa;
 	}
-
+	
+	public void calcularMulta() {
+		LocalDateTime agora = LocalDateTime.now();
+		if(multa == null && dataDeVencimento.isAfter(agora))
+			return;
+		
+        if (dataDeVencimento.isBefore(agora) || dataDeVencimento.isEqual(agora)) {
+            Duration duracao = Duration.between(dataDeVencimento, LocalDateTime.now());
+            long dias = duracao.toDays();
+            this.setMulta(new Multa(taxaDeAtraso.multiply(new BigDecimal(dias))));
+        }
+	}
 }
