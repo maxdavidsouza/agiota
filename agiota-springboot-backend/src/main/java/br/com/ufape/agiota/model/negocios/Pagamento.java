@@ -90,6 +90,7 @@ public class Pagamento {
 		if(valorAPagar.compareTo(valorDoPagamento) <= 0) {
 			parcela.setDataDePagamento(LocalDateTime.now());
 			parcela.setValorPago(valorDoPagamento);
+			parcela.setEstado("Totalmente paga");
 		} else {
 			throw new PagamentoInvalidoException("Faça o pagamento completo do valor da dívida!");
 		}

@@ -23,6 +23,11 @@ public class ControllerParcela {
 	public List<Parcela> listarTodosParcelasDeUmEmprestimo(@PathVariable Long id) {
 		return repositorioParcela.findAllByEmprestimoId(id);
 	}
+	
+	@GetMapping("/emprestimos/{id}/parcelas/{id2}")
+	public Parcela listarTodosParcelasDeUmEmprestimo(@PathVariable Long id, @PathVariable Long id2) {
+		return repositorioParcela.findByEmprestimoIdAndId(id, id2);
+	}
 
 	@GetMapping("/emprestimos/{id}/parcelas/buscar-por-estado/{estado}")
 	public List<Parcela> listarTodosParcelasDeUmEmprestimoPorEstado(@PathVariable Long id,

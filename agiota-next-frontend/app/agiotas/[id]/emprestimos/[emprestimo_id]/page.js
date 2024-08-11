@@ -29,7 +29,7 @@ export default async function FindEmprestimoDeAgiota({params}) {
                             <label>Estado da Parcela: </label>
                             <span>{parcela.estado}</span>
                         </div>
-                        <Link href={`/agiotas/${params.id}/emprestimos/${params.emprestimo_id}/${parcela.id}`}>Pagamento</Link>
+                        <Link href={`/agiotas/${params.id}/emprestimos/${params.emprestimo_id}/parcelas/${parcela.id}`}>Ver Status</Link>
                     </div>
             ))}
             {emprestimo.estado === "Em acordo" && (

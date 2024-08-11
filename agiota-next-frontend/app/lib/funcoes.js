@@ -121,6 +121,18 @@ export async function carregarEmprestimoPublico(emprestimo_id) {
   }
 }
 
+export async function carregarParcela(emprestimo_id, parcela_id) {
+  try {
+    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos/' + emprestimo_id + '/parcelas/' + parcela_id, { cache: 'no-store' });
+    const emprestimo = await emprestimoData.json();
+    return emprestimo;
+  }
+  catch(erro) {
+    console.error("Empréstimo Público não encontrado.");
+    return null;
+  }
+}
+
 export async function cadastrarCliente(formData) {
 
     console.log('JSON enviado:', JSON.stringify(formData, null, 2)); 

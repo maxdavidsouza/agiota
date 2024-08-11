@@ -9,7 +9,6 @@ import br.com.ufape.agiota.model.negocios.Parcela;
 
 @Repository
 public interface RepositorioParcela extends JpaRepository<Parcela, Long> {
-	
 	List<Parcela> findAllByEmprestimoId(Long emprestimoId);
 	Parcela findByEmprestimoIdAndId(Long emprestimoId, Long id);
 }
