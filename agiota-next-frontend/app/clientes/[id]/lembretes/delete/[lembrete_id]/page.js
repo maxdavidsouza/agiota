@@ -18,7 +18,7 @@ export default function DeleteLembrete({params}) {
     return (
         <main className="flex flex-col items-center">
         <div>Tem certeza que desejar apagar o lembrete {params.lembrete_id}?</div>
-        <button onClick={() => handleYesButton(params.id)}>Sim</button>
+        <button onClick={() => handleYesButton()}>Sim</button>
         <button onClick={() => handleNoButton()}>Não</button>
         </main>
     );

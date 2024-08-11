@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listarClientes, removerCliente } from "../lib/funcoes.js";
+import { listarClientes } from "../lib/funcoes.js";
 
 export default async function Cliente() {
     const clientes = await listarClientes();

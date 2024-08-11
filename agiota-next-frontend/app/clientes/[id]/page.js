@@ -20,7 +20,7 @@ export default async function FindCliente({params}) {
             <p>Estado: {cliente.endereco.estado}</p>
             <Link href={`/clientes/${cliente.id}/emprestimos`}>Ver Empréstimos Aceitos</Link>
             <Link href={`/clientes/${cliente.id}/lembretes`}>Ver Lembretes Feitos</Link>
-            <Link href={`/clientes/${cliente.id}/mensagens/recebidas`}>Ver Mensagens Recebidas</Link>
+            <Link href={`#`}>Ver Mensagens Recebidas</Link>
             <Link href={`/clientes/update/${cliente.id}`}>Atualizar</Link>
             <Link href={`/clientes/delete/${cliente.id}`}>Apagar</Link>
         </main>

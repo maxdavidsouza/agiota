@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listarLembretes } from "../lib/funcoes.js";
+import { listarLembretes } from "@/app/lib/funcoes";
 
 export default async function Lembretes({params}) {
     const lembretes = await listarLembretes(params.id);
@@ -12,7 +12,7 @@ export default async function Lembretes({params}) {
             lembretes.map(lembrete => {
               return <div key={lembrete.id}>
                   {lembrete.id} - {lembrete.dataEHoraDeEnvio} ({lembrete.texto})
-                  <Link href={`clientes/lembretes/delete/${lembrete.id}`}>| Apagar |</Link>
+                  <Link href={`lembretes/delete/${lembrete.id}`}>| Apagar |</Link>
                 </div>
              })
           }

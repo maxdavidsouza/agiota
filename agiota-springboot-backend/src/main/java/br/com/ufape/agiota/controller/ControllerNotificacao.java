@@ -89,7 +89,7 @@ public class ControllerNotificacao {
 		return repositorioNotificacao.findAll();
 	}
 	
-	@DeleteMapping("/mensagens/{id2}")
+	@DeleteMapping("/mensagens/{id}")
 	public void deletarUmaNotificacao(@PathVariable Long id) {
 		repositorioNotificacao.deleteById(id);
 	}
