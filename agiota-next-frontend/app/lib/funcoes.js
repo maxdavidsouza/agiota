@@ -49,6 +49,18 @@ export async function listarEmprestimosDeCliente(cliente_id) {
   }
 }
 
+export async function listarEmprestimosPublicos() {
+  try {
+    const response = await fetch('http://localhost:8080/api/emprestimos-publicados', {cache: 'no-store'});
+    const data = await response.json();
+    return data;
+  }
+  catch(erro) {
+    console.error("Empréstimos Públicos não encontrados.");
+    return null;
+  }
+}
+
 export async function carregarCliente(id) {
   try {
     const clienteData = await fetch ('http://localhost:8080/api/clientes/' + id, { cache: 'no-store' });
@@ -81,6 +93,30 @@ export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
   }
   catch(erro) {
     console.error("Empréstimo de agiota não encontrado.");
+    return null;
+  }
+}
+
+export async function carregarEmprestimoDeCliente(cliente_id, emprestimo_id) {
+  try {
+    const emprestimoData = await fetch ('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos/' + emprestimo_id, { cache: 'no-store' });
+    const emprestimo = await emprestimoData.json();
+    return emprestimo;
+  }
+  catch(erro) {
+    console.error("Empréstimo de cliente não encontrado.");
+    return null;
+  }
+}
+
+export async function carregarEmprestimoPublico(emprestimo_id) {
+  try {
+    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos-publicados/' + emprestimo_id, { cache: 'no-store' });
+    const emprestimo = await emprestimoData.json();
+    return emprestimo;
+  }
+  catch(erro) {
+    console.error("Empréstimo Público não encontrado.");
     return null;
   }
 }
@@ -195,6 +231,44 @@ export async function atualizarAgiota(id, agiota_data) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(agiota_data),
+    });
+
+    if(response.ok){
+      const result = await response.json();
+      return result;
+    } else {
+      const errorData = await response.json();
+      throw new Error(`Erro: ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+    throw error;
+  }
+}
+
+export async function darEmprestimo(id, emprestimo_id) {
+  try {
+    const response = await fetch('http://localhost:8080/api/agiotas/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
+      method: 'PUT',
+    });
+
+    if(response.ok){
+      const result = await response.json();
+      return result;
+    } else {
+      const errorData = await response.json();
+      throw new Error(`Erro: ${errorData.message}`);
+    }
+  } catch (error) {
+    console.error(error.message);
+    throw error;
+  }
+}
+
+export async function pedirEmprestimo(id, emprestimo_id) {
+  try {
+    const response = await fetch('http://localhost:8080/api/clientes/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
+      method: 'PUT',
     });
 
     if(response.ok){

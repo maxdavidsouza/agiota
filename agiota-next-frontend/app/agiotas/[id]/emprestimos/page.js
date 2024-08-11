@@ -12,7 +12,9 @@ export default async function EmprestimosDeAgiota({params}) {
               return <div key={emprestimo.id}>
                   {emprestimo.id} - Estado: {emprestimo.estado} - Empréstimo de R${emprestimo.valorEmprestado} com retorno mínimo de R${emprestimo.valorASerPago}
                   <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`}>| Detalhar Empréstimo </Link>
-                  <Link href="#">| Fechar Acordo </Link>
+                  {emprestimo.estado === "Em acordo" && (
+                    <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}/firmar-acordo`}>| Fechar Acordo </Link>
+                  )}
                   <Link href={`/agiotas/${params.id}/emprestimos/delete/${emprestimo.id}`}>| Apagar |</Link>
                 </div>
              })

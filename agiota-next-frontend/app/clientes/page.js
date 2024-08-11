@@ -12,7 +12,7 @@ export default async function Cliente() {
             clientes.map(cliente => {
               return <div key={cliente.id}>
                   {cliente.id} - {cliente.nome} ({cliente.login.email})
-                  <Link href={`/clientes/${cliente.id}`}>| Ver Perfil </Link>
+                  <Link href={`/clientes/${cliente.id}`}>| Entrar no Perfil </Link>
                   <Link href={`/clientes/update/${cliente.id}`}>| Atualizar </Link>
                   <Link href={`/clientes/delete/${cliente.id}`}>| Apagar |</Link>
                 </div>

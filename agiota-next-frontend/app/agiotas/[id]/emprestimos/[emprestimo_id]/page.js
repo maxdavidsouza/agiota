@@ -9,6 +9,7 @@ export default async function FindEmprestimoDeAgiota({params}) {
             <h1>Dados do Empréstimo {emprestimo.id}</h1>
             <p>Valor emprestado: {emprestimo.valorEmprestado}</p>
             <p>Valor a ser pago: {emprestimo.valorASerPago}</p>
+            <p>Estado de Publicação: {emprestimo.estado}</p>
             {emprestimo.parcelas.map((parcela, index) => (
                     <div key={index}>
                         <h4>Parcela {index + 1}</h4>
@@ -28,9 +29,12 @@ export default async function FindEmprestimoDeAgiota({params}) {
                             <label>Estado da Parcela: </label>
                             <span>{parcela.estado}</span>
                         </div>
+                        <Link href={`/agiotas/${params.id}/emprestimos/${params.emprestimo_id}/${parcela.id}`}>Pagamento</Link>
                     </div>
             ))}
-            <Link href="#">Fechar Acordo</Link>
+            {emprestimo.estado === "Em acordo" && (
+                    <Link href={`/agiotas/${params.id}/emprestimos/${params.emprestimo_id}/firmar-acordo`}>| Fechar Acordo </Link>
+            )}
             <Link href={`/agiotas/${params.id}/emprestimos/delete/${params.emprestimo_id}`}>Apagar</Link>
         </main>
       );

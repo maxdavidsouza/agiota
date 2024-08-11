@@ -19,7 +19,6 @@ export default function RootLayout({ children }) {
             <a href="/clientes/create">Cadastrar cliente</a>
             <a href="/agiotas">Ver agiotas</a>
             <a href="/clientes">Ver clientes</a>
-            <a href="/emprestimos">Ver emprestimos</a>
           </nav>
         </header>
         {children}

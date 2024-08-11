@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { carregarEmprestimoDeCliente } from "@/app/lib/funcoes";
+import { carregarEmprestimoPublico } from "@/app/lib/funcoes";
 
-export default async function FindEmprestimoDeCliente({params}) {
-    const emprestimo = await carregarEmprestimoDeCliente(params.id, params.emprestimo_id);
+export default async function FindEmprestimoPublico({params}) {
+    const emprestimo = await carregarEmprestimoPublico(params.emprestimo_id);
     if(emprestimo != null) {
       return (
         <main className="flex flex-col items-center">
@@ -28,9 +28,9 @@ export default async function FindEmprestimoDeCliente({params}) {
                             <label>Estado da Parcela: </label>
                             <span>{parcela.estado}</span>
                         </div>
-                        <Link href={`/clientes/${params.id}/emprestimos/${params.emprestimo_id}/${parcela.id}`}>Pagamento</Link>
                     </div>
             ))}
+                    <Link href={`/clientes/${params.id}/emprestimos-publicos/${params.emprestimo_id}/firmar-acordo`}>Pedir Empréstimo</Link>
         </main>
       );
     } else {
