@@ -1,0 +1,36 @@
+.mainContainer {
+    background-color: #F5F5F5; /* Cinza Claro */
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .heading {
+    color: #1F3C88; /* Azul Escuro */
+  }
+  
+  .subheading {
+    color: #2A9D8F; /* Verde Escuro */
+    margin-top: 20px;
+  }
+  
+  .input {
+    border-color: #A1A1A1; /* Cinza Médio */
+    color: #1F3C88; /* Azul Escuro */
+  }
+  
+  .input:focus {
+    border-color: #DAA520; /* Dourado */
+    box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
+  }
+  
+  .submitButton {
+    background-color: #1F3C88; /* Azul Escuro */
+    border-color: #1F3C88; /* Azul Escuro */
+    color: #FFFFFF; /* Branco */
+  }
+  
+  .submitButton:hover {
+    background-color: #2A9D8F; /* Verde Escuro */
+    border-color: #2A9D8F; /* Verde Escuro */
+  }
+  
