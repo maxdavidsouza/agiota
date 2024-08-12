@@ -1,36 +1,81 @@
 .mainContainer {
-    background-color: #F5F5F5; /* Cinza Claro */
+  background-color: #f5f5f5;
+    /* Cinza Claro */
     padding: 20px;
     border-radius: 8px;
   }
   
   .heading {
-    color: #1F3C88; /* Azul Escuro */
+  color: #1F3C88;
+    /* Azul Escuro */
   }
   
   .subheading {
-    color: #2A9D8F; /* Verde Escuro */
+  color: #2A9D8F;
+    /* Verde Escuro */
     margin-top: 20px;
   }
   
   .input {
-    border-color: #A1A1A1; /* Cinza Médio */
-    color: #1F3C88; /* Azul Escuro */
+  border-color: #A1A1A1;
+    /* Cinza Médio */
+    color: #1F3C88;
+    /* Azul Escuro */
   }
   
   .input:focus {
-    border-color: #DAA520; /* Dourado */
+  border-color: #DAA520;
+    /* Dourado */
     box-shadow: 0 0 5px rgba(218, 165, 32, 0.5);
   }
   
   .submitButton {
-    background-color: #1F3C88; /* Azul Escuro */
-    border-color: #1F3C88; /* Azul Escuro */
-    color: #FFFFFF; /* Branco */
+  background-color: #1F3C88;
+    /* Azul Escuro */
+    border-color: #1F3C88;
+    /* Azul Escuro */
+    color: #FFFFFF;
+    /* Branco */
   }
   
   .submitButton:hover {
-    background-color: #2A9D8F; /* Verde Escuro */
-    border-color: #2A9D8F; /* Verde Escuro */
+  background-color: #2A9D8F;
+    /* Verde Escuro */
+    border-color: #2A9D8F;
+    /* Verde Escuro */
   }
   
+  .inputError {
+    border-color: red !important;
+  }
+  
+  .text-danger {
+    color: red;
+  }
+  
+  .mt-1 {
+    margin-top: 0.25rem;
+  }
+  
+  .topBar {
+    width: 100%;
+    background: linear-gradient(to right, #5aab80 0%, #5aab80 100%);
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+    color: #323879;
+    margin-bottom: 0.7rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+  }
+.customLabel {
+  color: #323879;
+  font-weight: bold;
+  font-size: 1.55rem;
+}

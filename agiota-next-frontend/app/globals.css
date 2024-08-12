@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
@@ -16,15 +17,24 @@
   }
 }
 
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
 html, body {
   height: 100%;
   margin: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 
 header {
