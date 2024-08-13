@@ -32,6 +32,7 @@ export default function CreateAgiota() {
       cidade: "",
       estado: "",
     },
+    tipoDaConta: 'Cliente'
   };
 
   const validate = (values) => {
@@ -163,6 +164,29 @@ export default function CreateAgiota() {
                     />
                   </InputGroup>
                   <ErrorMessage name="dataDeNascimento" component="div" className="text-danger mt-1" />
+                </Col>
+                <Col md={6}>
+                  <BootstrapForm.Label className={styles.customLabel}>Tipo da conta</BootstrapForm.Label>
+                  <div className={styles.radioGroup}>
+                    <label className={styles.radioLabel}>
+                      <Field
+                        type="radio"
+                        name="tipoDaConta"
+                        value="Cliente"
+                        className={styles.radioInput}
+                      />
+                      Cliente
+                    </label>
+                    <label className={styles.radioLabel}>
+                      <Field
+                        type="radio"
+                        name="tipoDaConta"
+                        value="Agiota"
+                        className={styles.radioInput}
+                      />
+                      Agiota
+                    </label>
+                  </div>
                 </Col>
               </Row>
               <Row className="mb-3">
