@@ -32,6 +32,7 @@ h5,
 h6 {
   font-weight: 600;
 }
+
 html, body {
   height: 100%;
   margin: 0;
@@ -79,4 +80,73 @@ footer {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Layout da Sidebar e Content */
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #7cc8b0;
+  padding: 20px;
+  height: 100vh;
+  position: fixed;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(0);
+}
+
+.sidebar-hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar-visible {
+  transform: translateX(0);
+}
+
+.sidebar nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar nav ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar nav ul li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 0;
+  transition: background-color 0.3s, padding-left 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+  background-color: #4f8f79;
+  padding-left: 10px;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.layout.sidebar-closed .content {
+  margin-left: 20px;
+}
+
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #323879;
+  z-index: 1000;
 }

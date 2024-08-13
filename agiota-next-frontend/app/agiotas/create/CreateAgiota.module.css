@@ -38,11 +38,8 @@
     /* Branco */
   }
   
-  .submitButton:hover {
-  background-color: #2A9D8F;
-    /* Verde Escuro */
+    .submitButton:hover {
     border-color: #2A9D8F;
-    /* Verde Escuro */
   }
   
   .inputError {
@@ -59,7 +56,7 @@
   
   .topBar {
     width: 100%;
-    background: linear-gradient(to right, #5aab80 0%, #5aab80 100%);
+    background: #7dc8b1;
     border-bottom: 1px solid #dee2e6;
     padding: 0.5rem 1rem;
     display: flex;
@@ -78,4 +75,22 @@
   color: #323879;
   font-weight: bold;
   font-size: 1.55rem;
+}
+.inputGroup {
+  position: relative;
+}
+
+.eyeIcon {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  background-color: transparent;
+  border: none;
+}
+
+.input {
+  padding-right: 45px;
 }

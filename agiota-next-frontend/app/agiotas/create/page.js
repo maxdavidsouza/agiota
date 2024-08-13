@@ -1,13 +1,20 @@
 'use client';
-
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useRouter } from 'next/navigation';
 import { cadastrarAgiota } from "@/app/lib/funcoes";
 import { Row, Col, InputGroup, Form as BootstrapForm, Button, Navbar } from 'react-bootstrap';
+import { Eye, EyeSlash } from 'react-bootstrap-icons';
 import styles from './CreateAgiota.module.css';
 
 export default function CreateAgiota() {
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prevState => !prevState);
+  };
 
   const initialValues = {
     nome: "",
@@ -135,7 +142,7 @@ export default function CreateAgiota() {
                   <BootstrapForm.Label className={styles.customLabel}>Telefone</BootstrapForm.Label>
                   <InputGroup>
                     <Field
-                      type="text"
+                      type="number"
                       name="telefone"
                       placeholder="Digite o telefone"
                       className={`form-control ${styles.input} ${errors.telefone && touched.telefone ? styles.inputError : ''}`}
@@ -173,13 +180,16 @@ export default function CreateAgiota() {
                 </Col>
                 <Col md={6}>
                   <BootstrapForm.Label className={styles.customLabel}>Senha</BootstrapForm.Label>
-                  <InputGroup>
+                  <InputGroup className={styles.inputGroup}>
                     <Field
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="login.senha"
                       placeholder="Digite a senha"
                       className={`form-control ${styles.input} ${errors.login?.senha && touched.login?.senha ? styles.inputError : ''}`}
                     />
+                    <InputGroup.Text className={styles.eyeIcon} onClick={togglePasswordVisibility}>
+                      {showPassword ? '👁️' : '🙈'}
+                    </InputGroup.Text>
                   </InputGroup>
                   <ErrorMessage name="login.senha" component="div" className="text-danger mt-1" />
                 </Col>
@@ -189,7 +199,7 @@ export default function CreateAgiota() {
                   <BootstrapForm.Label className={styles.customLabel}>CEP</BootstrapForm.Label>
                   <InputGroup>
                     <Field
-                      type="text"
+                      type="number"
                       name="endereco.cep"
                       placeholder="Digite o CEP"
                       className={`form-control ${styles.input} ${errors.endereco?.cep && touched.endereco?.cep ? styles.inputError : ''}`}
@@ -201,7 +211,7 @@ export default function CreateAgiota() {
                   <BootstrapForm.Label className={styles.customLabel}>Número</BootstrapForm.Label>
                   <InputGroup>
                     <Field
-                      type="text"
+                      type="number"
                       name="endereco.numero"
                       placeholder="Digite o número"
                       className={`form-control ${styles.input} ${errors.endereco?.numero && touched.endereco?.numero ? styles.inputError : ''}`}
