@@ -6,6 +6,7 @@ import { cadastrarAgiota } from "@/app/lib/funcoes";
 import { Row, Col, InputGroup, Form as BootstrapForm, Button, Navbar } from 'react-bootstrap';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
 import styles from './CreateAgiota.module.css';
+import InputMask from 'react-input-mask';
 
 export default function CreateAgiota() {
   const router = useRouter();
@@ -14,6 +15,23 @@ export default function CreateAgiota() {
 
   const togglePasswordVisibility = () => {
     setShowPassword(prevState => !prevState);
+  };
+
+  const validarCep = (cep) => {
+    const cepSemMascara = cep.replace(/\D/g, '');
+    const pattern = /^[0-9]{8}$/; // Atualize a regex para validar apenas números
+    return pattern.test(cepSemMascara);
+  };
+
+  const validarTelefone = (telefone) => {
+    const telefoneSemMascara = telefone.replace(/\D/g, '');
+    const TELEFONE_REGEX = /^[1-9]{2}[9]{0,1}[0-9]{8}$/;
+    return telefoneSemMascara.length === 11 && TELEFONE_REGEX.test(telefoneSemMascara);
+  };
+
+  const validarSenha = (senha) => {
+    const SENHA_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return SENHA_REGEX.test(senha);
   };
 
   const initialValues = {
@@ -44,6 +62,8 @@ export default function CreateAgiota() {
 
     if (!values.telefone) {
       errors.telefone = 'Telefone é obrigatório';
+    } else if (!validarTelefone(values.telefone)) {
+      errors.telefone = 'Telefone inválido: o formato deve ser (XX) XXXXX-XXXX';
     }
 
     if (!values.dataDeNascimento) {
@@ -61,13 +81,18 @@ export default function CreateAgiota() {
     if (!values.login.senha) {
       errors.login = errors.login || {};
       errors.login.senha = 'Senha é obrigatória';
+    } else if (!validarSenha(values.login.senha)) {
+      errors.login = errors.login || {};
+      errors.login.senha = 'Senha inválida: deve ter no mínimo 8 caracteres, incluindo pelo menos um caractere maiúsculo, um minúsculo, um número e um caractere especial.';
     }
 
     if (!values.endereco.cep) {
       errors.endereco = errors.endereco || {};
       errors.endereco.cep = 'CEP é obrigatório';
+    } else if (!validarCep(values.endereco.cep)) {
+      errors.endereco = errors.endereco || {};
+      errors.endereco.cep = 'Cep inválido';
     }
-
     if (!values.endereco.numero) {
       errors.endereco = errors.endereco || {};
       errors.endereco.numero = 'Número é obrigatório';
@@ -98,7 +123,15 @@ export default function CreateAgiota() {
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      await cadastrarAgiota(values);
+      const telefoneSemMascara = values.telefone.replace(/\D/g, '');
+      const cepSemMascara = values.endereco.cep.replace(/\D/g, '');
+      const valoresSemMascara = {
+        ...values,
+        telefone: telefoneSemMascara,
+        endereco: { ...values.endereco, cep: cepSemMascara },
+      };
+
+      await cadastrarAgiota(valoresSemMascara);
       router.push('/agiotas');
       router.refresh();
     } catch (error) {
@@ -142,12 +175,16 @@ export default function CreateAgiota() {
                 <Col md={6}>
                   <BootstrapForm.Label className={styles.customLabel}>Telefone</BootstrapForm.Label>
                   <InputGroup>
-                    <Field
-                      type="number"
-                      name="telefone"
-                      placeholder="Digite o telefone"
-                      className={`form-control ${styles.input} ${errors.telefone && touched.telefone ? styles.inputError : ''}`}
-                    />
+                    <Field name="telefone">
+                      {({ field }) => (
+                        <InputMask
+                          {...field}
+                          mask="(99) 99999-9999"
+                          placeholder="Digite o telefone"
+                          className={`form-control ${styles.input} ${errors.telefone && touched.telefone ? styles.inputError : ''}`}
+                        />
+                      )}
+                    </Field>
                   </InputGroup>
                   <ErrorMessage name="telefone" component="div" className="text-danger mt-1" />
                 </Col>
@@ -222,12 +259,16 @@ export default function CreateAgiota() {
                 <Col md={4}>
                   <BootstrapForm.Label className={styles.customLabel}>CEP</BootstrapForm.Label>
                   <InputGroup>
-                    <Field
-                      type="number"
-                      name="endereco.cep"
-                      placeholder="Digite o CEP"
-                      className={`form-control ${styles.input} ${errors.endereco?.cep && touched.endereco?.cep ? styles.inputError : ''}`}
-                    />
+                    <Field name="endereco.cep">
+                      {({ field }) => (
+                        <InputMask
+                          {...field}
+                          mask="99999-999"
+                          placeholder="Digite o CEP"
+                          className={`form-control ${styles.input} ${errors.endereco?.cep && touched.endereco?.cep ? styles.inputError : ''}`}
+                        />
+                      )}
+                    </Field>
                   </InputGroup>
                   <ErrorMessage name="endereco.cep" component="div" className="text-danger mt-1" />
                 </Col>

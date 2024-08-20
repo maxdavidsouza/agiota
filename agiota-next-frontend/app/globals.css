@@ -137,7 +137,7 @@ footer {
 }
 
 .layout.sidebar-closed .content {
-  margin-left: 20px;
+  margin-left: 0;
 }
 
 .toggle-btn {

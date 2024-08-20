@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import { FiMenu, FiX } from 'react-icons/fi';
 import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FiHome, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 
 export default function RootLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -15,19 +15,30 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="inter.className">
-        <div className={`layout ${isSidebarOpen ? '' : 'sidebar-open'}`}>
+        <div className={`layout ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-closed'}`}>
           <aside className={`sidebar ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-hidden'}`}>
             <nav>
               <ul>
-                <li><a href="/">Página Principal</a></li>
+                <li>
+                  <a href="/" style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>
+                    <FiHome size={16} />
+                    <span style={{ marginLeft: "4px" }}>Página Principal</span>
+                  </a>
+                </li>
                 <li><a href="/agiotas/create">Cadastrar agiota</a></li>
                 <li><a href="/clientes/create">Cadastrar cliente</a></li>
                 <li><a href="/agiotas">Ver agiotas</a></li>
                 <li><a href="/clientes">Ver clientes</a></li>
+                <li>
+                  <a href="/logout" style={{ display: 'flex', alignItems: 'center' }}>
+                    <FiLogOut size={16} style={{ marginRight: '8px' }} />
+                    Sair
+                  </a>
+                </li>
               </ul>
             </nav>
           </aside>
-          <main className={`content ${isSidebarOpen ? '' : 'sidebar-open'}`}>
+          <main className={`content`}>
             <button onClick={toggleSidebar} className="toggle-btn">
               {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
