@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FiHome, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiLogOut, FiMenu, FiX, FiUserPlus } from 'react-icons/fi';
 
 export default function RootLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -25,8 +25,12 @@ export default function RootLayout({ children }) {
                     <span style={{ marginLeft: "4px" }}>Página Principal</span>
                   </a>
                 </li>
-                <li><a href="/agiotas/create">Cadastrar agiota</a></li>
-                <li><a href="/clientes/create">Cadastrar cliente</a></li>
+                <li>
+                  <a href="/agiotas/create" style={{ display: 'flex', alignItems: 'center' }}>
+                    <FiUserPlus size={16} style={{ marginRight: '8px' }} />
+                    Cadastrar usuário
+                  </a>
+                </li>
                 <li><a href="/agiotas">Ver agiotas</a></li>
                 <li><a href="/clientes">Ver clientes</a></li>
                 <li>

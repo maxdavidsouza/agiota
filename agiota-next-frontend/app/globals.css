@@ -105,6 +105,9 @@ footer {
   transform: translateX(0);
 }
 
+.sidebar-visible nav ul li {
+  margin-top: 15px;
+}
 .sidebar nav ul {
   list-style-type: none;
   padding: 0;
