@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useRouter } from 'next/navigation';
-import { cadastrarAgiota } from "@/app/lib/funcoes";
+import { cadastrarAgiota, cadastrarCliente } from "@/app/lib/funcoes";
 import { Row, Col, InputGroup, Form as BootstrapForm, Button, Navbar } from 'react-bootstrap';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
 import styles from './CreateAgiota.module.css';
@@ -123,16 +123,24 @@ export default function CreateAgiota() {
 
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
-      const telefoneSemMascara = values.telefone.replace(/\D/g, '');
       const cepSemMascara = values.endereco.cep.replace(/\D/g, '');
-      const valoresSemMascara = {
+      const cepFormatado = `${cepSemMascara.slice(0, 5)}-${cepSemMascara.slice(5)}`;
+      const telefoneSemMascara = values.telefone.replace(/\D/g, '');
+
+      const valoresFormatados = {
         ...values,
         telefone: telefoneSemMascara,
-        endereco: { ...values.endereco, cep: cepSemMascara },
+        endereco: { ...values.endereco, cep: cepFormatado }, 
       };
 
-      await cadastrarAgiota(valoresSemMascara);
-      router.push('/agiotas');
+      if (values.tipoDaConta === 'Agiota') {
+        await cadastrarAgiota(valoresFormatados);
+        router.push('/agiotas');
+      } else {
+        await cadastrarCliente(valoresFormatados);
+        router.push('/clientes');
+      }
+
       router.refresh();
     } catch (error) {
       const terceiroDoisPontos = error.message.split(':').slice(0, 2).join(':').length + 1;

@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
               </ul>
             </nav>
           </aside>
-          <main className={`content`}>
+          <main className={`content`} style={{ marginTop: "-20px", marginBottom: "-20px", marginRight: '-20px' }}>
             <button onClick={toggleSidebar} className="toggle-btn">
               {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </button>
