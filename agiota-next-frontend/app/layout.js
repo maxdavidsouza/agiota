@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
                   </a>
                 </li>
                 <li>
-                  <a href="/agiotas/create" style={{ display: 'flex', alignItems: 'center' }}>
+                  <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
                     <FiUserPlus size={16} style={{ marginRight: '8px' }} />
                     Cadastrar usuário
                   </a>

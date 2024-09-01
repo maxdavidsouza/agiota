@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { cadastrarAgiota, cadastrarCliente } from "@/app/lib/funcoes";
 import { Row, Col, InputGroup, Form as BootstrapForm, Button, Navbar } from 'react-bootstrap';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
-import styles from './CreateAgiota.module.css';
+import styles from './CreateUsuario.module.css';
 import InputMask from 'react-input-mask';
 
 export default function CreateAgiota() {
@@ -50,7 +50,7 @@ export default function CreateAgiota() {
       cidade: "",
       estado: "",
     },
-    tipoDaConta: 'Cliente'
+    tipoDaConta:""
   };
 
   const validate = (values) => {
@@ -134,14 +134,15 @@ export default function CreateAgiota() {
       };
 
       if (values.tipoDaConta === 'Agiota') {
+        delete valoresFormatados.tipoDaConta;
         await cadastrarAgiota(valoresFormatados);
         router.push('/agiotas');
-      } else {
+      } else if (values.tipoDaConta === 'Cliente') {
+        delete valoresFormatados.tipoDaConta;
         await cadastrarCliente(valoresFormatados);
         router.push('/clientes');
       }
 
-      router.refresh();
     } catch (error) {
       const terceiroDoisPontos = error.message.split(':').slice(0, 2).join(':').length + 1;
       const posicaoPontoEVirgula = error.message.indexOf(';', terceiroDoisPontos);
