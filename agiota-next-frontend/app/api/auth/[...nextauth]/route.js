@@ -20,8 +20,14 @@ export const authOptions = {
       return baseUrl;
     },
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token.user || null;
       return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
     },
   },
 };
