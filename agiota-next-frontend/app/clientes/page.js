@@ -1,7 +1,19 @@
 import Link from "next/link";
 import { listarClientes } from "../lib/funcoes.js";
 
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { redirect } from 'next/navigation';
+
 export default async function Cliente() {
+    const session = await getServerSession(authOptions);
+    console.log('Session:', session); // Adicione esta linha para verificar a sessão
+
+    if (!session) {
+      // Se o usuário não estiver autenticado, redireciona para a página de login
+      redirect('/login');
+    }
+
     const clientes = await listarClientes();
 
     if(clientes != null) {

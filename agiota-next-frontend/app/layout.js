@@ -4,6 +4,8 @@ import { useState } from 'react';
 import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FiHome, FiLogOut, FiMenu, FiX, FiUserPlus } from 'react-icons/fi';
+import AuthStatus from './components/AuthStatus';
+import SessionProviderWrapper from './utils/SessionProviderWrapper';
 
 export default function RootLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -13,6 +15,7 @@ export default function RootLayout({ children }) {
   };
 
   return (
+    <SessionProviderWrapper>
     <html lang="en">
       <body className="inter.className">
         <div className={`layout ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-closed'}`}>
@@ -34,9 +37,9 @@ export default function RootLayout({ children }) {
                 <li><a href="/agiotas">Ver agiotas</a></li>
                 <li><a href="/clientes">Ver clientes</a></li>
                 <li>
-                  <a href="/logout" style={{ display: 'flex', alignItems: 'center' }}>
+                  <a className="text-white" style={{ display: 'flex', alignItems: 'center' }}>
                     <FiLogOut size={16} style={{ marginRight: '8px' }} />
-                    Sair
+                    <AuthStatus/>
                   </a>
                 </li>
               </ul>
@@ -54,5 +57,6 @@ export default function RootLayout({ children }) {
         </footer>
       </body>
     </html>
+    </SessionProviderWrapper>
   );
 }
