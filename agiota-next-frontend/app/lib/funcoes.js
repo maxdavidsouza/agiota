@@ -1,9 +1,19 @@
 'use server'
 
+//Deve ser alterado de acordo com o novo token gerado (DEBUG)
+const tokenDeAcesso = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJCWFYtWFFMZDlXTXI4NjBnMGpXWjBKTHlqRWR4RFBwaGp5SGVVYm1VM1FrIn0.eyJleHAiOjE3MjUzNDA2ODksImlhdCI6MTcyNTM0MDM4OSwianRpIjoiYWIwYTVmYmItNjJiNC00YWMyLWJhYmYtOWJhNTU2YmJhZTY3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgxL3JlYWxtcy9zcHJpbmdib290LWFnaW90YS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0OGQwYzYyZS00YjlkLTRhNjEtOTg0NS1hYzkzN2U3MzMxZDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZ2lvdGEtYmFja2VuZCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtc3ByaW5nYm9vdC1hZ2lvdGEtcmVhbG0iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudElkIjoiYWdpb3RhLWJhY2tlbmQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtYWdpb3RhLWJhY2tlbmQiLCJjbGllbnRBZGRyZXNzIjoiMTcyLjE4LjAuMSJ9.o1o5agZkaN2hJE_EW1Ah4tcbsCerVl57L7mZiX0uVWo5ddUOwYlV6dsZFdxU5J2xvRNbVh5rL_YTazKTp3xMiPwD5wxQGmSyUfeS6QB7i7garVBbbXG55o4zNn_eB8YRsb8HUZTkBj_N5eEt3vsW1EXdN6XlZFJcooKNtmChcJ5mv3aJrFXuNugRq2yiahlnEL7mhzmOyy2HVfuI-D5XaE-dDa2h1Ml5OgJmcYQYmSbDFAt4TxQ2_-xmHqIvo3XdlfchA5pNEI6vtYBTleIFV8r3U57lO-VzvOVmOezeJnOx_FaDzpfUytfHHCw443bijkz7fL4SWZSuyHaq-eV31w';
+
 //Funções Utilizadas pelo servidor para Alterar/Adquirir dados à partir da API
 export async function listarClientes() {
   try {
-    const response = await fetch('http://localhost:8080/api/clientes', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/clientes', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   }
@@ -15,7 +25,14 @@ export async function listarClientes() {
 
 export async function listarAgiotas() {
   try {
-    const response = await fetch('http://localhost:8080/api/agiotas', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/agiotas', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   } 
@@ -27,7 +44,14 @@ export async function listarAgiotas() {
 
 export async function listarEmprestimosDeAgiota(agiota_id) {
   try {
-    const response = await fetch('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   }
@@ -39,7 +63,14 @@ export async function listarEmprestimosDeAgiota(agiota_id) {
 
 export async function listarEmprestimosDeCliente(cliente_id) {
   try {
-    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   }
@@ -51,7 +82,14 @@ export async function listarEmprestimosDeCliente(cliente_id) {
 
 export async function listarEmprestimosPublicos() {
   try {
-    const response = await fetch('http://localhost:8080/api/emprestimos-publicados', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/emprestimos-publicados', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   }
@@ -63,7 +101,14 @@ export async function listarEmprestimosPublicos() {
 
 export async function listarLembretes(cliente_id) {
   try {
-    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/lembretes', {cache: 'no-store'});
+    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/lembretes', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const data = await response.json();
     return data;
   }
@@ -75,7 +120,14 @@ export async function listarLembretes(cliente_id) {
 
 export async function carregarCliente(id) {
   try {
-    const clienteData = await fetch ('http://localhost:8080/api/clientes/' + id, { cache: 'no-store' });
+    const clienteData = await fetch ('http://localhost:8080/api/clientes/' + id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const cliente = await clienteData.json();
     return cliente;
   }
@@ -87,7 +139,14 @@ export async function carregarCliente(id) {
 
 export async function carregarAgiota(id) {
   try {
-    const agiotaData = await fetch ('http://localhost:8080/api/agiotas/' + id, { cache: 'no-store' });
+    const agiotaData = await fetch ('http://localhost:8080/api/agiotas/' + id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const agiota = await agiotaData.json();
     return agiota;
   }
@@ -99,7 +158,14 @@ export async function carregarAgiota(id) {
 
 export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
   try {
-    const emprestimoData = await fetch ('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos/' + emprestimo_id, { cache: 'no-store' });
+    const emprestimoData = await fetch ('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos/' + emprestimo_id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const emprestimo = await emprestimoData.json();
     return emprestimo;
   }
@@ -111,7 +177,14 @@ export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
 
 export async function carregarEmprestimoDeCliente(cliente_id, emprestimo_id) {
   try {
-    const emprestimoData = await fetch ('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos/' + emprestimo_id, { cache: 'no-store' });
+    const emprestimoData = await fetch ('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos/' + emprestimo_id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const emprestimo = await emprestimoData.json();
     return emprestimo;
   }
@@ -123,7 +196,14 @@ export async function carregarEmprestimoDeCliente(cliente_id, emprestimo_id) {
 
 export async function carregarEmprestimoPublico(emprestimo_id) {
   try {
-    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos-publicados/' + emprestimo_id, { cache: 'no-store' });
+    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos-publicados/' + emprestimo_id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const emprestimo = await emprestimoData.json();
     return emprestimo;
   }
@@ -135,7 +215,14 @@ export async function carregarEmprestimoPublico(emprestimo_id) {
 
 export async function carregarParcela(emprestimo_id, parcela_id) {
   try {
-    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos/' + emprestimo_id + '/parcelas/' + parcela_id, { cache: 'no-store' });
+    const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos/' + emprestimo_id + '/parcelas/' + parcela_id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
     const emprestimo = await emprestimoData.json();
     return emprestimo;
   }
@@ -153,6 +240,7 @@ export async function cadastrarCliente(formData) {
       const response = await fetch('http://localhost:8080/api/clientes', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${tokenDeAcesso}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
@@ -179,6 +267,7 @@ export async function cadastrarAgiota(formData) {
       const response = await fetch('http://localhost:8080/api/agiotas', {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${tokenDeAcesso}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
@@ -205,6 +294,7 @@ export async function cadastrarEmprestimo(agiota_id, formData) {
     const response = await fetch('http://localhost:8080/api/agiotas/'+agiota_id+'/emprestimos', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
@@ -231,6 +321,7 @@ export async function cadastrarPagamento(cliente_id, emprestimo_id, parcela_id, 
     const response = await fetch('http://localhost:8080/api/clientes/'+cliente_id+'/emprestimos/'+emprestimo_id+'/parcelas/'+parcela_id+'/pagamentos', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
@@ -257,6 +348,7 @@ export async function cadastrarLembrete(cliente_id, emprestimo_id, parcela_id, f
     const response = await fetch('http://localhost:8080/api/clientes/'+cliente_id+'/emprestimos/'+emprestimo_id+'/parcelas/'+parcela_id+'/gerar-lembrete', {
       method: 'POST',
       headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
@@ -280,6 +372,7 @@ export async function atualizarCliente(id, cliente_data) {
     const response = await fetch('http://localhost:8080/api/clientes/' + id, {
       method: 'PUT',
       headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(cliente_data),
@@ -303,6 +396,7 @@ export async function atualizarAgiota(id, agiota_data) {
     const response = await fetch('http://localhost:8080/api/agiotas/' + id, {
       method: 'PUT',
       headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(agiota_data),
@@ -325,6 +419,10 @@ export async function darEmprestimo(id, emprestimo_id) {
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
       method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
     });
 
     if(response.ok){
@@ -344,6 +442,10 @@ export async function pedirEmprestimo(id, emprestimo_id) {
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
       method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
     });
 
     if(response.ok){
@@ -363,6 +465,10 @@ export async function removerCliente(id) {
   try {
     const response = await fetch('http://localhost:8080/api/clientes/'+ id, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!response.ok) {
@@ -379,6 +485,10 @@ export async function removerEmprestimo(agiota_id, emprestimo_id) {
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/'+ agiota_id + '/emprestimos/' + emprestimo_id, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!response.ok) {
@@ -395,6 +505,10 @@ export async function removerLembrete(lembrete_id) {
   try {
     const response = await fetch('http://localhost:8080/api/mensagens/'+ lembrete_id, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
     });
 
     if (!response.ok) {
