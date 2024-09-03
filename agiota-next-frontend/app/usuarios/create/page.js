@@ -347,7 +347,7 @@ export default function CreateAgiota() {
               </Row>
 
               <Button type="submit" variant="primary" disabled={isSubmitting} className={styles.submitButton} style={{ marginTop: "0.5rem" }}>
-                {isSubmitting ? 'Registrando...' : 'Registrar Agiota'}
+                {isSubmitting ? 'Cadastrando...' : 'Cadastrar Usuário'}
               </Button>
             </Form>
           )}
