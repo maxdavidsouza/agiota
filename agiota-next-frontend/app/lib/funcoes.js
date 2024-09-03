@@ -1,10 +1,37 @@
 'use server'
 
-//Deve ser alterado de acordo com o novo token gerado (DEBUG)
-const tokenDeAcesso = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJCWFYtWFFMZDlXTXI4NjBnMGpXWjBKTHlqRWR4RFBwaGp5SGVVYm1VM1FrIn0.eyJleHAiOjE3MjUzNDA2ODksImlhdCI6MTcyNTM0MDM4OSwianRpIjoiYWIwYTVmYmItNjJiNC00YWMyLWJhYmYtOWJhNTU2YmJhZTY3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgxL3JlYWxtcy9zcHJpbmdib290LWFnaW90YS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI0OGQwYzYyZS00YjlkLTRhNjEtOTg0NS1hYzkzN2U3MzMxZDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZ2lvdGEtYmFja2VuZCIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsImRlZmF1bHQtcm9sZXMtc3ByaW5nYm9vdC1hZ2lvdGEtcmVhbG0iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6Im9wZW5pZCBvZmZsaW5lX2FjY2VzcyBwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE3Mi4xOC4wLjEiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImNsaWVudElkIjoiYWdpb3RhLWJhY2tlbmQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzZXJ2aWNlLWFjY291bnQtYWdpb3RhLWJhY2tlbmQiLCJjbGllbnRBZGRyZXNzIjoiMTcyLjE4LjAuMSJ9.o1o5agZkaN2hJE_EW1Ah4tcbsCerVl57L7mZiX0uVWo5ddUOwYlV6dsZFdxU5J2xvRNbVh5rL_YTazKTp3xMiPwD5wxQGmSyUfeS6QB7i7garVBbbXG55o4zNn_eB8YRsb8HUZTkBj_N5eEt3vsW1EXdN6XlZFJcooKNtmChcJ5mv3aJrFXuNugRq2yiahlnEL7mhzmOyy2HVfuI-D5XaE-dDa2h1Ml5OgJmcYQYmSbDFAt4TxQ2_-xmHqIvo3XdlfchA5pNEI6vtYBTleIFV8r3U57lO-VzvOVmOezeJnOx_FaDzpfUytfHHCw443bijkz7fL4SWZSuyHaq-eV31w';
+export async function getToken() {
+  const tokenUrl = "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token";
+  const clientId = "agiota-backend";
+  const clientSecret = "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG";
+  
+  // Codifica client_id e client_secret em Base64
+  const credentials = btoa(`${clientId}:${clientSecret}`);
+
+  const response = await fetch(tokenUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Authorization": `Basic ${credentials}`,
+    },
+    body: new URLSearchParams({
+      grant_type: "client_credentials",
+      scope: "openid offline_access",
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`HTTP error! Status: ${response.status}. Details: ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.access_token; // Retorna o access token
+}
 
 //Funções Utilizadas pelo servidor para Alterar/Adquirir dados à partir da API
 export async function listarClientes() {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes', {
       method: 'GET',
@@ -24,6 +51,7 @@ export async function listarClientes() {
 }
 
 export async function listarAgiotas() {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/agiotas', {
       method: 'GET',
@@ -43,6 +71,7 @@ export async function listarAgiotas() {
 }
 
 export async function listarEmprestimosDeAgiota(agiota_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos', {
       method: 'GET',
@@ -62,6 +91,7 @@ export async function listarEmprestimosDeAgiota(agiota_id) {
 }
 
 export async function listarEmprestimosDeCliente(cliente_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos', {
       method: 'GET',
@@ -81,6 +111,7 @@ export async function listarEmprestimosDeCliente(cliente_id) {
 }
 
 export async function listarEmprestimosPublicos() {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/emprestimos-publicados', {
       method: 'GET',
@@ -100,6 +131,7 @@ export async function listarEmprestimosPublicos() {
 }
 
 export async function listarLembretes(cliente_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/lembretes', {
       method: 'GET',
@@ -119,6 +151,7 @@ export async function listarLembretes(cliente_id) {
 }
 
 export async function carregarCliente(id) {
+  const tokenDeAcesso = await getToken();
   try {
     const clienteData = await fetch ('http://localhost:8080/api/clientes/' + id, {
       method: 'GET',
@@ -138,6 +171,7 @@ export async function carregarCliente(id) {
 }
 
 export async function carregarAgiota(id) {
+  const tokenDeAcesso = await getToken();
   try {
     const agiotaData = await fetch ('http://localhost:8080/api/agiotas/' + id, {
       method: 'GET',
@@ -157,6 +191,7 @@ export async function carregarAgiota(id) {
 }
 
 export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const emprestimoData = await fetch ('http://localhost:8080/api/agiotas/' + agiota_id + '/emprestimos/' + emprestimo_id, {
       method: 'GET',
@@ -176,6 +211,7 @@ export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
 }
 
 export async function carregarEmprestimoDeCliente(cliente_id, emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const emprestimoData = await fetch ('http://localhost:8080/api/clientes/' + cliente_id + '/emprestimos/' + emprestimo_id, {
       method: 'GET',
@@ -195,6 +231,7 @@ export async function carregarEmprestimoDeCliente(cliente_id, emprestimo_id) {
 }
 
 export async function carregarEmprestimoPublico(emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos-publicados/' + emprestimo_id, {
       method: 'GET',
@@ -214,6 +251,7 @@ export async function carregarEmprestimoPublico(emprestimo_id) {
 }
 
 export async function carregarParcela(emprestimo_id, parcela_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const emprestimoData = await fetch ('http://localhost:8080/api/emprestimos/' + emprestimo_id + '/parcelas/' + parcela_id, {
       method: 'GET',
@@ -233,6 +271,7 @@ export async function carregarParcela(emprestimo_id, parcela_id) {
 }
 
 export async function cadastrarCliente(formData) {
+  const tokenDeAcesso = await getToken();
 
     console.log('JSON enviado:', JSON.stringify(formData, null, 2)); 
 
@@ -260,6 +299,7 @@ export async function cadastrarCliente(formData) {
 }
 
 export async function cadastrarAgiota(formData) {
+  const tokenDeAcesso = await getToken();
 
     console.log('JSON enviado:', JSON.stringify(formData, null, 2));
 
@@ -287,6 +327,7 @@ export async function cadastrarAgiota(formData) {
 }
 
 export async function cadastrarEmprestimo(agiota_id, formData) {
+  const tokenDeAcesso = await getToken();
 
   console.log('JSON enviado: ', JSON.stringify(formData, null, 2));
 
@@ -314,6 +355,7 @@ export async function cadastrarEmprestimo(agiota_id, formData) {
 }
 
 export async function cadastrarPagamento(cliente_id, emprestimo_id, parcela_id, formData) {
+  const tokenDeAcesso = await getToken();
 
   console.log('JSON enviado: ', JSON.stringify(formData, null, 2));
 
@@ -341,6 +383,7 @@ export async function cadastrarPagamento(cliente_id, emprestimo_id, parcela_id, 
 }
 
 export async function cadastrarLembrete(cliente_id, emprestimo_id, parcela_id, formData) {
+  const tokenDeAcesso = await getToken();
 
   console.log('JSON enviado: ', JSON.stringify(formData, null, 2));
 
@@ -368,6 +411,7 @@ export async function cadastrarLembrete(cliente_id, emprestimo_id, parcela_id, f
 }
 
 export async function atualizarCliente(id, cliente_data) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + id, {
       method: 'PUT',
@@ -392,6 +436,7 @@ export async function atualizarCliente(id, cliente_data) {
 }
 
 export async function atualizarAgiota(id, agiota_data) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/' + id, {
       method: 'PUT',
@@ -416,6 +461,7 @@ export async function atualizarAgiota(id, agiota_data) {
 }
 
 export async function darEmprestimo(id, emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
       method: 'PUT',
@@ -439,6 +485,7 @@ export async function darEmprestimo(id, emprestimo_id) {
 }
 
 export async function pedirEmprestimo(id, emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes/' + id + '/emprestimos-publicados/' + emprestimo_id + '/firmar-emprestimo', {
       method: 'PUT',
@@ -462,6 +509,7 @@ export async function pedirEmprestimo(id, emprestimo_id) {
 }
 
 export async function removerCliente(id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/clientes/'+ id, {
       method: 'DELETE',
@@ -482,6 +530,7 @@ export async function removerCliente(id) {
 }
 
 export async function removerEmprestimo(agiota_id, emprestimo_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/agiotas/'+ agiota_id + '/emprestimos/' + emprestimo_id, {
       method: 'DELETE',
@@ -502,6 +551,7 @@ export async function removerEmprestimo(agiota_id, emprestimo_id) {
 }
 
 export async function removerLembrete(lembrete_id) {
+  const tokenDeAcesso = await getToken();
   try {
     const response = await fetch('http://localhost:8080/api/mensagens/'+ lembrete_id, {
       method: 'DELETE',
