@@ -1,33 +1,6 @@
 'use server'
 
-export async function getToken() {
-  const tokenUrl = process.env.KEYCLOAK_BACKEND_CLIENT_TOKEN_ENDPOINT;
-  const clientId = process.env.KEYCLOAK_BACKEND_CLIENT_ID;
-  const clientSecret = process.env.KEYCLOAK_BACKEND_CLIENT_SECRET;
-  
-  // Codifica client_id e client_secret em Base64
-  const credentials = btoa(`${clientId}:${clientSecret}`);
-
-  const response = await fetch(tokenUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Authorization": `Basic ${credentials}`,
-    },
-    body: new URLSearchParams({
-      grant_type: "client_credentials",
-      scope: "openid offline_access",
-    }),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`HTTP error! Status: ${response.status}. Details: ${errorText}`);
-  }
-
-  const data = await response.json();
-  return data.access_token; // Retorna o access token
-}
+import { getToken, cadastrarUsuarioNoKeycloak, atualizarUsuarioNoKeycloak, removerUsuarioNoKeycloak } from '@/app/lib/keycloakAPI'
 
 //Funções Utilizadas pelo servidor para Alterar/Adquirir dados à partir da API
 export async function listarClientes() {
@@ -190,6 +163,26 @@ export async function carregarAgiota(id) {
   }
 }
 
+export async function carregarIdDeAgiotaPorEmail(email) {
+  const tokenDeAcesso = await getToken();
+  try {
+    const agiotaData = await fetch ('http://localhost:8080/api/agiotas/buscar-por-email' + email, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+    const agiota = await agiotaData.json();
+    return agiota;
+  }
+  catch(erro) {
+    console.error("ID de agiota não encontrado.");
+    return null;
+  }
+}
+
 export async function carregarEmprestimoDeAgiota(agiota_id, emprestimo_id) {
   const tokenDeAcesso = await getToken();
   try {
@@ -287,6 +280,7 @@ export async function cadastrarCliente(formData) {
   
       if(response.ok){
         const result = await response.json();
+        await cadastrarUsuarioNoKeycloak(formData.nome, formData.login.email, formData.login.senha, "cliente");
         return result;
       } else {
         const errorData = await response.json();
@@ -315,6 +309,7 @@ export async function cadastrarAgiota(formData) {
   
       if(response.ok){
         const result = await response.json();
+        await cadastrarUsuarioNoKeycloak(formData.nome, formData.login.email, formData.login.senha, "agiota");
         return result;
       } else {
         const errorData = await response.json();
@@ -413,6 +408,16 @@ export async function cadastrarLembrete(cliente_id, emprestimo_id, parcela_id, f
 export async function atualizarCliente(id, cliente_data) {
   const tokenDeAcesso = await getToken();
   try {
+    const usuario = await fetch('http://localhost:8080/api/clientes/'+ id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const usuarioData = await usuario.json();
+
     const response = await fetch('http://localhost:8080/api/clientes/' + id, {
       method: 'PUT',
       headers: {
@@ -424,6 +429,7 @@ export async function atualizarCliente(id, cliente_data) {
 
     if(response.ok){
       const result = await response.json();
+      await atualizarUsuarioNoKeycloak(usuarioData.login.email, cliente_data.nome, cliente_data.login.email, cliente_data.login.senha);
       return result;
     } else {
       const errorData = await response.json();
@@ -438,6 +444,16 @@ export async function atualizarCliente(id, cliente_data) {
 export async function atualizarAgiota(id, agiota_data) {
   const tokenDeAcesso = await getToken();
   try {
+    const usuario = await fetch('http://localhost:8080/api/agiotas/'+ id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const usuarioData = await usuario.json();
+    
     const response = await fetch('http://localhost:8080/api/agiotas/' + id, {
       method: 'PUT',
       headers: {
@@ -449,6 +465,7 @@ export async function atualizarAgiota(id, agiota_data) {
 
     if(response.ok){
       const result = await response.json();
+      await atualizarUsuarioNoKeycloak(usuarioData.login.email, cliente_data.nome, cliente_data.login.email, cliente_data.login.senha);
       return result;
     } else {
       const errorData = await response.json();
@@ -511,6 +528,18 @@ export async function pedirEmprestimo(id, emprestimo_id) {
 export async function removerCliente(id) {
   const tokenDeAcesso = await getToken();
   try {
+
+    //Primeiro remova o usuário do Keycloak e posteriormente, do Spring Boot App
+    const usuario = await fetch('http://localhost:8080/api/clientes/'+ id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const usuarioData = await usuario.json();
+
     const response = await fetch('http://localhost:8080/api/clientes/'+ id, {
       method: 'DELETE',
       headers: {
@@ -523,7 +552,42 @@ export async function removerCliente(id) {
       throw new Error(`Erro ao deletar o cliente: ${response.statusText}`);
     }
 
+    await removerUsuarioNoKeycloak(usuarioData.login.email);
     console.log('Cliente deletado com sucesso');
+  } catch (error) {
+    console.error('Erro:', error);
+  }
+}
+
+export async function removerAgiota(id) {
+  const tokenDeAcesso = await getToken();
+  try {
+
+    //Primeiro remova o usuário do Keycloak e posteriormente, do Spring Boot App
+    const usuario = await fetch('http://localhost:8080/api/agiotas/'+ id, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const usuarioData = await usuario.json();
+
+    const response = await fetch('http://localhost:8080/api/agiotas/'+ id, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Erro ao deletar o agiota: ${response.statusText}`);
+    }
+
+    await removerUsuarioNoKeycloak(usuarioData.login.email);
+    console.log('Agiota deletado com sucesso');
   } catch (error) {
     console.error('Erro:', error);
   }
