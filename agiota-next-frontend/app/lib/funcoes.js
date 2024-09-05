@@ -1,9 +1,9 @@
 'use server'
 
 export async function getToken() {
-  const tokenUrl = "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token";
-  const clientId = "agiota-backend";
-  const clientSecret = "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG";
+  const tokenUrl = process.env.KEYCLOAK_BACKEND_CLIENT_TOKEN_ENDPOINT;
+  const clientId = process.env.KEYCLOAK_BACKEND_CLIENT_ID;
+  const clientSecret = process.env.KEYCLOAK_BACKEND_CLIENT_SECRET;
   
   // Codifica client_id e client_secret em Base64
   const credentials = btoa(`${clientId}:${clientSecret}`);
