@@ -5,8 +5,8 @@ export const authOptions = {
   debug: true,
   providers: [
     KeycloakProvider({
-      clientId: process.env.KEYCLOAK_CLIENT_ID,
-      clientSecret: process.env.KEYCLOAK_CLIENT_SECRET,
+      clientId: process.env.KEYCLOAK_FRONTEND_CLIENT_ID,
+      clientSecret: process.env.KEYCLOAK_FRONTEND_CLIENT_SECRET,
       issuer: process.env.KEYCLOAK_ISSUER,
     }),
   ],
