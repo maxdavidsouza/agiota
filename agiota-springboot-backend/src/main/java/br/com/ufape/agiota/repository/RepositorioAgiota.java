@@ -11,4 +11,6 @@ import br.com.ufape.agiota.model.usuarios.Agiota;
 public interface RepositorioAgiota extends JpaRepository<Agiota, Long> {
 	@Query("SELECT a FROM Agiota a JOIN a.emprestimos e WHERE e.id = :emprestimoId")
     Agiota findAgiotaByEmprestimoId(@Param("emprestimoId") Long emprestimoId);
+
+    Agiota findByLoginEmail(String email);
 }

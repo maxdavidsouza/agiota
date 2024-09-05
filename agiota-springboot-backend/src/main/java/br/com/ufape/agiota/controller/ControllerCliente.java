@@ -38,6 +38,11 @@ public class ControllerCliente {
 	public Cliente buscarUmClienteDeUmEmprestimoDeUmAgiota(@PathVariable Long id){
 		return repositorioCliente.findClienteByEmprestimoId(id);
 	}
+
+	@GetMapping("/buscar-por-email/{email}")
+	public Cliente buscarClientePorEmail(@PathVariable String email) {
+		return repositorioCliente.findByLoginEmail(email);
+	}
 	
 	//Requisições Genéricas para Manutenção do Sistema
 	@GetMapping("/clientes")

@@ -39,6 +39,11 @@ public class ControllerAgiota {
 	public List<Agiota> listarTodosAgiotas() {
 		return repositorioAgiota.findAll();
 	}
+
+	@GetMapping("/buscar-por-email/{email}")
+	public Agiota buscarAgiotaPorEmail(@PathVariable String email) {
+		return repositorioAgiota.findByLoginEmail(email);
+	}
 	
 	@GetMapping("/{id}")
 	public Agiota buscarAgiotaPorId(@PathVariable Long id) {

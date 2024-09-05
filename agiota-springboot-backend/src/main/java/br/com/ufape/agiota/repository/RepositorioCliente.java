@@ -16,4 +16,6 @@ public interface RepositorioCliente extends JpaRepository<Cliente, Long> {
 	
 	@Query("SELECT DISTINCT c FROM Cliente c JOIN c.emprestimos e WHERE e.credor.id = :agiotaId")
     List<Cliente> findAllByEmprestimosCredorId(@Param("agiotaId") Long agiotaId);
+
+    Cliente findByLoginEmail(String email);
 }

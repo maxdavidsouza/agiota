@@ -26,7 +26,7 @@ public class Login {
 	public Login(String email, String senha) throws EmailInvalidoException,SenhaInvalidaException {
 		EmailValidator.validar(email);
 		SenhaValidator.validar(senha);
-		this.email = email;
+		this.email = email.toLowerCase();
 		this.senha = senha;
 	}
 	
@@ -40,7 +40,7 @@ public class Login {
 
 	public void setEmail(String email) {
 		EmailValidator.validar(email);
-		this.email = email;
+		this.email = email.toLowerCase();
 	}
 
 	public String getSenha() {
