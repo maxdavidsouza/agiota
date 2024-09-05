@@ -24,6 +24,10 @@ export default function AuthStatus() {
             signOut({ callbackUrl: "/" }); // Logout e redireciona para a URL especificada
           }}
         >
+        {
+        // Exemplo de Sessão: Executa o console.log somente se 'agiota' estiver nas roles
+        session && session.roles && session.roles.includes('agiota') && console.log('Você logou como um agiota.')
+        }
           Sair
         </button>
       </div>
