@@ -9,12 +9,19 @@ export default async function Cliente() {
 	const session = await getServerSession(authOptions);
 	console.log("Session:", session); // Adicione esta linha para verificar a sessão
 
-	if (!session) {
+	if (!session || session.roles.includes("agiota")) {
 		// Se o usuário não estiver autenticado, redireciona para a página de login
 		redirect("/login");
 	}
 
 	const clientes = await listarClientes();
+
+	if (
+		!session.roles.includes("gerente") &&
+		session.roles.includes("cliente")
+	) {
+		redirect(`/clientes/${session.user.id}`);
+	}
 
 	if (clientes != null) {
 		return (
