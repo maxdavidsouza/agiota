@@ -9,9 +9,13 @@ export default async function Agiota() {
 	const session = await getServerSession(authOptions);
 	console.log("Session:", session); // Adicione esta linha para verificar a sessão
 
-	if (!session) {
+	if (!session || session.roles.includes("cliente")) {
 		// Se o usuário não estiver autenticado, redireciona para a página de login
 		redirect("/login");
+	}
+
+	if (!session.roles.includes("gerente") && session.roles.includes("agiota")) {
+		redirect(`/clientes/${session.user.id}`);
 	}
 
 	const agiotas = await listarAgiotas();
