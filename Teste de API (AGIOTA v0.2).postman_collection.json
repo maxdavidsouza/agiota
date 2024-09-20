@@ -1,0 +1,2179 @@
+{
+	"info": {
+		"_postman_id": "ab6c3528-4194-40f6-a7d9-d98f4cba4553",
+		"name": "Teste de API (AGIOTA v0.2)",
+		"description": "Trata-se de uma coleção de testes, dividindo em quatro fluxos, para endpoints gerados para o Aplicativo Gestor de Informações e Organizações de Transações e Adiantamentos.\n\n**Observação:** Siga a ordem de execução das chamadas listadas para compreender o funcionamento do sistema.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36821480"
+	},
+	"item": [
+		{
+			"name": "Fluxo de Inserção",
+			"item": [
+				{
+					"name": "Cadastrar Clientes",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"João Silva\",\r\n    \"telefone\": \"123456789\",\r\n    \"dataDeNascimento\": \"1990-01-01\",\r\n    \"login\": {\r\n        \"email\": \"joaosilva@gmail.com\",\r\n        \"senha\": \"Senha123$\"\r\n    },\r\n    \"endereco\": {\r\n        \"cep\": \"12345-678\",\r\n        \"numero\": \"123\",\r\n        \"rua\": \"Rua das Flores\",\r\n        \"bairro\": \"Aristóteles\",\r\n        \"cidade\": \"São Paulo\",\r\n        \"estado\": \"SP\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes"
+							]
+						},
+						"description": "Requisição para cadastrar um Novo Cliente\n\n- Necessita de informações básicas de cadastro.\n    \n- Necessita de um cadastro de Login.\n    \n- Necessita de um cadastro de Endereço."
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar Agiotas",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"João Tenório\",\r\n    \"telefone\": \"8798095703\",\r\n    \"dataDeNascimento\": \"1994-01-01\",\r\n    \"login\": {\r\n        \"email\": \"exemplo@gmail.com\",\r\n        \"senha\": \"Senha123$\"\r\n    },\r\n    \"endereco\": {\r\n        \"cep\": \"12345-678\",\r\n        \"numero\": \"123\",\r\n        \"rua\": \"Rua das Flores\",\r\n        \"bairro\": \"Aristóteles\",\r\n        \"cidade\": \"São Paulo\",\r\n        \"estado\": \"SP\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas"
+							]
+						},
+						"description": "Requisição para cadastrar um Novo Agiota\n\n- Necessita de informações básicas de cadastro.\n    \n- Necessita de um cadastro de Login.\n    \n- Necessita de um cadastro de Endereço."
+					},
+					"response": []
+				},
+				{
+					"name": "Publicar Empréstimo",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"valorEmprestado\": \"1300\",\r\n  \"valorASerPago\": \"1600\",\r\n  \"taxaTotal\": 300,\r\n  \"formaDePagamento\": \"Dinheiro\",\r\n  \"estado\": \"Aberto\",\r\n  \"parcelas\": [\r\n    {\r\n      \"valorASerPago\": 800,\r\n      \"valorPago\": 0,\r\n      \"taxaDeAtraso\": 26.666666666666668,\r\n      \"dataDePagamento\": null,\r\n      \"dataDeVencimento\": null,\r\n      \"estado\": \"Em acordo\"\r\n    },\r\n    {\r\n      \"valorASerPago\": 800,\r\n      \"valorPago\": 0,\r\n      \"taxaDeAtraso\": 26.666666666666668,\r\n      \"dataDePagamento\": null,\r\n      \"dataDeVencimento\": null,\r\n      \"estado\": \"Em acordo\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos"
+							]
+						},
+						"description": "Requisição para publicar um Novo Empréstimo\n\n- Necessita de um Agiota cadastrado.\n    \n- Necessita de uma ou mais Parcelas.\n    \n- Necessita de um 'estado' dentro dos seguintes: {\"Em aberto\",\"Fechado\",\"Pago\",\"Parcialmente pago\"}."
+					},
+					"response": []
+				},
+				{
+					"name": "Pedir Empréstimo",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos-publicados/1/firmar-emprestimo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos-publicados",
+								"1",
+								"firmar-emprestimo"
+							]
+						},
+						"description": "Requisição para firmar um Empréstimo\n\n- Necessita do 'id' de um Cliente."
+					},
+					"response": []
+				},
+				{
+					"name": "Oferecer Empréstimo",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos-publicados/1/firmar-emprestimo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos-publicados",
+								"1",
+								"firmar-emprestimo"
+							]
+						},
+						"description": "Requisição para firmar um Empréstimo\n\n- Necessita do 'id' de um Cliente."
+					},
+					"response": []
+				},
+				{
+					"name": "Enviar Mensagem",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"texto\":\"Me pague de novo.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/enviar-mensagem/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"enviar-mensagem",
+								"clientes",
+								"1"
+							]
+						},
+						"description": "Requisição para enviar uma Notificação\n\n- Necessita de um 'texto'.\n    \n- Necessita do 'id' de um Agiota (Remetente).\n    \n- Necessita do 'id' de um Cliente (Destinatário)."
+					},
+					"response": []
+				},
+				{
+					"name": "Criar Lembrete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dataEHoraDeEnvio\": \"2024-08-11T05:12:21Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos/1/parcelas/1/gerar-lembrete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos",
+								"1",
+								"parcelas",
+								"1",
+								"gerar-lembrete"
+							]
+						},
+						"description": "Requisição para criar um Lembrete\n\n- Necessita do 'id' de um Cliente (Remetente/Destinatário).\n    \n- Necessita do 'id' de uma Parcela."
+					},
+					"response": []
+				},
+				{
+					"name": "Efetuar Pagamento",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"valorDoPagamento\": 800\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos/1/parcelas/1/pagamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos",
+								"1",
+								"parcelas",
+								"1",
+								"pagamentos"
+							]
+						},
+						"description": "Requisição para efetuar um Pagamento\n\n- Necessita de um 'valor'.\n    \n- Necessita do 'id' de um Cliente.\n    \n- Necessita do 'id' de uma Parcela."
+					},
+					"response": []
+				}
+			],
+			"description": "Contém todas as Inserções de Dados e Entidades do Sistema"
+		},
+		{
+			"name": "Fluxo de Visualização",
+			"item": [
+				{
+					"name": "Listar todos os Usuários",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "clientSecret",
+									"value": "fWA6LhBs40dcudyBdVCurm2lDXVdqTA7",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Agiotas",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Clientes",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Empréstimos de um Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Pagamentos de um Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/pagamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"pagamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Empréstimos de um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Empréstimos Publicados por um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos-publicados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos-publicados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar um Agiota por Email",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/buscar-por-email/exemplo@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"buscar-por-email",
+								"exemplo@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar cliente por id",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar um Empréstimo de um Cliente Copy",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar um Empréstimo de um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/1/emprestimos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"1",
+								"emprestimos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Parcelas de um Empréstimo por Estado",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/emprestimos/1/parcelas/buscar-por-estado/aberta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"emprestimos",
+								"1",
+								"parcelas",
+								"buscar-por-estado",
+								"aberta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Pagamentos por Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/emprestimos/1/parcelas/1/pagamentos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"emprestimos",
+								"1",
+								"parcelas",
+								"1",
+								"pagamentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Mensagens do Sistema",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/mensagens",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"mensagens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Mensagens Enviadas por um Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/mensagens-enviadas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"mensagens-enviadas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Mensagens Recebidas por um Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/mensagens-recebidas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"mensagens-recebidas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Mensagens Enviadas por um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/mensagens-enviadas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"mensagens-enviadas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todas as Mensagens Recebidas por um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/mensagens-recebidas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"mensagens-recebidas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar todos os Lembretes do Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1/lembretes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1",
+								"lembretes"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contém todas as Visualizações de Dados e Entidades do Sistema"
+		},
+		{
+			"name": "Fluxo de Edição",
+			"item": [
+				{
+					"name": "Editar um Cliente",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Abda Silva\",\r\n    \"telefone\": \"123456789\",\r\n    \"dataDeNascimento\": \"1990-01-01\",\r\n    \"login\": {\r\n        \"email\": \"joaosilva@gmail.com\",\r\n        \"senha\": \"Senha123$\"\r\n    },\r\n    \"endereco\": {\r\n        \"cep\": \"12345-678\",\r\n        \"numero\": \"123\",\r\n        \"rua\": \"Rua das Flores\",\r\n        \"bairro\": \"Aristóteles\",\r\n        \"cidade\": \"São Paulo\",\r\n        \"estado\": \"SP\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/clientes/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"clientes",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Marina Silva\",\r\n    \"telefone\": \"123456789\",\r\n    \"dataDeNascimento\": \"1990-01-01\",\r\n    \"login\": {\r\n        \"email\": \"joaosilva@gmail.com\",\r\n        \"senha\": \"Senha123$\"\r\n    },\r\n    \"endereco\": {\r\n        \"cep\": \"12345-678\",\r\n        \"numero\": \"123\",\r\n        \"rua\": \"Rua das Flores\",\r\n        \"bairro\": \"Aristóteles\",\r\n        \"cidade\": \"São Paulo\",\r\n        \"estado\": \"SP\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar um Empréstimo",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"valorEmprestado\": 2000,\r\n  \"valorASerPago\": 2500,\r\n  \"taxaTotal\": 500,\r\n  \"formaDePagamento\": \"Dinheiro\",\r\n  \"estado\": \"Aberto\",\r\n  \"parcelas\": [\r\n    {\r\n      \"valorASerPago\": 1250,\r\n      \"valorPago\": 0,\r\n      \"taxaDeAtraso\": 52.60,\r\n      \"dataDePagamento\": null,\r\n      \"dataDeVencimento\": null,\r\n      \"estado\": \"Em acordo\"\r\n    },\r\n    {\r\n      \"valorASerPago\": 1250,\r\n      \"valorPago\": 0,\r\n      \"taxaDeAtraso\": 52.60,\r\n      \"dataDePagamento\": null,\r\n      \"dataDeVencimento\": null,\r\n      \"estado\": \"Em acordo\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos-publicados/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos-publicados",
+								"1"
+							]
+						},
+						"description": "Requisição para publicar um Novo Empréstimo\n\n- Necessita de um Agiota cadastrado.\n    \n- Necessita de uma ou mais Parcelas.\n    \n- Necessita de um 'estado' dentro dos seguintes: {\"Em aberto\",\"Fechado\",\"Pago\",\"Parcialmente pago\"}."
+					},
+					"response": []
+				}
+			],
+			"description": "Contém todas as Edições de Dados e Entidades do Sistema"
+		},
+		{
+			"name": "Fluxo de Remoção",
+			"item": [
+				{
+					"name": "Remover um Usuário",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/usuarios/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"usuarios",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover um Empréstimo de um Agiota",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/2/emprestimos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"2",
+								"emprestimos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover uma Notificação",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenName",
+									"value": "agiota-backend-token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "2k7SCbDtwe6eXYUbG7vFxHqjselnhgvG",
+									"type": "string"
+								},
+								{
+									"key": "scope",
+									"value": "openid offline_access",
+									"type": "string"
+								},
+								{
+									"key": "accessTokenUrl",
+									"value": "http://localhost:8181/realms/springboot-agiota-realm/protocol/openid-connect/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "agiota-backend",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/agiotas/mensagens/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"agiotas",
+								"mensagens",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contém todas as Remoções de Dados e Entidades do Sistema"
+		}
+	]
+}
