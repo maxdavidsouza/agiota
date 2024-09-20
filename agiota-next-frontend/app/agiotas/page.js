@@ -7,13 +7,13 @@ import { redirect } from "next/navigation";
 
 export default async function Agiota() {
 	const session = await getServerSession(authOptions);
-	const userId = await carregarIdDeUsuarioPorEmail(session.user.email);
+	const userId = await carregarIdDeUsuarioPorEmail(session && session.user ? session.user.email : null);
 	console.log("Session:", session); // Adicione esta linha para verificar a sessão
 
-	if (!session && !session.roles.includes("agiota")) {
+	if (!session || !session.roles.includes("agiota")) {
 		// Se o usuário não estiver autenticado, redireciona para a página de login
 		redirect("/login");
-	} else if(session.roles.includes("agiota")){
+	} else if(session && session.roles.includes("agiota")){
 		redirect(`/agiotas/${userId}`);
 	}
 

@@ -1,7 +1,18 @@
 import Link from "next/link";
-import { carregarCliente } from "@/app/lib/funcoes";
+import { carregarCliente, carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export default async function FindCliente({params}) {
+    const session = await getServerSession(authOptions);
+    const userId = await carregarIdDeUsuarioPorEmail(session && session.user ? session.user.email : null);
+    console.log("Session:", session); // Adicione esta linha para verificar a sessão
+
+    if (params.id != userId) {
+      redirect("/login");
+    }
+
     const cliente = await carregarCliente(params.id);
     if(cliente != null) {
       return (

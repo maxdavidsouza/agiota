@@ -466,7 +466,7 @@ export async function atualizarAgiota(id, agiota_data) {
 
     if(response.ok){
       const result = await response.json();
-      await atualizarUsuarioNoKeycloak(usuarioData.login.email, cliente_data.nome, cliente_data.login.email, cliente_data.login.senha);
+      await atualizarUsuarioNoKeycloak(usuarioData.login.email, agiota_data.nome, agiota_data.login.email, agiota_data.login.senha);
       return result;
     } else {
       const errorData = await response.json();
