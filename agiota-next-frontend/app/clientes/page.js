@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listarClientes } from "../lib/funcoes.js";
+import { carregarIdDeUsuarioPorEmail, listarClientes } from "../lib/funcoes.js";
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -7,21 +7,17 @@ import { redirect } from "next/navigation";
 
 export default async function Cliente() {
 	const session = await getServerSession(authOptions);
+	const userId = await carregarIdDeUsuarioPorEmail(session.user.email);
 	console.log("Session:", session); // Adicione esta linha para verificar a sessão
 
-	if (!session || session.roles.includes("agiota")) {
+	if (!session && !session.roles.includes("cliente")) {
 		// Se o usuário não estiver autenticado, redireciona para a página de login
 		redirect("/login");
+	} else if(session.roles.includes("cliente")){
+		redirect(`/clientes/${userId}`);
 	}
 
 	const clientes = await listarClientes();
-
-	if (
-		!session.roles.includes("gerente") &&
-		session.roles.includes("cliente")
-	) {
-		redirect(`/clientes/${session.user.id}`);
-	}
 
 	if (clientes != null) {
 		return (

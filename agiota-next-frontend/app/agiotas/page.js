@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listarAgiotas } from "../lib/funcoes.js";
+import { listarAgiotas, carregarIdDeUsuarioPorEmail } from "../lib/funcoes.js";
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -7,15 +7,14 @@ import { redirect } from "next/navigation";
 
 export default async function Agiota() {
 	const session = await getServerSession(authOptions);
+	const userId = await carregarIdDeUsuarioPorEmail(session.user.email);
 	console.log("Session:", session); // Adicione esta linha para verificar a sessão
 
-	if (!session || session.roles.includes("cliente")) {
+	if (!session && !session.roles.includes("agiota")) {
 		// Se o usuário não estiver autenticado, redireciona para a página de login
 		redirect("/login");
-	}
-
-	if (!session.roles.includes("gerente") && session.roles.includes("agiota")) {
-		redirect(`/clientes/${session.user.id}`);
+	} else if(session.roles.includes("agiota")){
+		redirect(`/agiotas/${userId}`);
 	}
 
 	const agiotas = await listarAgiotas();

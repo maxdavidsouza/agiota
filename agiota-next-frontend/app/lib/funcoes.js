@@ -163,10 +163,10 @@ export async function carregarAgiota(id) {
   }
 }
 
-export async function carregarIdDeAgiotaPorEmail(email) {
+export async function carregarIdDeUsuarioPorEmail(email) {
   const tokenDeAcesso = await getToken();
   try {
-    const agiotaData = await fetch ('http://localhost:8080/api/agiotas/buscar-por-email' + email, {
+    const usuarioData = await fetch ('http://localhost:8080/api/usuarios/buscar-por-email/' + email, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${tokenDeAcesso}`,
@@ -174,11 +174,12 @@ export async function carregarIdDeAgiotaPorEmail(email) {
       },
       cache: 'no-store'
     });
-    const agiota = await agiotaData.json();
-    return agiota;
+    const usuario = await usuarioData.json();
+    console.log("Usuário (id = "+usuario.id+") logado.");
+    return usuario.id;
   }
   catch(erro) {
-    console.error("ID de agiota não encontrado.");
+    console.error("ID de usuário não encontrado.");
     return null;
   }
 }

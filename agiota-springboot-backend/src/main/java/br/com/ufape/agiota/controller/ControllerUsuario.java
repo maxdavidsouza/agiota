@@ -28,6 +28,11 @@ public class ControllerUsuario {
 	public Usuario buscarUsuarioPorId(@PathVariable Long id) {
 		return repositorioUsuario.findById(id).orElse(null);
 	}
+
+	@GetMapping("/buscar-por-email/{email}")
+	public Usuario buscarUsuarioPorEmail(@PathVariable String email) {
+		return repositorioUsuario.findByLoginEmail(email);
+	}
 	
 	@DeleteMapping("/{id}")
 	public void removerUsuarioPorId(@PathVariable Long id) {
