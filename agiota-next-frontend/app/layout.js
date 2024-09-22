@@ -31,11 +31,11 @@ export default function RootLayout({ children }) {
                 <li>
                   <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
                     <FiUserPlus size={16} style={{ marginRight: '8px' }} />
-                    Cadastrar usuário
+                    Cadastrar Usuário
                   </a>
                 </li>
-                <li><a href="/agiotas">Ver agiotas</a></li>
-                <li><a href="/clientes">Ver clientes</a></li>
+                <li><a href="/agiotas">Ver Agiotas</a></li>
+                <li><a href="/clientes">Ver Clientes</a></li>
                 <li>
                   <a className="text-white" style={{ display: 'flex', alignItems: 'center' }}>
                     <FiLogOut size={16} style={{ marginRight: '8px' }} />
