@@ -1,0 +1,65 @@
+.agiotaListMain {
+    background-color: #007EA7;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.agiotaListTitle {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.agiotaList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.agiotaListItem {
+    background-color: #fff;
+    color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.agiotaListItemContent {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.agiotaInfo {
+    font-weight: bold;
+}
+
+.agiotaActions {
+    display: flex;
+    gap: 10px;
+}
+
+.actionButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actionButton.info {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.actionButton.warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.actionButton.danger {
+    background-color: #dc3545;
+    color: white;
+}
