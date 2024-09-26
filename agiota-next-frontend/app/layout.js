@@ -25,6 +25,14 @@ export default function RootLayout({ children }) {
   };
 
   const renderMenuItems = () => {
+    if(!session){
+      return(<li>
+              <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
+                <FiUserPlus size={16} style={{ marginRight: '8px' }} />
+                Cadastrar usuário
+              </a>
+            </li>)
+    }
     if (session) {
       const { roles } = session;
       if (roles.includes("gerente")) {
@@ -66,6 +74,12 @@ export default function RootLayout({ children }) {
               </a>
             </li>
             <li>
+              <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
+                <FiUserPlus size={16} style={{ marginRight: '8px' }} />
+                Cadastrar usuário
+              </a>
+            </li>
+            <li>
               <a href="/agiotas" style={{ display: 'flex', alignItems: 'center' }}>
                 <FiUserPlus size={16} style={{ marginRight: '8px' }} />
                 Ver agiotas
@@ -80,6 +94,12 @@ export default function RootLayout({ children }) {
               <a href="/" style={{ display: 'flex', alignItems: 'center' }}>
                 <FiHome size={16} style={{ marginRight: '8px' }} />
                 Página Principal
+              </a>
+            </li>
+            <li>
+              <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
+                <FiUserPlus size={16} style={{ marginRight: '8px' }} />
+                Cadastrar usuário
               </a>
             </li>
             <li>

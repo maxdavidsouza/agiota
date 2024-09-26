@@ -1,8 +1,17 @@
 import Link from "next/link";
 import { listarEmprestimosDeCliente } from "@/app/lib/funcoes.js";
+import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function EmprestimosDeCliente({params}) {
+    const session = await getServerSession(authOptions);
+    const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const emprestimos = await listarEmprestimosDeCliente(params.id);
+
+    if (!session || !userId) {
+    redirect("/login");
+  }
     if(emprestimos != null) {
       return (
         <main className="flex flex-col items-center">
