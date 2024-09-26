@@ -123,6 +123,46 @@ export async function listarLembretes(cliente_id) {
   }
 }
 
+export async function listarMensagensAgiota(agiota_id) {
+  const tokenDeAcesso = await getToken();
+  try {
+    const response = await fetch('http://localhost:8080/api/agiotas/' + agiota_id + '/mensagens-recebidas', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+    const data = await response.json();
+    return data;
+  }
+  catch (erro) {
+    console.error("Mensagens não foram encontrados.");
+    return null;
+  }
+}
+
+export async function listarMensagensCliente(cliente_id) {
+  const tokenDeAcesso = await getToken();
+  try {
+    const response = await fetch('http://localhost:8080/api/clientes/' + cliente_id + '/mensagens-recebidas', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${tokenDeAcesso}`,
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    });
+    const data = await response.json();
+    return data;
+  }
+  catch (erro) {
+    console.error("Mensagens não foram encontrados.");
+    return null;
+  }
+}
+
 export async function carregarCliente(id) {
   const tokenDeAcesso = await getToken();
   try {

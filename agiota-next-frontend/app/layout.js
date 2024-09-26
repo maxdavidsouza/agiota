@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react';
 import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FiHome, FiLogOut, FiMenu, FiX, FiUserPlus, FiFilePlus } from 'react-icons/fi';
+import { FiHome, FiLogOut, FiMenu, FiX, FiUserPlus, FiFilePlus, FiMessageCircle, FiClock, FiGlobe, FiBarChart, FiList } from 'react-icons/fi';
 import AuthStatus from './components/AuthStatus';
 import SessionProviderWrapper from './utils/SessionProviderWrapper';
 import { getSession } from 'next-auth/react';
 import { carregarIdDeUsuarioPorEmail } from './lib/funcoes';
+import { FileBarGraph } from 'react-bootstrap-icons';
 
 export default function RootLayout({ children }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -92,13 +93,13 @@ export default function RootLayout({ children }) {
             </li>
             <li>
               <a href={"/agiotas/" + userId + "/emprestimos"} style={{ display: 'flex', alignItems: 'center' }}>
-                <FiFilePlus size={16} style={{ marginRight: '8px' }} />
+                <FiList size={16} style={{ marginRight: '8px' }} />
                 Ver empréstimos publicados
               </a>
             </li>
             <li>
               <a href={"/agiotas/" + userId + "/mensagens"} style={{ display: 'flex', alignItems: 'center' }}>
-                <FiFilePlus size={16} style={{ marginRight: '8px' }} />
+                <FiMessageCircle size={16} style={{ marginRight: '8px' }} />
                 Ver mensagens
               </a>
             </li>
@@ -121,20 +122,26 @@ export default function RootLayout({ children }) {
             </li>
             <li>
               <a href={"/clientes/" + userId + "/emprestimos"} style={{ display: 'flex', alignItems: 'center' }}>
-                <FiFilePlus size={16} style={{ marginRight: '8px' }} />
+                <FiBarChart size={16} style={{ marginRight: '8px' }} />
                 Ver empréstimos aceitos
               </a>
             </li>
             <li>
               <a href={"/clientes/" + userId + "/emprestimos-publicos"} style={{ display: 'flex', alignItems: 'center' }}>
-                <FiFilePlus size={16} style={{ marginRight: '8px' }} />
+                <FiGlobe size={16} style={{ marginRight: '8px' }} />
                 Ver empréstimos públicos
               </a>
             </li>
             <li>
               <a href={"/clientes/" + userId + "/lembretes"} style={{ display: 'flex', alignItems: 'center' }}>
-                <FiFilePlus size={16} style={{ marginRight: '8px' }} />
+                <FiClock size={16} style={{ marginRight: '8px' }} />
                 Ver lembretes
+              </a>
+            </li>
+            <li>
+              <a href={"/clientes/" + userId + "/mensagens"} style={{ display: 'flex', alignItems: 'center' }}>
+                <FiMessageCircle size={16} style={{ marginRight: '8px' }} />
+                Ver mensagens
               </a>
             </li>
           </>
