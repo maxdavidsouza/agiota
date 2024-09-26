@@ -10,7 +10,7 @@ export default async function EmprestimosDeCliente({params}) {
     const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const emprestimos = await listarEmprestimosDeCliente(params.id);
 
-    if (!session || !userId) {
+    if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
     if(emprestimos != null) {

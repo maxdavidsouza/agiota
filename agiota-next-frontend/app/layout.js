@@ -122,13 +122,13 @@ export default function RootLayout({ children }) {
             <li>
               <a href={"/clientes/" + userId + "/emprestimos"} style={{ display: 'flex', alignItems: 'center' }}>
                 <FiFilePlus size={16} style={{ marginRight: '8px' }} />
-                Ver empréstimos públicos
+                Ver empréstimos aceitos
               </a>
             </li>
             <li>
               <a href={"/clientes/" + userId + "/emprestimos-publicos"} style={{ display: 'flex', alignItems: 'center' }}>
                 <FiFilePlus size={16} style={{ marginRight: '8px' }} />
-                Ver empréstimos aceitos
+                Ver empréstimos públicos
               </a>
             </li>
             <li>

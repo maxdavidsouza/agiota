@@ -9,7 +9,7 @@ export default async function FindEmprestimoDeAgiota({params}) {
     const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const emprestimo = await carregarEmprestimoDeAgiota(params.id, params.emprestimo_id);
 
-    if (!session || !userId) {
+    if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
     if(emprestimo != null) {

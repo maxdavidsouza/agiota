@@ -10,7 +10,7 @@ export default async function FindCliente({ params }) {
     session && session.user ? session.user.email : null
   );
 
-  if (params.id != userId) {
+  if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
 

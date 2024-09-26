@@ -9,7 +9,7 @@ export default async function CarregarParcela({params}) {
     const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const parcela = await carregarParcela(params.emprestimo_id, params.parcela_id);
 
-    if (!session || !userId) {
+    if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
     if(parcela != null) {

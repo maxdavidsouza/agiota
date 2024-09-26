@@ -9,7 +9,7 @@ export default async function FindEmprestimoPublico({params}) {
     const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const emprestimo = await carregarEmprestimoPublico(params.emprestimo_id);
 
-    if (!session || !userId) {
+    if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
     if(emprestimo != null) {

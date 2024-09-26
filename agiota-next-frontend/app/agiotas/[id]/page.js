@@ -8,7 +8,7 @@ export default async function FindAgiota({ params }) {
   const session = await getServerSession(authOptions);
   const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
 
-  if (!session || !userId) {
+  if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
 

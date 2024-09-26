@@ -1,9 +1,18 @@
 import Link from "next/link";
 import { listarLembretes } from "@/app/lib/funcoes";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export default async function Lembretes({params}) {
+    const session = await getServerSession(authOptions);
+    const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const lembretes = await listarLembretes(params.id);
 
+    if (params.id != userId) {
+      redirect("/login");
+    }
+    
     if(lembretes != null) {
       return (
         <main className="flex flex-col items-center">
