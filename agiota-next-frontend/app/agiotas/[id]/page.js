@@ -42,12 +42,12 @@ export default async function FindAgiota({ params }) {
           </div>
 
           <div className="flex flex-col items-end gap-3 ml-4">
-            <Link href={`/${agiota.id}/emprestimos/create`}>
+            <Link href={`${agiota.id}/emprestimos/create`}>
               <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
                 Cadastrar Empréstimo
               </button>
             </Link>
-            <Link href={`/${agiota.id}/emprestimos/`}>
+            <Link href={`${agiota.id}/emprestimos/`}>
               <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
                 Empréstimos Efetuados
               </button>
