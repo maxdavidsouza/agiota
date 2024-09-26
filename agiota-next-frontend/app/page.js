@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   if (!session) {
-    return <p>Carregando...</p>;
+    return <p>Você não está logado.</p>;
   }
 
 
