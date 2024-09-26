@@ -18,11 +18,13 @@ export default async function FindCliente({ params }) {
 
   if (cliente != null) {
     return (
-      <main className="flex flex-col items-start p-8 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6 text-00171f">
-          Cliente {params.id}
-        </h1>
-        <div className="flex w-full justify-between">
+      <main className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+        <div className="w-full flex justify-between items-center mb-6">
+          <h1 className="text-3xl font-bold text-00171f">
+            Cliente {params.id}
+          </h1>
+        </div>
+        <div className="flex flex-col md:flex-row w-full justify-between gap-8">
           <div className="flex-1 mb-4">
             <h2 className="text-xl font-semibold mb-2 text-007ea7">Informações Pessoais</h2>
             <div className="grid gap-y-2">
@@ -32,7 +34,7 @@ export default async function FindCliente({ params }) {
             </div>
           </div>
 
-          <div className="flex-1 mb-4 ml-[-400px]"> {/* Margem negativa para aproximar */}
+          <div className="flex-1 mb-4">
             <h2 className="text-xl font-semibold mb-2 text-007ea7">Endereço</h2>
             <div className="grid grid-cols-2 gap-y-2">
               <p><span className="font-bold">CEP:</span> {cliente.endereco.cep}</p>
@@ -44,29 +46,29 @@ export default async function FindCliente({ params }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-3 ml-4">
+          <div className="flex flex-col gap-3">
             <Link href={`/clientes/${cliente.id}/emprestimos`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
                 Empréstimos Aceitos
               </button>
             </Link>
             <Link href={`/clientes/${cliente.id}/lembretes`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
                 Lembretes
               </button>
             </Link>
             <Link href="#">
-              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
                 Mensagens Recebidas
               </button>
             </Link>
             <Link href={`/clientes/update/${cliente.id}`}>
-              <button className="bg-green-600 text-white py-2 px-4 rounded transition hover:bg-green-500 w-64">
+              <button className="bg-green-600 text-white py-1 px-3 rounded transition hover:bg-green-500 w-56">
                 Atualizar
               </button>
             </Link>
             <Link href={`/clientes/delete/${cliente.id}`}>
-              <button className="bg-red-600 text-white py-2 px-4 rounded transition hover:bg-red-500 w-64">
+              <button className="bg-red-600 text-white py-1 px-3 rounded transition hover:bg-red-500 w-56">
                 Apagar
               </button>
             </Link>

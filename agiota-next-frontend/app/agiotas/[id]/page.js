@@ -15,11 +15,12 @@ export default async function FindAgiota({ params }) {
   const agiota = await carregarAgiota(params.id);
   if (agiota) {
     return (
-      <main className="flex flex-col items-start p-8 bg-gray-100 min-h-screen">
-        <h1 className="text-3xl font-bold mb-6 text-00171f">
+      <main className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+        {/* Ajuste para o título centralizado à esquerda */}
+        <h1 className="text-3xl font-bold mb-6 text-00171f text-left w-full">
           Agiota {params.id}
         </h1>
-        <div className="flex w-full justify-between">
+        <div className="flex flex-col md:flex-row w-full justify-between gap-8">
           <div className="flex-1 mb-4">
             <h2 className="text-xl font-semibold mb-2 text-007ea7">Informações Pessoais</h2>
             <div className="grid gap-y-2">
@@ -29,7 +30,7 @@ export default async function FindAgiota({ params }) {
             </div>
           </div>
 
-          <div className="flex-1 mb-4 ml-[-400px]"> {/* Margem negativa para aproximar */}
+          <div className="flex-1 mb-4 flex flex-col">
             <h2 className="text-xl font-semibold mb-2 text-007ea7">Endereço</h2>
             <div className="grid grid-cols-2 gap-y-2">
               <p><span className="font-bold">CEP:</span> {agiota.endereco.cep}</p>
@@ -41,24 +42,25 @@ export default async function FindAgiota({ params }) {
             </div>
           </div>
 
-          <div className="flex flex-col items-end gap-3 ml-4">
+          {/* Adicionando uma nova div para os botões ao lado do endereço */}
+          <div className="flex flex-col gap-3">
             <Link href={`${agiota.id}/emprestimos/create`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
                 Cadastrar Empréstimo
               </button>
             </Link>
             <Link href={`${agiota.id}/emprestimos/`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
                 Empréstimos Efetuados
               </button>
             </Link>
             <Link href={`update/${agiota.id}`}>
-              <button className="bg-green-600 text-white py-2 px-4 rounded transition hover:bg-green-500 w-64">
+              <button className="bg-green-600 text-white py-1 px-3 rounded transition hover:bg-green-500 w-56">
                 Atualizar
               </button>
             </Link>
             <Link href={`delete/${agiota.id}`}>
-              <button className="bg-red-600 text-white py-2 px-4 rounded transition hover:bg-red-500 w-64">
+              <button className="bg-red-600 text-white py-1 px-3 rounded transition hover:bg-red-500 w-56">
                 Apagar
               </button>
             </Link>
