@@ -1,8 +1,17 @@
 import Link from "next/link";
 import { carregarParcela } from "@/app/lib/funcoes";
+import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function CarregarParcela({params}) {
+    const session = await getServerSession(authOptions);
+    const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const parcela = await carregarParcela(params.emprestimo_id, params.parcela_id);
+
+    if (!session || !userId) {
+    redirect("/login");
+  }
     if(parcela != null) {
       return (
         <main className="flex flex-col items-center">

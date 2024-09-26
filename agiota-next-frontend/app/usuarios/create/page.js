@@ -130,7 +130,7 @@ export default function CreateAgiota() {
       const valoresFormatados = {
         ...values,
         telefone: telefoneSemMascara,
-        endereco: { ...values.endereco, cep: cepFormatado }, 
+        endereco: { ...values.endereco, cep: cepFormatado },
       };
 
       if (values.tipoDaConta === 'Agiota') {
@@ -156,7 +156,7 @@ export default function CreateAgiota() {
     <>
       {/* Top Bar */}
       <div className={styles.topBar}>
-        <span className={styles.pageTitle}>Página de Cadastro de Agiotas</span>
+        <span className={styles.pageTitle}>Página de Cadastro de Usuário</span>
       </div>
       <main className={`${styles.mainContainer} d-flex flex-column align-items-center`}>
         <Formik

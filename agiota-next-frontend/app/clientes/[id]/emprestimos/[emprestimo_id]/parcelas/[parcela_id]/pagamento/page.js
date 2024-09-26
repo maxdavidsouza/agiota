@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useRouter } from "next/navigation";
 import { cadastrarPagamento } from "@/app/lib/funcoes";
 
+
 export default function CreatePagamento({ params }) {
     const router = useRouter();
     const [erro, setErro] = useState("");
@@ -40,7 +41,7 @@ export default function CreatePagamento({ params }) {
         }
       )
       .catch (
-        (error) => { 
+        (error) => {
           const terceiroDoisPontos = error.message.split(':').slice(0, 2).join(':').length + 1;
           const posicaoPontoEVirgula = error.message.indexOf(';', terceiroDoisPontos);
           const mensagemDeErro = error.message.substring(terceiroDoisPontos, posicaoPontoEVirgula).trim();

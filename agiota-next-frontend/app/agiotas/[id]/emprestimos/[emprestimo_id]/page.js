@@ -1,8 +1,17 @@
 import Link from "next/link";
 import { carregarEmprestimoDeAgiota } from "@/app/lib/funcoes";
+import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function FindEmprestimoDeAgiota({params}) {
+    const session = await getServerSession(authOptions);
+    const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
     const emprestimo = await carregarEmprestimoDeAgiota(params.id, params.emprestimo_id);
+
+    if (!session || !userId) {
+    redirect("/login");
+  }
     if(emprestimo != null) {
       return (
         <main className="flex flex-col items-center">
