@@ -19,7 +19,7 @@ export default async function EmprestimosDeAgiota({params}) {
           {
         emprestimos.map(emprestimo => {
             return (
-            <div key={emprestimo.id} className="shadow-md rounded-lg p-4 m-4 w-full max-w-md" style={{ backgroundColor: '#007ea7' }}>
+            <div key={emprestimo.id} className="shadow-md rounded-lg p-4 m-4 w-full max-w-lg" style={{ backgroundColor: '#007ea7' }}>
             <h2 className="text-xl font-bold mb-2 text-white">Empréstimo {emprestimo.id}</h2>
             <p className="text-white mb-2">Estado: {emprestimo.estado}</p>
             <p className="text-white mb-2">Valor Emprestado: R${emprestimo.valorEmprestado}</p>
