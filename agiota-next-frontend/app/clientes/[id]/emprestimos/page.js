@@ -3,6 +3,7 @@ import { listarEmprestimosDeCliente } from "@/app/lib/funcoes.js";
 import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export default async function EmprestimosDeCliente({params}) {
     const session = await getServerSession(authOptions);

@@ -57,11 +57,6 @@ export default async function FindCliente({ params }) {
                 Lembretes
               </button>
             </Link>
-            <Link href="#">
-              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
-                Mensagens Recebidas
-              </button>
-            </Link>
             <Link href={`/clientes/update/${cliente.id}`}>
               <button className="bg-green-600 text-white py-1 px-3 rounded transition hover:bg-green-500 w-56">
                 Atualizar
