@@ -97,34 +97,47 @@ export default function RootLayout({ children }) {
 
   return (
     <SessionProviderWrapper>
-      <html lang="en">
-        <body className="inter.className">
-          <div className={`layout ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-closed'}`}>
-            <aside className={`sidebar ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-hidden'}`}>
-              <nav>
-                <ul>
-                  {renderMenuItems()}
-                  <li>
-                    <a className="text-white" style={{ display: 'flex', alignItems: 'center' }}>
-                      <FiLogOut size={16} style={{ marginRight: '8px' }} />
-                      <AuthStatus />
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </aside>
-            <main className={`content`} style={{ marginTop: "-20px", marginBottom: "-20px", marginRight: '-20px' }}>
-              <button onClick={toggleSidebar} className="toggle-btn">
-                {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-              </button>
-              {children}
-            </main>
-          </div>
-          <footer>
-            <p>&copy; 2024 UFAPE. Todos os direitos reservados.</p>
-          </footer>
-        </body>
-      </html>
+    <html lang="en">
+      <body className="inter.className">
+        <div className={`layout ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-closed'}`}>
+          <aside className={`sidebar ${isSidebarOpen ? 'sidebar-visible' : 'sidebar-hidden'}`}>
+            <nav>
+              <ul>
+                <li>
+                  <a href="/" style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}>
+                    <FiHome size={16} />
+                    <span style={{ marginLeft: "4px" }}>Página Principal</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
+                    <FiUserPlus size={16} style={{ marginRight: '8px' }} />
+                    Cadastrar Usuário
+                  </a>
+                </li>
+                <li><a href="/agiotas">Ver Agiotas</a></li>
+                <li><a href="/clientes">Ver Clientes</a></li>
+                <li>
+                  <a className="text-white" style={{ display: 'flex', alignItems: 'center' }}>
+                    <FiLogOut size={16} style={{ marginRight: '8px' }} />
+                    <AuthStatus/>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+          <main className={`content`} style={{ marginTop: "-20px", marginBottom: "-20px", marginRight: '-20px' }}>
+            <button onClick={toggleSidebar} className="toggle-btn">
+              {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            </button>
+            {children}
+          </main>
+        </div>
+        <footer>
+          <p>&copy; 2024 UFAPE. Todos os direitos reservados.</p>
+        </footer>
+      </body>
+    </html>
     </SessionProviderWrapper>
   );
 }
