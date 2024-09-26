@@ -4,42 +4,75 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 
-export default async function FindAgiota({params}) {
-    const session = await getServerSession(authOptions);
-    const userId = await carregarIdDeUsuarioPorEmail(session && session.user ? session.user.email : null);
-    console.log("Session:", session); // Adicione esta linha para verificar a sessão
+export default async function FindAgiota({ params }) {
+  const session = await getServerSession(authOptions);
+  const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
 
-    if (params.id != userId) {
-      redirect("/login");
-    }
+  if (!session || !userId) {
+    redirect("/login");
+  }
 
-    const agiota = await carregarAgiota(params.id);
-    if(agiota != null) {
-      return (
-        <main className="flex flex-col items-center">
-            <h1>Agiota {params.id}</h1>
-            <p>Nome: {agiota.nome}</p>
-            <h1>Login {agiota.login.id}</h1>
-            <p>Email: {agiota.login.email}</p>
-            <p>Senha: {agiota.login.senha}</p>
-            <h1>Endereço {agiota.endereco.id}</h1>
-            <p>CEP: {agiota.endereco.cep}</p>
-            <p>Número: {agiota.endereco.numero}</p>
-            <p>Rua: {agiota.endereco.rua}</p>
-            <p>Bairro: {agiota.endereco.bairro}</p>
-            <p>Cidade: {agiota.endereco.cidade}</p>
-            <p>Estado: {agiota.endereco.estado}</p>
-            <Link href={`${agiota.id}/emprestimos/create`}>Cadastrar Empréstimo</Link>
-            <Link href={`${agiota.id}/emprestimos/`}>Ver Empréstimos Efetuados</Link>
-            <Link href={`update/${agiota.id}`}>Atualizar</Link>
-            <Link href={`delete/${agiota.id}`}>Apagar</Link>
-        </main>
-      );
-    } else {
-      return (
-        <main className="flex flex-col items-center">
-            <h1>Agiota não encontrado.</h1>
-        </main>
-      )
-    }
+  const agiota = await carregarAgiota(params.id);
+  if (agiota) {
+    return (
+      <main className="flex flex-col items-start p-8 bg-gray-100 min-h-screen">
+        <h1 className="text-3xl font-bold mb-6 text-00171f">
+          Agiota {params.id}
+        </h1>
+        <div className="flex w-full justify-between">
+          <div className="flex-1 mb-4">
+            <h2 className="text-xl font-semibold mb-2 text-007ea7">Informações Pessoais</h2>
+            <div className="grid gap-y-2">
+              <p><span className="font-bold">Nome:</span> {agiota.nome}</p>
+              <p><span className="font-bold">Email:</span> {agiota.login.email}</p>
+              <p><span className="font-bold">Senha:</span> {agiota.login.senha}</p>
+            </div>
+          </div>
+
+          <div className="flex-1 mb-4 ml-[-400px]"> {/* Margem negativa para aproximar */}
+            <h2 className="text-xl font-semibold mb-2 text-007ea7">Endereço</h2>
+            <div className="grid grid-cols-2 gap-y-2">
+              <p><span className="font-bold">CEP:</span> {agiota.endereco.cep}</p>
+              <p><span className="font-bold">Número:</span> {agiota.endereco.numero}</p>
+              <p><span className="font-bold">Rua:</span> {agiota.endereco.rua}</p>
+              <p><span className="font-bold">Bairro:</span> {agiota.endereco.bairro}</p>
+              <p><span className="font-bold">Cidade:</span> {agiota.endereco.cidade}</p>
+              <p><span className="font-bold">Estado:</span> {agiota.endereco.estado}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-end gap-3 ml-4">
+            <Link href={`/${agiota.id}/emprestimos/create`}>
+              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+                Cadastrar Empréstimo
+              </button>
+            </Link>
+            <Link href={`/${agiota.id}/emprestimos/`}>
+              <button className="bg-[#00171f] text-[#ffffff] py-2 px-4 rounded transition hover:bg-[#007ea7] w-64">
+                Empréstimos Efetuados
+              </button>
+            </Link>
+            <Link href={`update/${agiota.id}`}>
+              <button className="bg-green-600 text-white py-2 px-4 rounded transition hover:bg-green-500 w-64">
+                Atualizar
+              </button>
+            </Link>
+            <Link href={`delete/${agiota.id}`}>
+              <button className="bg-red-600 text-white py-2 px-4 rounded transition hover:bg-red-500 w-64">
+                Apagar
+              </button>
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
+  } else {
+    return (
+      <main className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+        <h1 className="text-2xl font-bold text-red-600">
+          Agiota não encontrado.
+        </h1>
+      </main>
+    );
+  }
 }
