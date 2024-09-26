@@ -1,0 +1,89 @@
+.emprestimosMain {
+    background-color: #007EA7;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.emprestimosTitle {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.emprestimosList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.emprestimosListItem {
+    background-color: #fff;
+    color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.emprestimosContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.emprestimosSubtitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.actionButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.detailButton {
+    background-color: #28a745;
+    color: white;
+}
+
+.detailButton:hover {
+    background-color: #218838;
+}
+
+.agreementButton {
+    background-color: #ffc107;
+    color: white;
+}
+
+.agreementButton:hover {
+    background-color: #e0a800;
+}
+
+.deleteButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
+}
+
+.createButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.createButton:hover {
+    background-color: #0056b3;
+}

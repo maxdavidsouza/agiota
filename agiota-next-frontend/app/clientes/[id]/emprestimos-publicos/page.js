@@ -3,42 +3,45 @@ import { listarEmprestimosPublicos } from "@/app/lib/funcoes.js";
 import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import styles from './EmprestimosPublicos.module.css';
 
-export default async function EmprestimosPublicos({params}) {
+export default async function EmprestimosPublicos({ params }) {
   const session = await getServerSession(authOptions);
-    const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
-    const emprestimos = await listarEmprestimosPublicos(params.id);
+  const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
+  const emprestimos = await listarEmprestimosPublicos(params.id);
 
-    if (!session || !userId || userId != params.id) {
+  if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
-    if(emprestimos != null) {
-      return (
-        <main className="flex flex-col items-center">
-         <h1>Lista de Empréstimos publicados por Agiotas</h1>
-          {
-            emprestimos.map(emprestimo => {
-                return (
-                <div key={emprestimo.id} className="bg-[#007ea7] shadow-md rounded-lg p-4 m-4 w-full max-w-md text-white">
-                  <p><strong>Estado:</strong> {emprestimo.estado}</p>
-                  <p><strong>Empréstimo:</strong> R${emprestimo.valorEmprestado}</p>
-                  <p><strong>Retorno Mínimo:</strong> R${emprestimo.valorASerPago}</p>
-                  <Link href={`/clientes/${params.id}/emprestimos-publicos/${emprestimo.id}`}>
-                  <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700">
-                  Detalhar Empréstimo
+
+  if (emprestimos != null && emprestimos.length > 0) {
+    return (
+      <main className={styles.emprestimosMain}>
+        <h1 className={styles.emprestimosTitle}>Lista de Empréstimos Publicados por Agiotas</h1>
+        <ul className={styles.emprestimosList}>
+          {emprestimos.map((emprestimo) => (
+            <li key={emprestimo.id} className={styles.emprestimosListItem}>
+              <div className={styles.emprestimosContent}>
+                <p><strong>Estado:</strong> {emprestimo.estado}</p>
+                <p><strong>Empréstimo:</strong> R${emprestimo.valorEmprestado}</p>
+                <p><strong>Retorno Mínimo:</strong> R${emprestimo.valorASerPago}</p>
+                <Link href={`/clientes/${params.id}/emprestimos-publicos/${emprestimo.id}`}>
+                  <button className={`${styles.actionButton} ${styles.detailButton}`}>
+                    Detalhar Empréstimo
                   </button>
-                  </Link>
-                </div>
-                );
-             })
-          }
-        </main>
-      );
-    } else {
-      return (
-        <main className="flex flex-col items-center">
-            <h1>Empréstimos não encontrados.</h1>
-        </main>
-      )
-    }
+                </Link>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
+    );
+  } else {
+    return (
+      <main className={styles.emprestimosMain}>
+        <h1 className={styles.emprestimosTitle}>Empréstimos não encontrados.</h1>
+      </main>
+    );
+  }
 }

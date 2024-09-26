@@ -3,8 +3,10 @@ import { listarEmprestimosDeAgiota } from "@/app/lib/funcoes.js";
 import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import styles from './EmprestimosDeAgiota.module.css'; // Importando o CSS Module
 
-export default async function EmprestimosDeAgiota({params}) {
+export default async function EmprestimosDeAgiota({ params }) {
   const session = await getServerSession(authOptions);
   const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
   const emprestimos = await listarEmprestimosDeAgiota(params.id);
@@ -12,37 +14,49 @@ export default async function EmprestimosDeAgiota({params}) {
   if (!session || !userId || userId != params.id) {
     redirect("/login");
   }
-    if(emprestimos != null) {
-      return (
-        <main className="flex flex-col items-center">
-         <h1>Lista de Empréstimos oferecidos pelo Agiota {params.id}</h1>
-          {
-        emprestimos.map(emprestimo => {
-            return (
-            <div key={emprestimo.id} className="shadow-md rounded-lg p-4 m-4 w-full max-w-lg" style={{ backgroundColor: '#007ea7' }}>
-            <h2 className="text-xl font-bold mb-2 text-white">Empréstimo {emprestimo.id}</h2>
-            <p className="text-white mb-2">Estado: {emprestimo.estado}</p>
-            <p className="text-white mb-2">Valor Emprestado: R${emprestimo.valorEmprestado}</p>
-            <p className="text-white mb-4">Valor a Ser Pago: R${emprestimo.valorASerPago}</p>
-            <div className="flex justify-between">
-            <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 no-underline">Detalhar Empréstimo</Link>
-            {emprestimo.estado === "Em acordo" && (
-            <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}/firmar-acordo`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 no-underline">Firmar Acordo</Link>
-            )}
-            <Link href={`/agiotas/${params.id}/emprestimos/delete/${emprestimo.id}`} className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 no-underline">Apagar</Link>
-            </div>
-            </div>
-            );
-         })
-          }
-          <Link href={`/agiotas/${params.id}/emprestimos/create`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4 no-underline">Registrar novo Empréstimo</Link>
-        </main>
-      );
-    } else {
-      return (
-        <main className="flex flex-col items-center">
-            <h1>Empréstimos não encontrados.</h1>
-        </main>
-      )
-    }
+
+  if (emprestimos != null && emprestimos.length > 0) {
+    return (
+      <main className={styles.emprestimosMain}>
+        <h1 className={styles.emprestimosTitle}>Lista de Empréstimos oferecidos pelo Agiota {params.id}</h1>
+        <ul className={styles.emprestimosList}>
+          {emprestimos.map((emprestimo) => (
+            <li key={emprestimo.id} className={styles.emprestimosListItem}>
+              <div className={styles.emprestimosContent}>
+                <h2 className={styles.emprestimosSubtitle}>Empréstimo {emprestimo.id}</h2>
+                <p><strong>Estado:</strong> {emprestimo.estado}</p>
+                <p><strong>Valor Emprestado:</strong> R${emprestimo.valorEmprestado}</p>
+                <p><strong>Valor a Ser Pago:</strong> R${emprestimo.valorASerPago}</p>
+                <div className={styles.buttonGroup}>
+                  <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`}>
+                    <button className={`${styles.actionButton} ${styles.detailButton}`}>
+                      Detalhar Empréstimo
+                    </button>
+                  </Link>
+                  {emprestimo.estado === "Em acordo" && (
+                    <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}/firmar-acordo`}>
+                      <button className={`${styles.actionButton} ${styles.agreementButton}`}>
+                        Firmar Acordo
+                      </button>
+                    </Link>
+                  )}
+                  <Link href={`/agiotas/${params.id}/emprestimos/delete/${emprestimo.id}`}>
+                    <button className={`${styles.actionButton} ${styles.deleteButton}`}>
+                      Apagar
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </main>
+    );
+  } else {
+    return (
+      <main className={styles.emprestimosMain}>
+        <h1 className={styles.emprestimosTitle}>Empréstimos não encontrados.</h1>
+      </main>
+    );
+  }
 }

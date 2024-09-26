@@ -44,24 +44,14 @@ export default async function FindAgiota({ params }) {
 
           {/* Adicionando uma nova div para os botões ao lado do endereço */}
           <div className="flex flex-col gap-3">
-            <Link href={`${agiota.id}/emprestimos/create`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
-                Cadastrar Empréstimo
-              </button>
-            </Link>
-            <Link href={`${agiota.id}/emprestimos/`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
-                Empréstimos Efetuados
-              </button>
-            </Link>
             <Link href={`update/${agiota.id}`}>
               <button className="bg-green-600 text-white py-1 px-3 rounded transition hover:bg-green-500 w-56">
-                Atualizar
+                Atualizar Perfil
               </button>
             </Link>
             <Link href={`delete/${agiota.id}`}>
               <button className="bg-red-600 text-white py-1 px-3 rounded transition hover:bg-red-500 w-56">
-                Apagar
+                Apagar Pefil
               </button>
             </Link>
           </div>

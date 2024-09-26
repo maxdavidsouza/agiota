@@ -1,0 +1,55 @@
+.lembretesMain {
+    background-color: #007EA7;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.lembretesTitle {
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.lembretesList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lembretesListItem {
+    background-color: #fff;
+    color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.lembretesContent {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.lembreteInfo {
+    font-weight: bold;
+}
+
+.lembreteActions {
+    display: flex;
+    gap: 10px;
+}
+
+.actionButton {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actionButton.danger {
+    background-color: #dc3545;
+    color: white;
+}
