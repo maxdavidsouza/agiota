@@ -20,7 +20,7 @@ export default function Home() {
     return <p>Carregando...</p>;
   }
 
-  const { roles } = session; 
+  const { roles } = session;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-5 bg-light">
@@ -39,7 +39,7 @@ export default function Home() {
               </div>
 
               <div className="col-md-4">
-                <Link href={`/emprestimos/create`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                <Link href={`/agiotas/${session.user.id}/emprestimos/create`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiFilePlus size={40} className="mb-3 text-success" />
                     <h5 className="card-title">Cadastrar Empréstimo</h5>
@@ -48,7 +48,7 @@ export default function Home() {
               </div>
 
               <div className="col-md-4">
-                <Link href={`/emprestimos`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                <Link href={`/agiotas/emprestimos`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiList size={40} className="mb-3 text-warning" />
                     <h5 className="card-title">Ver Empréstimos Efetuados</h5>
@@ -68,7 +68,7 @@ export default function Home() {
               </div>
 
               <div className="col-md-4">
-                <Link href="/emprestimos" className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                <Link href={`/clientes/${session.user.id}/emprestimos/`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiDollarSign size={40} className="mb-3 text-success" />
                     <h5 className="card-title">Ver Empréstimos Aceitos</h5>
@@ -77,7 +77,7 @@ export default function Home() {
               </div>
 
               <div className="col-md-4">
-                <Link href="/lembretes" className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                <Link href={`/clientes/${session.user.id}/`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiBell size={40} className="mb-3 text-warning" />
                     <h5 className="card-title">Ver Lembretes Feitos</h5>
