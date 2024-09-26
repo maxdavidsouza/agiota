@@ -55,21 +55,24 @@ export default function CreatePagamento({ params }) {
   };
 
   return (
-    <main className="flex flex-col items-center">
-        <form onSubmit={handleSubmit}>
-            <h1>Página de Pagamento da Parcela {params.parcela_id}</h1>
-            {<h2>{erro}</h2>}
-            <div>
-                <label>Valor do Pagamento: R$ </label>
+    <main className="flex flex-col items-center min-h-screen bg-gray-100 py-8">
+        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+            <h1 className="text-2xl font-bold mb-4">Página de Pagamento da Parcela {params.parcela_id}</h1>
+            {erro && <h2 className="text-red-500 mb-4">{erro}</h2>}
+            <div className="mb-4">
+                <label className="block text-gray-700">Valor do Pagamento: R$ </label>
                 <input
                 type="number"
                 name="valorDoPagamento"
                 value={formData.valorDoPagamento}
                 onChange={handleChange}
                 required
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
                 />
             </div>
-            <button type="submit">Pagar</button>
+            <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                Pagar
+            </button>
         </form>
     </main>
   );
