@@ -47,24 +47,14 @@ export default async function FindCliente({ params }) {
           </div>
 
           <div className="flex flex-col gap-3">
-            <Link href={`/clientes/${cliente.id}/emprestimos`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
-                Empréstimos Aceitos
-              </button>
-            </Link>
-            <Link href={`/clientes/${cliente.id}/lembretes`}>
-              <button className="bg-[#00171f] text-[#ffffff] py-1 px-3 rounded transition hover:bg-[#007ea7] w-56">
-                Lembretes
-              </button>
-            </Link>
             <Link href={`/clientes/update/${cliente.id}`}>
               <button className="bg-green-600 text-white py-1 px-3 rounded transition hover:bg-green-500 w-56">
-                Atualizar
+                Atualizar Perfil
               </button>
             </Link>
             <Link href={`/clientes/delete/${cliente.id}`}>
               <button className="bg-red-600 text-white py-1 px-3 rounded transition hover:bg-red-500 w-56">
-                Apagar
+                Apagar Pefil
               </button>
             </Link>
           </div>

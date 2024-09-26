@@ -164,7 +164,7 @@ export default function RootLayout({ children }) {
             </aside>
             <main className={`content`} style={{ marginTop: "-20px", marginBottom: "-20px", marginRight: '-20px' }}>
               <button onClick={toggleSidebar} className="toggle-btn">
-                {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+                {isSidebarOpen ? <FiX size={24} /> : <FiMenu size={24} color="#000000" />}
               </button>
               {children}
             </main>

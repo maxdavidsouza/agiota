@@ -31,7 +31,6 @@ export default async function EmprestimosDeCliente({params}) {
           })
         }
           </div>
-          <Link href={`/clientes/${params.id}/emprestimos-publicos`} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 no-underline">Veja a lista de Empréstimos Publicados!</Link>
         </main>
       );
     } else {
