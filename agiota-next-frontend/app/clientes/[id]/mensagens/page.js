@@ -1,4 +1,4 @@
-import { carregarIdDeUsuarioPorEmail, listarMensagensAgiota } from "@/app/lib/funcoes";
+import { carregarIdDeUsuarioPorEmail, listarMensagensCliente } from "@/app/lib/funcoes";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
@@ -7,7 +7,7 @@ import styles from './LembretesList.module.css'; // Importando o CSS Modules
 export default async function Lembretes({ params }) {
     const session = await getServerSession(authOptions);
     const userId = await carregarIdDeUsuarioPorEmail(session?.user?.email);
-    const lembretes = await listarMensagensAgiota(params.id);
+    const lembretes = await listarMensagensCliente(params.id);
 
     // Função para formatar a data em um formato mais legível
     const formatarData = (dataString) => {

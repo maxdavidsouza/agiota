@@ -34,7 +34,7 @@ export default function Home() {
           {roles.includes("agiota") ? (
             <>
               <div className="col-md-4">
-                <Link href="/mensagens" className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                <Link href={`/agiotas/${userId}/mensagens`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiMessageCircle size={40} className="mb-3 text-primary" />
                     <h5 className="card-title">Ver Mensagens Recebidas</h5>
@@ -63,7 +63,7 @@ export default function Home() {
           ) : (
             <>
               <div className="col-md-4">
-                <Link href="/mensagens" className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
+                  <Link href={`/clientes/${userId}/mensagens`} className="card dashboard-card shadow-sm" style={{ textDecoration: "none" }}>
                   <div className="card-body text-center">
                     <FiMessageCircle size={40} className="mb-3 text-primary" />
                     <h5 className="card-title">Ver Mensagens Recebidas</h5>
