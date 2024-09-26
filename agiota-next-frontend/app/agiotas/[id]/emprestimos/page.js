@@ -19,11 +19,11 @@ export default async function EmprestimosDeAgiota({params}) {
           {
         emprestimos.map(emprestimo => {
             return (
-            <div key={emprestimo.id} className="bg-blue-500 shadow-md rounded-lg p-4 m-4 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-2">Empréstimo {emprestimo.id}</h2>
-            <p className="text-black-700 mb-2">Estado: {emprestimo.estado}</p>
-            <p className="text-black-700 mb-2">Valor Emprestado: R${emprestimo.valorEmprestado}</p>
-            <p className="text-black-700 mb-4">Valor a Ser Pago: R${emprestimo.valorASerPago}</p>
+            <div key={emprestimo.id} className="shadow-md rounded-lg p-4 m-4 w-full max-w-md" style={{ backgroundColor: '#007ea7' }}>
+            <h2 className="text-xl font-bold mb-2 text-white">Empréstimo {emprestimo.id}</h2>
+            <p className="text-white mb-2">Estado: {emprestimo.estado}</p>
+            <p className="text-white mb-2">Valor Emprestado: R${emprestimo.valorEmprestado}</p>
+            <p className="text-white mb-4">Valor a Ser Pago: R${emprestimo.valorASerPago}</p>
             <div className="flex justify-between">
             <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 no-underline">Detalhar Empréstimo</Link>
             {emprestimo.estado === "Em acordo" && (
