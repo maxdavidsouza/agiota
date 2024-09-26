@@ -17,18 +17,25 @@ export default async function EmprestimosDeAgiota({params}) {
         <main className="flex flex-col items-center">
          <h1>Lista de Empréstimos oferecidos pelo Agiota {params.id}</h1>
           {
-            emprestimos.map(emprestimo => {
-              return <div key={emprestimo.id}>
-                  {emprestimo.id} - Estado: {emprestimo.estado} - Empréstimo de R${emprestimo.valorEmprestado} com retorno mínimo de R${emprestimo.valorASerPago}
-                  <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`}>| Detalhar Empréstimo </Link>
-                  {emprestimo.estado === "Em acordo" && (
-                    <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}/firmar-acordo`}>| Fechar Acordo </Link>
-                  )}
-                  <Link href={`/agiotas/${params.id}/emprestimos/delete/${emprestimo.id}`}>| Apagar |</Link>
-                </div>
-             })
+        emprestimos.map(emprestimo => {
+            return (
+            <div key={emprestimo.id} className="shadow-md rounded-lg p-4 m-4 w-full max-w-lg" style={{ backgroundColor: '#007ea7' }}>
+            <h2 className="text-xl font-bold mb-2 text-white">Empréstimo {emprestimo.id}</h2>
+            <p className="text-white mb-2">Estado: {emprestimo.estado}</p>
+            <p className="text-white mb-2">Valor Emprestado: R${emprestimo.valorEmprestado}</p>
+            <p className="text-white mb-4">Valor a Ser Pago: R${emprestimo.valorASerPago}</p>
+            <div className="flex justify-between">
+            <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 no-underline">Detalhar Empréstimo</Link>
+            {emprestimo.estado === "Em acordo" && (
+            <Link href={`/agiotas/${params.id}/emprestimos/${emprestimo.id}/firmar-acordo`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 no-underline">Firmar Acordo</Link>
+            )}
+            <Link href={`/agiotas/${params.id}/emprestimos/delete/${emprestimo.id}`} className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-700 no-underline">Apagar</Link>
+            </div>
+            </div>
+            );
+         })
           }
-          <Link href={`/agiotas/${params.id}/emprestimos/create`}>| Registrar novo Empréstimo |</Link>
+          <Link href={`/agiotas/${params.id}/emprestimos/create`} className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700 mt-4 no-underline">Registrar novo Empréstimo</Link>
         </main>
       );
     } else {

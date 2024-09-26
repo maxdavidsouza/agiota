@@ -74,15 +74,9 @@ export default function RootLayout({ children }) {
               </a>
             </li>
             <li>
-              <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
-                <FiUserPlus size={16} style={{ marginRight: '8px' }} />
-                Cadastrar usuário
-              </a>
-            </li>
-            <li>
               <a href="/agiotas" style={{ display: 'flex', alignItems: 'center' }}>
                 <FiUserPlus size={16} style={{ marginRight: '8px' }} />
-                Ver agiotas
+                Ver perfil
               </a>
             </li>
           </>
@@ -97,15 +91,9 @@ export default function RootLayout({ children }) {
               </a>
             </li>
             <li>
-              <a href="/usuarios/create" style={{ display: 'flex', alignItems: 'center' }}>
-                <FiUserPlus size={16} style={{ marginRight: '8px' }} />
-                Cadastrar usuário
-              </a>
-            </li>
-            <li>
               <a href="/clientes" style={{ display: 'flex', alignItems: 'center' }}>
                 <FiUserPlus size={16} style={{ marginRight: '8px' }} />
-                Ver clientes
+                Ver perfil
               </a>
             </li>
           </>

@@ -41,7 +41,7 @@ export default function CreateLembrete({ params }) {
         }
       )
       .catch (
-        (error) => { 
+        (error) => {
           const terceiroDoisPontos = error.message.split(':').slice(0, 2).join(':').length + 1;
           const posicaoPontoEVirgula = error.message.indexOf(';', terceiroDoisPontos);
           const mensagemDeErro = error.message.substring(terceiroDoisPontos, posicaoPontoEVirgula).trim();
@@ -55,22 +55,25 @@ export default function CreateLembrete({ params }) {
   };
 
   return (
-    <main className="flex flex-col items-center">
-        <form onSubmit={handleSubmit}>
-            <h1>Página de Criação de Lembretes {params.parcela_id}</h1>
-            {<h2>{erro}</h2>}
-            <div>
-                <label>Selecione a Data do Lembrete</label>
-                <input
-                type="datetime-local"
-                name="dataEHoraDeEnvio"
-                value={formData.dataEHoraDeEnvio}
-                onChange={handleChange}
-                required
-            />
-            </div>
-            <button type="submit">Anotar</button>
-        </form>
+    <main className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-4">Página de Criação de Lembretes {params.parcela_id}</h1>
+        {erro && <h2 className="text-red-500 mb-4">{erro}</h2>}
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2">Selecione a Data do Lembrete</label>
+          <input
+            type="datetime-local"
+            name="dataEHoraDeEnvio"
+            value={formData.dataEHoraDeEnvio}
+            onChange={handleChange}
+            required
+            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <button type="submit" className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200">
+          Anotar
+        </button>
+      </form>
     </main>
   );
 }

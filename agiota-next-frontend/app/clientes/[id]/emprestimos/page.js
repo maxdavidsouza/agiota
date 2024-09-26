@@ -3,6 +3,7 @@ import { listarEmprestimosDeCliente } from "@/app/lib/funcoes.js";
 import { carregarIdDeUsuarioPorEmail } from "@/app/lib/funcoes";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 export default async function EmprestimosDeCliente({params}) {
     const session = await getServerSession(authOptions);
@@ -14,17 +15,23 @@ export default async function EmprestimosDeCliente({params}) {
   }
     if(emprestimos != null) {
       return (
-        <main className="flex flex-col items-center">
-         <h1>Lista de Empréstimos aceitos pelo Cliente {params.id}</h1>
-          {
-            emprestimos.map(emprestimo => {
-              return <div key={emprestimo.id}>
-                  {emprestimo.id} - Estado: {emprestimo.estado} - Empréstimo de R${emprestimo.valorEmprestado} com retorno mínimo de R${emprestimo.valorASerPago}
-                  <Link href={`/clientes/${params.id}/emprestimos/${emprestimo.id}`}>| Detalhar Empréstimo </Link>
-                </div>
-             })
-          }
-        <Link href={`/clientes/${params.id}/emprestimos-publicos`}>| Veja a lista de Empréstimos Publicados! |</Link>
+        <main className="flex flex-col items-center p-4">
+          <h1 className="text-2xl font-bold mb-4">Lista de Empréstimos aceitos pelo Cliente {params.id}</h1>
+          <div className="w-full max-w-4xl">
+        {
+          emprestimos.map(emprestimo => {
+        return (
+        <div key={emprestimo.id} className="border p-4 mb-4 rounded shadow-sm" style={{ backgroundColor: '#007ea7', color: 'white' }}>
+        <p className="text-lg font-semibold">Empréstimo ID: {emprestimo.id}</p>
+        <p>Estado: {emprestimo.estado}</p>
+        <p>Empréstimo de R${emprestimo.valorEmprestado} com retorno mínimo de R${emprestimo.valorASerPago}</p>
+        <Link href={`/clientes/${params.id}/emprestimos/${emprestimo.id}`} className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 no-underline">Detalhar Empréstimo</Link>
+        </div>
+        );
+          })
+        }
+          </div>
+          <Link href={`/clientes/${params.id}/emprestimos-publicos`} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 no-underline">Veja a lista de Empréstimos Publicados!</Link>
         </main>
       );
     } else {
