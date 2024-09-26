@@ -12,7 +12,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6">
-					<h1 class="text-center mt-5">${msg("Login")}</h1>
+					<h1 class="text-center mt-5">${msg("Acesse sua Conta")}</h1>
 					<form
 						id="kc-form-login"
 						onsubmit="login.disabled = true; return true;"
@@ -21,7 +21,7 @@
 					>
 						<div class="mb-3">
 							<label for="username" class="form-label"
-								>${msg("Usuário")}</label
+								>${msg("Email")}</label
 							>
 							<input
 								type="text"
@@ -48,6 +48,9 @@
 							</button>
 						</div>
 					</form>
+				</div>
+				<div class="d-grid">
+					<a href="http://localhost:3000/usuarios/create" class="btn">${kcSanitize(msg("Ainda não tenho cadastro. Quero criar uma conta",(realm.displayNameHtml!'')))?no_esc}</a>
 				</div>
 			</div>
 		</div>
